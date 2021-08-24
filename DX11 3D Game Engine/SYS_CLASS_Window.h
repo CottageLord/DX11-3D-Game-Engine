@@ -1,5 +1,3 @@
-
-
 #pragma once
 #include "SYS_SET_Config.h"
 #include "SYS_CLASS_MFException.h"

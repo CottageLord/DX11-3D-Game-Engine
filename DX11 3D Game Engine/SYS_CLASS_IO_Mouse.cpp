@@ -39,6 +39,11 @@ Mouse::Event Mouse::Read() noexcept
 	}
 }
 
+bool Mouse::IsInWindow() const noexcept
+{
+	return isInWindow;
+}
+
 void Mouse::Flush() noexcept
 {
 	buffer = std::queue<Event>();
@@ -50,6 +55,20 @@ void Mouse::OnMouseMove(int newx, int newy) noexcept
 	y = newy;
 
 	buffer.push(Mouse::Event(Mouse::Event::Type::Move, *this));
+	TrimBuffer();
+}
+
+void Mouse::OnMouseLeave() noexcept
+{
+	isInWindow = false;
+	buffer.push(Mouse::Event(Mouse::Event::Type::Leave, *this));
+	TrimBuffer();
+}
+
+void Mouse::OnMouseEnter() noexcept
+{
+	isInWindow = true;
+	buffer.push(Mouse::Event(Mouse::Event::Type::Enter, *this));
 	TrimBuffer();
 }
 
@@ -95,6 +114,24 @@ void Mouse::OnWheelDown(int x, int y) noexcept
 {
 	buffer.push(Mouse::Event(Mouse::Event::Type::WheelDown, *this));
 	TrimBuffer();
+}
+
+void Mouse::OnWheelDelta(int x, int y, int delta) noexcept
+{
+	// mouse generally has a discrete "click" of distance 120
+	// however finner mouse has diff clicks
+	wheelDeltaCarry += delta;
+	// generate events for every 120 
+	while (wheelDeltaCarry >= WHEEL_DELTA)
+	{
+		wheelDeltaCarry -= WHEEL_DELTA;
+		OnWheelUp(x, y);
+	}
+	while (wheelDeltaCarry <= -WHEEL_DELTA)
+	{
+		wheelDeltaCarry += WHEEL_DELTA;
+		OnWheelDown(x, y);
+	}
 }
 
 void Mouse::TrimBuffer() noexcept

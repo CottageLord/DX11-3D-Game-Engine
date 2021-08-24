@@ -6,7 +6,7 @@
 
 #include "SYS_SET_Config.h"
 #include "SYS_CLASS_Window.h"
-
+#include "SYS_CLASS_App.h"
 // helper func that ocnverts str to wstr
 std::wstring s2ws(const std::string& s);
 // a costimized window procedure that processes msgs
@@ -19,31 +19,10 @@ int CALLBACK WinMain(		// CALLBACK modifies the function, specifies stdcall call
 	int		  nCmdShow		// Indicates how the window should be displayed, for example SW_SHOW_MINIMIZED
 )
 {
-	// ====================== register window class ======================= //
-	Window myWnd(640, 480, "Game Engine Main");
-	MSG winMessage;
-	BOOL gResult;
 	try 
 	{
-		// =========================== MAIN LOOP ============================== //
-		while ((gResult = GetMessage(&winMessage, nullptr, 0, 0)) > 0) {
-			TranslateMessage(&winMessage); // will not modify msg, generating WM_CHAR along with WM_KEY_DOWN
-			DispatchMessage(&winMessage);
-			while (!myWnd.mouse.IsEmpty())
-			{
-				const auto e = myWnd.mouse.Read();
-				if (e.GetType() == Mouse::Event::Type::Move)
-				{
-					std::ostringstream oss;
-					oss << "Mouse Position: (" << e.GetPosX() << "," << e.GetPosY() << ")";
-					myWnd.SetTitle(oss.str());
-				}
-			}
-		}
-		// ========================= MAIN LOOP END ============================ //
-		// returns the window message status
-		if (gResult == -1) throw MFWND_LAST_EXCEPT();
-		else return winMessage.wParam;
+		// initialize and start looping
+		return App{}.Go();
 	}
 	catch (const MFException& e)
 	{
