@@ -149,17 +149,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SYS_CLASS_IO_Keyboard.cpp" />
+    <ClCompile Include="SYS_CLASS_IO_Mouse.cpp" />
     <ClCompile Include="SYS_CLASS_MFException.cpp" />
     <ClCompile Include="SYS_MAIN_Loop.cpp" />
     <ClCompile Include="SYS_CLASS_Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SYS_CLASS_IO_Keyboard.h" />
+    <ClInclude Include="SYS_CLASS_IO_Mouse.h" />
     <ClInclude Include="SYS_CLASS_MFException.h" />
     <ClInclude Include="SYS_SET_Config.h" />
     <ClInclude Include="SYS_CLASS_Window.h" />
     <ClInclude Include="SYS_SET_FilterWinH.h" />
-    <ClInclude Include="SYS_HELP_Win32Config.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc" />

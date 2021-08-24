@@ -3,6 +3,8 @@
 #pragma once
 #include "SYS_SET_Config.h"
 #include "SYS_CLASS_MFException.h"
+#include "SYS_CLASS_IO_Keyboard.h"
+#include "SYS_CLASS_IO_Mouse.h"
 #include "resource.h"
 
 // error exception helper macro
@@ -47,6 +49,7 @@ public:
 	~Window();
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
+	void SetTitle(const std::string& title);
 private:
 	// we can register those func as windows procedure
 	// setup the pointer access info to the win32 api side
@@ -54,6 +57,9 @@ private:
 	// connect to the real runtime handler
 	static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
+public:
+	Keyboard kbd; // public embeded object
+	Mouse mouse;
 private:
 	int width;
 	int height;

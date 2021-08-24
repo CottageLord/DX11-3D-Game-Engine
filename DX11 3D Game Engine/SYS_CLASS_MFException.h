@@ -1,6 +1,7 @@
 #pragma once
 #include <exception>
 #include <string>
+#include <sstream>
 
 class MFException : public std::exception
 {

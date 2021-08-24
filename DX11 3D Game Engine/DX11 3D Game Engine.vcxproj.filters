@@ -24,12 +24,15 @@
     <ClCompile Include="SYS_CLASS_MFException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SYS_CLASS_IO_Keyboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SYS_CLASS_IO_Mouse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SYS_SET_FilterWinH.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SYS_HELP_Win32Config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SYS_CLASS_Window.h">
@@ -42,6 +45,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_CLASS_IO_Keyboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_CLASS_IO_Mouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,6 @@
 #include "SYS_CLASS_Window.h"
 // Window Class Stuff
+// initialize the singleton
 Window::WindowClass Window::WindowClass::wndClass;
 
 Window::WindowClass::WindowClass() noexcept
@@ -46,6 +47,9 @@ HINSTANCE Window::WindowClass::GetInstance() noexcept
 
 // Called upon program initialization 
 Window::Window(int width = 640, int height = 480, const char* name = "Default Name")
+	:
+	width(width),
+	height(height)
 {
 	// calculate window size based on desired client region size
 	RECT wr;
@@ -56,10 +60,10 @@ Window::Window(int width = 640, int height = 480, const char* name = "Default Na
 	// calculate the size that can guarantee desired client region
 	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
 	// basic exception handling
-	if (FAILED(AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE)))
+	if (AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE) == 0)
 	{
 		throw MFWND_LAST_EXCEPT();
-	};
+	}
 	// create window & get hWnd	
 	hWnd = CreateWindow(
 		WindowClass::GetName(), name,
@@ -83,9 +87,17 @@ Window::~Window()
 	DestroyWindow(hWnd);
 }
 
+void Window::SetTitle(const std::string& title)
+{
+	if (SetWindowText(hWnd, title.c_str()) == 0)
+	{
+		throw MFWND_LAST_EXCEPT();
+	}
+}
+
 LRESULT CALLBACK Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
-	// use create parameter passed in from CreateWindow() to store window class pointer at WinAPI side
+	// use create parameter passed in from CreateWindow() to store window instance pointer at WinAPI side
 	if (msg == WM_NCCREATE)
 	{
 		// extract ptr to window class from creation data
@@ -117,8 +129,73 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	case WM_CLOSE:
 		PostQuitMessage(0);
 		return 0;// jump out of the main while loop and invoke the destructor only once
-	}
+	case WM_KILLFOCUS:
+		kbd.ClearState(); // clear all state when lost focus, prevent key event keeps looping
+		break;
+	/*********** KEYBOARD MESSAGES ***********/
+	case WM_KEYDOWN: // won't listen to system keys, include Alt and F10 :)
+	case WM_SYSKEYDOWN: // listen to Alt and F10 :)
+	// bit-30 marks if the key is down before the msg is sent
+	// which means the key is being held
+		if (!(lParam & 0x40000000) || kbd.AutorepeatIsEnabled()) // filter autorepeat
+		{
+			kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
+		}
+	case WM_KEYUP:
+	case WM_SYSKEYUP:
+		kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
+		break;
+	case WM_CHAR:
+		kbd.OnChar(static_cast<unsigned char>(wParam));
+		break;
+	/*********** END KEYBOARD MESSAGES ***********/
 
+	/************* MOUSE MESSAGES ****************/
+	case WM_MOUSEMOVE:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnMouseMove(pt.x, pt.y);
+		break;
+	}
+	case WM_LBUTTONDOWN:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnLeftPressed(pt.x, pt.y);
+		break;
+	}
+	case WM_RBUTTONDOWN:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnRightPressed(pt.x, pt.y);
+		break;
+	}
+	case WM_LBUTTONUP:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnLeftReleased(pt.x, pt.y);
+		break;
+	}
+	case WM_RBUTTONUP:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnRightReleased(pt.x, pt.y);
+		break;
+	}
+	case WM_MOUSEWHEEL:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		if (GET_WHEEL_DELTA_WPARAM(wParam) > 0) // wParam: delta value determines scroll direction
+		{
+			mouse.OnWheelUp(pt.x, pt.y);
+		}
+		else if (GET_WHEEL_DELTA_WPARAM(wParam) < 0)
+		{
+			mouse.OnWheelDown(pt.x, pt.y);
+		}
+		break;
+	}
+	/************** END MOUSE MESSAGES **************/
+	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 

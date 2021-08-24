@@ -25,12 +25,24 @@ int CALLBACK WinMain(		// CALLBACK modifies the function, specifies stdcall call
 	BOOL gResult;
 	try 
 	{
+		// =========================== MAIN LOOP ============================== //
 		while ((gResult = GetMessage(&winMessage, nullptr, 0, 0)) > 0) {
 			TranslateMessage(&winMessage); // will not modify msg, generating WM_CHAR along with WM_KEY_DOWN
 			DispatchMessage(&winMessage);
+			while (!myWnd.mouse.IsEmpty())
+			{
+				const auto e = myWnd.mouse.Read();
+				if (e.GetType() == Mouse::Event::Type::Move)
+				{
+					std::ostringstream oss;
+					oss << "Mouse Position: (" << e.GetPosX() << "," << e.GetPosY() << ")";
+					myWnd.SetTitle(oss.str());
+				}
+			}
 		}
+		// ========================= MAIN LOOP END ============================ //
 		// returns the window message status
-		if (gResult == -1) return -1;
+		if (gResult == -1) throw MFWND_LAST_EXCEPT();
 		else return winMessage.wParam;
 	}
 	catch (const MFException& e)
