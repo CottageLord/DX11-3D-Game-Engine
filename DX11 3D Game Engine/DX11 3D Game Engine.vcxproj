@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SYS_CLASS_App.cpp" />
+    <ClCompile Include="SYS_CLASS_DXgiInfoManager.cpp" />
     <ClCompile Include="SYS_CLASS_Graphics.cpp" />
     <ClCompile Include="SYS_CLASS_IO_Keyboard.cpp" />
     <ClCompile Include="SYS_CLASS_IO_Mouse.cpp" />
@@ -159,10 +160,12 @@
     <ClCompile Include="SYS_CLASS_Timer.cpp" />
     <ClCompile Include="SYS_MAIN_Loop.cpp" />
     <ClCompile Include="SYS_CLASS_Window.cpp" />
+    <ClCompile Include="SYS_SET_Dxerr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
     <ClInclude Include="SYS_CLASS_App.h" />
+    <ClInclude Include="SYS_CLASS_DXgiInfoManager.h" />
     <ClInclude Include="SYS_CLASS_Graphics.h" />
     <ClInclude Include="SYS_CLASS_IO_Keyboard.h" />
     <ClInclude Include="SYS_CLASS_IO_Mouse.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="SYS_CLASS_Timer.h" />
     <ClInclude Include="SYS_SET_Config.h" />
     <ClInclude Include="SYS_CLASS_Window.h" />
+    <ClInclude Include="SYS_SET_Dxerr.h" />
     <ClInclude Include="SYS_SET_FilterWinH.h" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +181,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="C:\Users\gymf1\Downloads\logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SYS_SET_DXGetErrorDescription.inl" />
+    <None Include="SYS_SET_DXGetErrorString.inl" />
+    <None Include="SYS_SET_DXTrace.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

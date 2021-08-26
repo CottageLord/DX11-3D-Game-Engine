@@ -39,6 +39,12 @@
     <ClCompile Include="SYS_CLASS_Graphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SYS_SET_Dxerr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SYS_CLASS_DXgiInfoManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SYS_SET_FilterWinH.h">
@@ -71,6 +77,12 @@
     <ClInclude Include="SYS_CLASS_Graphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SYS_SET_Dxerr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_CLASS_DXgiInfoManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc">
@@ -81,5 +93,16 @@
     <Image Include="C:\Users\gymf1\Downloads\logo.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SYS_SET_DXGetErrorDescription.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="SYS_SET_DXGetErrorString.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="SYS_SET_DXTrace.inl">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

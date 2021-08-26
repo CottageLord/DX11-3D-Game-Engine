@@ -9,24 +9,38 @@
 #include <memory>
 
 // error exception helper macro
-#define MFWND_EXCEPT( hr ) Window::Exception( __LINE__,__FILE__,hr )
-#define MFWND_LAST_EXCEPT() Window::Exception( __LINE__,__FILE__,GetLastError() )
+#define MFWND_EXCEPT( hr ) Window::HrException( __LINE__,__FILE__,(hr) )
+#define MFWND_LAST_EXCEPT() Window::HrException( __LINE__,__FILE__,GetLastError() )
+#define MFWND_NOGFX_EXCEPT() Window::NoGfxException( __LINE__,__FILE__ ) 
 
 class Window
 {
 public:
 	class Exception : public MFException
 	{
+		using MFException::MFException;
 	public:
-		Exception(int line, const char* file, HRESULT hr) noexcept;
-		const char* what() const noexcept override;
-		virtual const char* GetType() const noexcept;
 		// explain the given code
 		static std::string TranslateErrorCode(HRESULT hr) noexcept;
-		HRESULT GetErrorCode() const noexcept;
-		std::string GetErrorString() const noexcept;
 	private:
 		HRESULT hr;
+	};
+	class HrException : public Exception
+	{
+	public:
+		HrException(int line, const char* file, HRESULT hr) noexcept;
+		const char* what() const noexcept override;
+		const char* GetType() const noexcept override;
+		HRESULT GetErrorCode() const noexcept;
+		std::string GetErrorDescription() const noexcept;
+	private:
+		HRESULT hr;
+	};
+	class NoGfxException : public Exception
+	{
+	public:
+		using Exception::Exception;
+		const char* GetType() const noexcept override;
 	};
 private:
 	// As we only need one window
@@ -52,7 +66,7 @@ public:
 	Window& operator=(const Window&) = delete;
 	void SetTitle(const std::string& title);
 	// static function that processes msgs for all windows
-	static std::optional<int> ProcessMessages(); // optinally returns
+	static std::optional<int> ProcessMessages() noexcept; // optinally returns
 	Graphics& Gfx();
 private:
 	// we can register those func as windows procedure
