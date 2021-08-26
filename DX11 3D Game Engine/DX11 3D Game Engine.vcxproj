@@ -93,6 +93,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <FloatingPointModel>Fast</FloatingPointModel>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -112,6 +113,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <FloatingPointModel>Fast</FloatingPointModel>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -150,18 +152,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SYS_CLASS_App.cpp" />
+    <ClCompile Include="SYS_CLASS_Graphics.cpp" />
     <ClCompile Include="SYS_CLASS_IO_Keyboard.cpp" />
     <ClCompile Include="SYS_CLASS_IO_Mouse.cpp" />
     <ClCompile Include="SYS_CLASS_MFException.cpp" />
+    <ClCompile Include="SYS_CLASS_Timer.cpp" />
     <ClCompile Include="SYS_MAIN_Loop.cpp" />
     <ClCompile Include="SYS_CLASS_Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
     <ClInclude Include="SYS_CLASS_App.h" />
+    <ClInclude Include="SYS_CLASS_Graphics.h" />
     <ClInclude Include="SYS_CLASS_IO_Keyboard.h" />
     <ClInclude Include="SYS_CLASS_IO_Mouse.h" />
     <ClInclude Include="SYS_CLASS_MFException.h" />
+    <ClInclude Include="SYS_CLASS_Timer.h" />
     <ClInclude Include="SYS_SET_Config.h" />
     <ClInclude Include="SYS_CLASS_Window.h" />
     <ClInclude Include="SYS_SET_FilterWinH.h" />

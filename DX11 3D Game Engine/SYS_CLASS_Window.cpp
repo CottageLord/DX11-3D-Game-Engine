@@ -78,8 +78,10 @@ Window::Window(int width = 640, int height = 480, const char* name = "Default Na
 	{
 		throw MFWND_LAST_EXCEPT();
 	}
-	// show window
+	// show window, newly created window starts off ashidden
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
+	// create graphics object
+	pGfx = std::make_unique<Graphics>(hWnd);
 }
 
 Window::~Window()
@@ -93,6 +95,32 @@ void Window::SetTitle(const std::string& title)
 	{
 		throw MFWND_LAST_EXCEPT();
 	}
+}
+
+std::optional<int> Window::ProcessMessages()
+{
+	MSG msg;
+	// while queue has messages, remove and dispatch them (but do not block on empty queue)
+	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+	{
+		// check for quit because peekmessage does not signal this via return val
+		if (msg.message == WM_QUIT)
+		{
+			// return optional wrapping int (arg to PostQuitMessage is in wparam) signals quit
+			return msg.wParam;
+		}
+		// TranslateMessage will post auxilliary WM_CHAR messages from key msgs
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	// return empty optional when not quitting app
+	return {};
+}
+
+Graphics& Window::Gfx()
+{
+	return *pGfx;
 }
 
 LRESULT CALLBACK Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
@@ -141,6 +169,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		{
 			kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
 		}
+		break;
 	case WM_KEYUP:
 	case WM_SYSKEYUP:
 		kbd.OnKeyReleased(static_cast<unsigned char>(wParam));

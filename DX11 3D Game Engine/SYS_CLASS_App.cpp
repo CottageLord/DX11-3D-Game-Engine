@@ -1,4 +1,5 @@
 #include "SYS_CLASS_App.h"
+
 App::App()
 	:
 	wnd(800, 600, "°¢Ã©µÄÒýÇæ")
@@ -6,28 +7,30 @@ App::App()
 
 int App::Go()
 {
-	MSG msg;
-	BOOL gResult;
-	while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0)
+	// GetMessage blocks when no message comes in
+	while (true)
 	{
-		// TranslateMessage will post auxilliary WM_CHAR messages from key msgs
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-
+		// process all messages pending, but to not block for new messages
+		if (const auto ecode = Window::ProcessMessages())
+		{
+			// if return optional has value, means we're quitting so return exit code
+			return *ecode;
+		}
 		DoFrame();
+		Sleep(1); // <---------------------- A temporary fix, remove later
 	}
 
-	// check if GetMessage call itself borked
-	if (gResult == -1)
-	{
-		throw MFWND_LAST_EXCEPT();
-	}
-
-	// wParam here is the value passed to PostQuitMessage
-	return msg.wParam;
 }
 
 void App::DoFrame()
 {
+	const float c = sin(timer.Peek()) / 2.0f + 0.5f;
+	wnd.Gfx().ClearBuffer(c, c, 1.0f);
+	wnd.Gfx().EndFrame();
 
+	/*
+	const float t = timer.Peek();
+	std::ostringstream oss;
+	oss << "Time elapsed: " << std::setprecision(1) << std::fixed << t << "s";
+	wnd.SetTitle(oss.str());*/
 }

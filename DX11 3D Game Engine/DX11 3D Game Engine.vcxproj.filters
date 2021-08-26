@@ -33,6 +33,12 @@
     <ClCompile Include="SYS_CLASS_App.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SYS_CLASS_Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SYS_CLASS_Graphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SYS_SET_FilterWinH.h">
@@ -57,6 +63,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SYS_CLASS_App.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_CLASS_Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_CLASS_Graphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

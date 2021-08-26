@@ -3,7 +3,10 @@
 #include "SYS_CLASS_MFException.h"
 #include "SYS_CLASS_IO_Keyboard.h"
 #include "SYS_CLASS_IO_Mouse.h"
+#include "SYS_CLASS_Graphics.h"
 #include "resource.h"
+#include <optional>
+#include <memory>
 
 // error exception helper macro
 #define MFWND_EXCEPT( hr ) Window::Exception( __LINE__,__FILE__,hr )
@@ -48,6 +51,9 @@ public:
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
 	void SetTitle(const std::string& title);
+	// static function that processes msgs for all windows
+	static std::optional<int> ProcessMessages(); // optinally returns
+	Graphics& Gfx();
 private:
 	// we can register those func as windows procedure
 	// setup the pointer access info to the win32 api side
@@ -57,9 +63,10 @@ private:
 	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 public:
 	Keyboard kbd; // public embeded object
-	Mouse mouse;
+	Mouse mouse; 
 private:
 	int width;
 	int height;
 	HWND hWnd;
+	std::unique_ptr<Graphics> pGfx; // deletes instandly when window destructs
 };
