@@ -28,23 +28,15 @@ void App::DoFrame()
 	wnd.Gfx().ClearBuffer(c, c, 1.0f);
 
 	wnd.Gfx().DrawTestTriangle(
+		-timer.Peek(),
+		0.0f,
+		0.0f
+	);
+	wnd.Gfx().DrawTestTriangle(
 		timer.Peek(),
 		wnd.mouse.GetPosX() / 400.0f - 1.0f,
 		-wnd.mouse.GetPosY() / 300.0f + 1.0f
 	);
 
-	while (const auto e = wnd.mouse.Read())
-	{
-		switch (e->GetType())
-		{
-		case Mouse::Event::Type::Move:
-		{
-			std::ostringstream oss;
-			oss << "Mouse moved to: (" << e->GetPosX() << "," << e->GetPosY() << ")\n";
-			wnd.SetTitle(oss.str());
-			break;
-		}
-		}
-	}
 	wnd.Gfx().EndFrame();
 }
