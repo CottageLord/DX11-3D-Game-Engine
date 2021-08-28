@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{a19e721f-33b6-4705-a568-0d9e8a9ba5e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dxerr Setting">
+      <UniqueIdentifier>{b32e6fb1-9f2b-4f97-a209-677d24bd6e3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SYS_CLASS_Window.cpp">
@@ -59,9 +65,6 @@
     <ClInclude Include="SYS_CLASS_MFException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SYS_CLASS_IO_Keyboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -77,11 +80,14 @@
     <ClInclude Include="SYS_CLASS_Graphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SYS_SET_Dxerr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SYS_CLASS_DXgiInfoManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_SET_resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_SET_Dxerr.h">
+      <Filter>Dxerr Setting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -95,14 +101,22 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SYS_SET_DXGetErrorDescription.inl">
-      <Filter>Header Files</Filter>
+    <None Include="SYS_SET_DXTrace.inl">
+      <Filter>Dxerr Setting</Filter>
     </None>
     <None Include="SYS_SET_DXGetErrorString.inl">
-      <Filter>Header Files</Filter>
+      <Filter>Dxerr Setting</Filter>
     </None>
-    <None Include="SYS_SET_DXTrace.inl">
-      <Filter>Header Files</Filter>
+    <None Include="SYS_SET_DXGetErrorDescription.inl">
+      <Filter>Dxerr Setting</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PixelShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

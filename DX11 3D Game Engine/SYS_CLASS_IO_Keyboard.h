@@ -3,6 +3,7 @@
 #include <queue>
 #include <bitset>
 #include <sstream>
+#include <optional>
 
 class Keyboard
 {
@@ -14,39 +15,20 @@ public:
 		enum class Type
 		{
 			Press,
-			Release,
-			Invalid
+			Release
 		};
 	private:
 		Type type;
 		unsigned char code;
 	public:
-		Event() noexcept
-			:
-			type(Type::Invalid),
-			code(0u)
-		{}
 		Event(Type type, unsigned char code) noexcept
 			:
 			type(type),
 			code(code)
 		{}
-		bool IsPress() const noexcept
-		{
-			return type == Type::Press;
-		}
-		bool IsRelease() const noexcept
-		{
-			return type == Type::Release;
-		}
-		bool IsValid() const noexcept
-		{
-			return type != Type::Invalid;
-		}
-		unsigned char GetCode() const noexcept
-		{
-			return code;
-		}
+		bool IsPress() const noexcept {	return type == Type::Press;	}
+		bool IsRelease() const noexcept	{ return type == Type::Release;	}
+		unsigned char GetCode() const noexcept { return code; }
 	};
 public:
 	Keyboard() = default;
@@ -55,13 +37,13 @@ public:
 	// key event stuff
 	bool KeyIsPressed(unsigned char keycode) const noexcept;
 	// pull from the event queue
-	Event ReadKey() noexcept;
+	std::optional<Keyboard::Event> ReadKey() noexcept;
 	// check the event queue
 	bool KeyIsEmpty() const noexcept;
 	// clear the event queue
 	void FlushKey() noexcept;
 	// char event stuff - used for text input
-	char ReadChar() noexcept;
+	std::optional<char> ReadChar() noexcept;
 	bool CharIsEmpty() const noexcept;
 	void FlushChar() noexcept;
 	void Flush() noexcept;

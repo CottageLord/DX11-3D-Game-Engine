@@ -7,10 +7,6 @@
 #include "SYS_SET_Config.h"
 #include "SYS_CLASS_Window.h"
 #include "SYS_CLASS_App.h"
-// helper func that ocnverts str to wstr
-std::wstring s2ws(const std::string& s);
-// a costimized window procedure that processes msgs
-LRESULT CALLBACK MyWndProc( HWND hWindow, UINT msgID, WPARAM wParams, LPARAM lParams);
 
 int CALLBACK WinMain(		// CALLBACK modifies the function, specifies stdcall calling convention that Windows uses
 	HINSTANCE hInstance,	// Where the window object resides

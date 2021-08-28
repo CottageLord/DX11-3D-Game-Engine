@@ -17,7 +17,7 @@ Window::WindowClass::WindowClass() noexcept
 	wc.hIcon = static_cast<HICON>(LoadImage(
 		GetInstance(), MAKEINTRESOURCE(IDI_ICON1),
 		IMAGE_ICON, 32, 32, 0
-	));;
+	));
 	wc.hCursor = nullptr;
 	wc.hbrBackground = nullptr;
 	wc.lpszMenuName = nullptr;
@@ -25,7 +25,7 @@ Window::WindowClass::WindowClass() noexcept
 	wc.hIconSm = static_cast<HICON>(LoadImage(
 		GetInstance(), MAKEINTRESOURCE(IDI_ICON1),
 		IMAGE_ICON, 16, 16, 0
-	));;;
+	));
 	RegisterClassEx(&wc);
 }
 
@@ -46,7 +46,7 @@ HINSTANCE Window::WindowClass::GetInstance() noexcept
 
 
 // Called upon program initialization 
-Window::Window(int width = 640, int height = 480, const char* name = "Default Name")
+Window::Window(int width, int height, const char* name)
 	:
 	width(width),
 	height(height)
@@ -58,7 +58,6 @@ Window::Window(int width = 640, int height = 480, const char* name = "Default Na
 	wr.top = 100;
 	wr.bottom = height + wr.top;
 	// calculate the size that can guarantee desired client region
-	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
 	// basic exception handling
 	if (AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE) == 0)
 	{
@@ -217,6 +216,8 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	{
 		const POINTS pt = MAKEPOINTS(lParam);
 		mouse.OnLeftPressed(pt.x, pt.y);
+		// bring window to foreground on lclick client region
+		SetForegroundWindow(hWnd);
 		break;
 	}
 	case WM_RBUTTONDOWN:
