@@ -19,75 +19,177 @@
     <Filter Include="Dxerr Setting">
       <UniqueIdentifier>{b32e6fb1-9f2b-4f97-a209-677d24bd6e3d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="macros">
+      <UniqueIdentifier>{ce01911e-43ab-4c75-adbe-70e9be60f567}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Application">
+      <UniqueIdentifier>{11320447-434c-44f8-815c-e830f0779d17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{ed424555-a77a-451d-8f74-e40a096c4efa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Drawable">
+      <UniqueIdentifier>{0733799e-0e28-49ab-8a53-dc44fee732cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Bindable">
+      <UniqueIdentifier>{cccad62d-bd45-40c2-a880-02d418814bf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application">
+      <UniqueIdentifier>{6aeb0e31-b19d-4167-8042-91e889a057e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{05385696-8e25-4b41-b7a2-da19d3581ee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Drawabble">
+      <UniqueIdentifier>{8b790111-7300-498d-bbd6-c0ae34571dde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Bindable">
+      <UniqueIdentifier>{035eb5a3-50e2-4b84-b1c0-22c8fb4f93c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SYS_CLASS_Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SYS_MAIN_Loop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SYS_CLASS_MFException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SYS_CLASS_IO_Keyboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SYS_CLASS_IO_Mouse.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SYS_CLASS_App.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SYS_CLASS_Timer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SYS_CLASS_Graphics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SYS_SET_Dxerr.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Application</Filter>
     </ClCompile>
     <ClCompile Include="SYS_CLASS_DXgiInfoManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="SYS_CLASS_Graphics.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="SYS_CLASS_IO_Keyboard.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="SYS_CLASS_IO_Mouse.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="SYS_CLASS_MFException.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="SYS_CLASS_Timer.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="SYS_CLASS_Window.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="SYS_MAIN_Loop.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="SYS_SET_Dxerr.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_BUF_IndexBuffer.cpp">
+      <Filter>Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_BUF_TransformCBuffer.cpp">
+      <Filter>Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_BUF_VertextBuffer.cpp">
+      <Filter>Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Bindable.cpp">
+      <Filter>Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Box.cpp">
+      <Filter>Source Files\Graphics\Drawabble</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Drawable.cpp">
+      <Filter>Source Files\Graphics\Drawabble</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_InputLayour.cpp">
+      <Filter>Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_PixelShader.cpp">
+      <Filter>Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Topology.cpp">
+      <Filter>Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_VertexShader.cpp">
+      <Filter>Source Files\Graphics\Bindable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SYS_SET_FilterWinH.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SYS_CLASS_Window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SYS_SET_Config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SYS_CLASS_MFException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SYS_CLASS_IO_Keyboard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SYS_CLASS_IO_Mouse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SYS_CLASS_App.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SYS_CLASS_Timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SYS_CLASS_Graphics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SYS_CLASS_DXgiInfoManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SYS_SET_resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SYS_SET_Dxerr.h">
       <Filter>Dxerr Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_SET_GraphicsThrowMacros.h">
+      <Filter>macros</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_SET_WindowsThrowMacros.h">
+      <Filter>macros</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_CLASS_App.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_CLASS_DXgiInfoManager.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_CLASS_Graphics.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_CLASS_IO_Keyboard.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_CLASS_IO_Mouse.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_CLASS_MFException.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_CLASS_Timer.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_CLASS_Window.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_SET_Config.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_SET_FilterWinH.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_SET_resource.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Drawable.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Box.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_VertexShader.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_BUF_ConstantBuffers.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_BUF_IndexBuffer.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_BUF_TransformCBuffer.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_BUF_VertexBuffer.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Bindable.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_InputLayout.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_PixelShader.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Topology.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_SET_BindableBase.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_StaticDrawInfo.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -82,6 +82,16 @@ Graphics::Graphics(HWND hWnd)
 
 	// bind depth stensil view and ptarget to OM
 	pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), pDSV.Get());
+
+	// configure viewport
+	D3D11_VIEWPORT vp;
+	vp.Width = 800.0f;
+	vp.Height = 600.0f;
+	vp.MinDepth = 0.0f;
+	vp.MaxDepth = 1.0f;
+	vp.TopLeftX = 0.0f;
+	vp.TopLeftY = 0.0f;
+	pContext->RSSetViewports(1u, &vp);
 }
 
 void Graphics::EndFrame()
@@ -100,6 +110,20 @@ void Graphics::EndFrame()
 			throw GFX_EXCEPT(hr);
 		}
 	}
+}
+
+void Graphics::DrawIndexed(UINT count) noexcept(!IS_DEBUG) {
+	GFX_THROW_INFO_ONLY(pContext->DrawIndexed(count, 0u, 0u));
+}
+
+void Graphics::SetProjection(DirectX::FXMMATRIX proj) noexcept
+{
+	projection = proj;
+}
+
+DirectX::XMMATRIX Graphics::GetProjection() const noexcept
+{
+	return projection;
 }
 
 void Graphics::ClearBuffer(float red, float green, float blue) noexcept

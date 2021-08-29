@@ -86,7 +86,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);IS_DEBUG=true;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -106,7 +106,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);NDEBUG;IS_DEBUG=false;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -151,6 +151,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GRAPHICS_BUF_IndexBuffer.cpp" />
+    <ClCompile Include="GRAPHICS_BUF_TransformCBuffer.cpp" />
+    <ClCompile Include="GRAPHICS_BUF_VertextBuffer.cpp" />
+    <ClCompile Include="GRAPHICS_OBJ_Bindable.cpp" />
+    <ClCompile Include="GRAPHICS_OBJ_Box.cpp" />
+    <ClCompile Include="GRAPHICS_OBJ_Drawable.cpp" />
+    <ClCompile Include="GRAPHICS_OBJ_InputLayour.cpp" />
+    <ClCompile Include="GRAPHICS_OBJ_PixelShader.cpp" />
+    <ClCompile Include="GRAPHICS_OBJ_Topology.cpp" />
+    <ClCompile Include="GRAPHICS_OBJ_VertexShader.cpp" />
     <ClCompile Include="SYS_CLASS_App.cpp" />
     <ClCompile Include="SYS_CLASS_DXgiInfoManager.cpp" />
     <ClCompile Include="SYS_CLASS_Graphics.cpp" />
@@ -163,6 +173,20 @@
     <ClCompile Include="SYS_SET_Dxerr.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GRAPHICS_BUF_ConstantBuffers.h" />
+    <ClInclude Include="GRAPHICS_BUF_IndexBuffer.h" />
+    <ClInclude Include="GRAPHICS_BUF_TransformCBuffer.h" />
+    <ClInclude Include="GRAPHICS_BUF_VertexBuffer.h" />
+    <ClInclude Include="GRAPHICS_OBJ_Bindable.h" />
+    <ClInclude Include="GRAPHICS_OBJ_Box.h" />
+    <ClInclude Include="GRAPHICS_OBJ_Drawable.h" />
+    <ClInclude Include="GRAPHICS_OBJ_InputLayout.h" />
+    <ClInclude Include="GRAPHICS_OBJ_PixelShader.h" />
+    <ClInclude Include="GRAPHICS_OBJ_StaticDrawInfo.h" />
+    <ClInclude Include="GRAPHICS_OBJ_Topology.h" />
+    <ClInclude Include="GRAPHICS_OBJ_VertexShader.h" />
+    <ClInclude Include="GRAPHICS_SET_BindableBase.h" />
+    <ClInclude Include="SYS_SET_GraphicsThrowMacros.h" />
     <ClInclude Include="SYS_SET_resource.h" />
     <ClInclude Include="SYS_CLASS_App.h" />
     <ClInclude Include="SYS_CLASS_DXgiInfoManager.h" />
@@ -175,6 +199,7 @@
     <ClInclude Include="SYS_CLASS_Window.h" />
     <ClInclude Include="SYS_SET_Dxerr.h" />
     <ClInclude Include="SYS_SET_FilterWinH.h" />
+    <ClInclude Include="SYS_SET_WindowsThrowMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc" />
