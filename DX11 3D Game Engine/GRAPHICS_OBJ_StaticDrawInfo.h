@@ -17,11 +17,11 @@ protected:
 	/**
 	 * @brief We assume at least 1 static bindable is here (like vertex buffer) after initialization
 	 */
-	static bool IsStaticInitialized() noexcept
+	/*static*/ bool IsStaticInitialized() noexcept
 	{
 		return !staticBinds.empty();
 	}
-	static void AddStaticBind(std::unique_ptr<Bindable> bind) noexcept(!IS_DEBUG)
+	/*static*/ void AddStaticBind(std::unique_ptr<Bindable> bind) noexcept(!IS_DEBUG)
 	{
 		assert("*Must* use AddStaticIndexBuffer to bind index buffer" && typeid(*bind) != typeid(IndexBuffer)); 
 		staticBinds.push_back(std::move(bind));

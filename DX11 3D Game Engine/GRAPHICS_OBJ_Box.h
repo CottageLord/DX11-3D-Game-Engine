@@ -2,6 +2,7 @@
 #include "GRAPHICS_SET_BindableBase.h"
 #include "GRAPHICS_OBJ_StaticDrawInfo.h"
 #include "SYS_SET_GraphicsThrowMacros.h"
+#include "GRAPHICS_OBJ_Sphere.h"
 
 class Box : public StaticDrawInfo<Box>
 {

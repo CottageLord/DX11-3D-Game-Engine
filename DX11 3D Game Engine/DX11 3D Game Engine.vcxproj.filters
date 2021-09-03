@@ -191,6 +191,27 @@
     <ClInclude Include="GRAPHICS_OBJ_StaticDrawInfo.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Sphere.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_SET_Math.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Prism.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Plane.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_IndexedTriangleList.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Cube.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Cone.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc">
