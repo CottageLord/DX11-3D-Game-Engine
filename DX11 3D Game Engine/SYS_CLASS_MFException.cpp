@@ -1,4 +1,5 @@
 #include "SYS_CLASS_MFException.h"
+#include <sstream>
 
 MFException::MFException(int line, const char* file) noexcept
 	:

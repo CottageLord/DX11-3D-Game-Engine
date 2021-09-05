@@ -1,31 +1,39 @@
 /**
  * @file GRAPHICS_OBJ_StaticDrawInfo.h
- * @brief A connection class built between drawable and the actually draw target (like a box)
- * Use template feature to let compiler copy and link this obj for every child obj
+ * @brief A class between the drawable and the actually draw target (like a box)
+ * Use template class feature such that all StaticDrawInfo<drawable type> could share same attributes, like vertex buffer
  */
 #pragma once
 #include "GRAPHICS_OBJ_Drawable.h"
 #include "GRAPHICS_BUF_IndexBuffer.h"
 
 /*
-Template class gets automatically copied for specified children
+Template class gets automatically shared within a group of children and exists independently across types
 */
 template<class T>
 class StaticDrawInfo : public Drawable
 {
 protected:
 	/**
-	 * @brief We assume at least 1 static bindable is here (like vertex buffer) after initialization
+	 * @brief return true if we have bind buffer(s). We assume at least 1 bufferis there upon initialization
 	 */
 	/*static*/ bool IsStaticInitialized() noexcept
 	{
 		return !staticBinds.empty();
 	}
+	/**
+	 * @brief bind a static object (i.e. Vertex Buffer of all cubes)
+	 * @param bind unique_ptr to the object
+	 */
 	/*static*/ void AddStaticBind(std::unique_ptr<Bindable> bind) noexcept(!IS_DEBUG)
 	{
 		assert("*Must* use AddStaticIndexBuffer to bind index buffer" && typeid(*bind) != typeid(IndexBuffer)); 
 		staticBinds.push_back(std::move(bind));
 	}
+	/**
+	 * @brief bind the shared index buffer
+	 * @param ibuf unique_ptr to the index buffer
+	 */
 	void AddStaticIndexBuffer(std::unique_ptr<IndexBuffer> ibuf) noexcept(!IS_DEBUG)
 	{
 		assert("Attempting to add index buffer a second time" && pIndexBuffer == nullptr);
@@ -33,6 +41,9 @@ protected:
 		pSharedIndBuf = ibuf.get(); // share this index buf with all <class T> siblings
 		staticBinds.push_back(std::move(ibuf));
 	}
+	/**
+	 * @brief bind the shared index buffer with the shared ibuf from siblings
+	 */
 	void SetIndexFromStatic() noexcept(!IS_DEBUG)
 	{
 		assert("Attempting to add index buffer a second time" && pIndexBuffer == nullptr);
@@ -48,12 +59,17 @@ protected:
 		assert("Failed to find index buffer in static binds" && pIndexBuffer != nullptr);
 	}
 private:
+	/**
+	 * @brief returns pointers to all shared bindable data
+	 */
 	const std::vector<std::unique_ptr<Bindable>>& GetStaticBinds() const noexcept override
 	{
 		return staticBinds;
 	}
 private:
+	/// all shared bindable data
 	static std::vector<std::unique_ptr<Bindable>> staticBinds;
+	/// the shared index buffer
 	static class IndexBuffer* pSharedIndBuf;
 };
 // initialize the static variable

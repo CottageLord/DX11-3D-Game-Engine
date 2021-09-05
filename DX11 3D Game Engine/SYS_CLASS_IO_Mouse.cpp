@@ -1,3 +1,4 @@
+#include "SYS_SET_FilterWinH.h"
 #include "SYS_CLASS_IO_Mouse.h"
 
 std::pair<int, int> Mouse::GetPos() const noexcept

@@ -1,4 +1,5 @@
 #include "GRAPHICS_OBJ_InputLayout.h"
+#include "SYS_SET_GraphicsThrowMacros.h"
 
 InputLayout::InputLayout(Graphics& gfx,
 	/*

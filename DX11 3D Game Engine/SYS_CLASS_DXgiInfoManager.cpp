@@ -1,4 +1,6 @@
 #include "SYS_CLASS_DxgiInfoManager.h"
+#include "SYS_SET_GraphicsThrowMacros.h"
+#include "SYS_SET_WindowsThrowMacros.h"
 #include "SYS_CLASS_Window.h"
 #include "SYS_CLASS_Graphics.h"
 #include <dxgidebug.h>

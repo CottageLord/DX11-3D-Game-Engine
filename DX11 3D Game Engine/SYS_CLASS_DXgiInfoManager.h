@@ -1,11 +1,10 @@
 #pragma once
 #include "SYS_SET_FilterWinH.h"
-#include "SYS_SET_GraphicsThrowMacros.h"
-#include "SYS_SET_WindowsThrowMacros.h"
 #include <vector>
 #include <string>
 #include <wrl.h>
 #include <dxgidebug.h>
+
 class DxgiInfoManager
 {
 public:

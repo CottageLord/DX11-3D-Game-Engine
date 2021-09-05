@@ -1,3 +1,7 @@
+/**
+ * @file SYS_SET_Math.h
+ * @brief Includes basic math operations in the current gane engine
+ */
 #pragma once
 #include <math.h>
 

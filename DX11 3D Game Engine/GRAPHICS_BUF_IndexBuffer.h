@@ -1,6 +1,5 @@
 #pragma once
 #include "GRAPHICS_OBJ_Bindable.h"
-#include "SYS_SET_GraphicsThrowMacros.h"
 
 class IndexBuffer : public Bindable
 {

@@ -1,23 +1,16 @@
 #pragma once
 #include "SYS_SET_FilterWinH.h"
 #include "SYS_CLASS_MFException.h"
-#include "SYS_SET_Dxerr.h"
 #include "SYS_CLASS_DXgiInfoManager.h"
-#include "SYS_SET_GraphicsThrowMacros.h"
-#include <sstream>
+
 #include <vector>
-#include <cmath>
 #include <wrl.h>
 #include <d3d11.h>
 #include <memory>
 #include <random>
-#pragma comment(lib,"d3d11.lib") // reminds compiler to set the linker setting
 #include <d3dcompiler.h>
-#pragma comment(lib,"D3DCompiler.lib")
 #include <DirectXMath.h>
 
-namespace wrl = Microsoft::WRL;
-namespace dx = DirectX;
 
 class Graphics
 {
@@ -70,7 +63,6 @@ public:
 	void DrawIndexed(UINT count) noexcept(!IS_DEBUG);
 	void SetProjection(DirectX::FXMMATRIX proj) noexcept;
 	DirectX::XMMATRIX GetProjection() const noexcept;
-	void DrawTestTriangle(float angle, float x, float y); // test
 private:
 	DirectX::XMMATRIX projection;
 #ifndef NDEBUG

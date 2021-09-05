@@ -4,8 +4,6 @@
 #include "SYS_CLASS_IO_Keyboard.h"
 #include "SYS_CLASS_IO_Mouse.h"
 #include "SYS_CLASS_Graphics.h"
-#include "SYS_SET_resource.h"
-#include "SYS_SET_WindowsThrowMacros.h"
 #include <optional>
 #include <memory>
 

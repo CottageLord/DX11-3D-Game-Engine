@@ -108,6 +108,18 @@
     <ClCompile Include="GRAPHICS_OBJ_VertexShader.cpp">
       <Filter>Source Files\Graphics\Bindable</Filter>
     </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Pyramid.cpp">
+      <Filter>Source Files\Graphics\Drawabble</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Melon.cpp">
+      <Filter>Source Files\Graphics\Drawabble</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_SET_GDIPlusManager.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Surface.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SYS_SET_Dxerr.h">
@@ -212,6 +224,18 @@
     <ClInclude Include="GRAPHICS_OBJ_Cone.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Pyramid.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Melon.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Surface.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_SET_GDIPlusManager.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc">
@@ -235,10 +259,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="VertexShader.hlsl">
+    <FxCompile Include="ColorIndexPS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PixelShader.hlsl">
+    <FxCompile Include="ColorBlendVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="ColorBlendPS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="ColorIndexVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

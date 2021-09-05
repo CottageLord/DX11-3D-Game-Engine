@@ -1,4 +1,6 @@
 #include "SYS_CLASS_Window.h"
+#include "SYS_SET_resource.h"
+#include "SYS_SET_WindowsThrowMacros.h"
 // Window Class Stuff
 // initialize the singleton
 Window::WindowClass Window::WindowClass::wndClass;
