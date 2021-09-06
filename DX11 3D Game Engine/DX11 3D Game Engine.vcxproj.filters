@@ -120,6 +120,18 @@
     <ClCompile Include="GRAPHICS_OBJ_Surface.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Texture.cpp">
+      <Filter>Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Sheet.cpp">
+      <Filter>Source Files\Graphics\Drawabble</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Sampler.cpp">
+      <Filter>Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_SkinnedBox.cpp">
+      <Filter>Source Files\Graphics\Drawabble</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SYS_SET_Dxerr.h">
@@ -236,6 +248,18 @@
     <ClInclude Include="GRAPHICS_SET_GDIPlusManager.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Texture.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Sheet.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Sampler.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_SkinnedBox.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc">
@@ -269,6 +293,12 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="ColorIndexVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="TextureVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="TexturePS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

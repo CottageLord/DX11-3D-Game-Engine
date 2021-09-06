@@ -182,7 +182,7 @@ const char* Graphics::HrException::what() const noexcept
 
 const char* Graphics::HrException::GetType() const noexcept
 {
-	return "Chili Graphics Exception";
+	return "MF Engine Graphics Exception";
 }
 
 HRESULT Graphics::HrException::GetErrorCode() const noexcept
@@ -209,7 +209,7 @@ std::string Graphics::HrException::GetErrorInfo() const noexcept
 
 const char* Graphics::DeviceRemovedException::GetType() const noexcept
 {
-	return "Chili Graphics Exception [Device Removed] (DXGI_ERROR_DEVICE_REMOVED)";
+	return "MF Engine Graphics Exception [Device Removed] (DXGI_ERROR_DEVICE_REMOVED)";
 }
 
 // Info exceptions

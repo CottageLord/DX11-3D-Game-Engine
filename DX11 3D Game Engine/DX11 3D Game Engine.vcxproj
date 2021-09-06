@@ -157,11 +157,15 @@
     <ClCompile Include="GRAPHICS_OBJ_Bindable.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Box.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Drawable.cpp" />
+    <ClCompile Include="GRAPHICS_OBJ_Sampler.cpp" />
+    <ClCompile Include="GRAPHICS_OBJ_Sheet.cpp" />
+    <ClCompile Include="GRAPHICS_OBJ_SkinnedBox.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Surface.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_InputLayour.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Melon.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_PixelShader.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Pyramid.cpp" />
+    <ClCompile Include="GRAPHICS_OBJ_Texture.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Topology.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_VertexShader.cpp" />
     <ClCompile Include="GRAPHICS_SET_GDIPlusManager.cpp" />
@@ -193,9 +197,13 @@
     <ClInclude Include="GRAPHICS_OBJ_Plane.h" />
     <ClInclude Include="GRAPHICS_OBJ_Prism.h" />
     <ClInclude Include="GRAPHICS_OBJ_Pyramid.h" />
+    <ClInclude Include="GRAPHICS_OBJ_Sampler.h" />
+    <ClInclude Include="GRAPHICS_OBJ_Sheet.h" />
+    <ClInclude Include="GRAPHICS_OBJ_SkinnedBox.h" />
     <ClInclude Include="GRAPHICS_OBJ_Sphere.h" />
     <ClInclude Include="GRAPHICS_OBJ_StaticDrawInfo.h" />
     <ClInclude Include="GRAPHICS_OBJ_Surface.h" />
+    <ClInclude Include="GRAPHICS_OBJ_Texture.h" />
     <ClInclude Include="GRAPHICS_OBJ_Topology.h" />
     <ClInclude Include="GRAPHICS_OBJ_VertexShader.h" />
     <ClInclude Include="GRAPHICS_SET_BindableBase.h" />
@@ -283,6 +291,20 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="TexturePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="TextureVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

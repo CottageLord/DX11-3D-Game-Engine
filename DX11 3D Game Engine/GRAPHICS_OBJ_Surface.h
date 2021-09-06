@@ -3,9 +3,9 @@
 #include "SYS_SET_FilterWinH.h"
 #include "SYS_CLASS_MFException.h"
 
-#include <string>
 #include <assert.h>
 #include <memory>
+#include <string>
 
 class Surface
 {
@@ -96,7 +96,7 @@ public:
 		std::string note;
 	};
 public:
-	Surface(unsigned int width, unsigned int height, unsigned int pitch) noexcept;
+	//Surface(unsigned int width, unsigned int height, unsigned int pitch) noexcept;
 	Surface(unsigned int width, unsigned int height) noexcept;
 	Surface(Surface&& source) noexcept;
 	Surface(Surface&) = delete;
