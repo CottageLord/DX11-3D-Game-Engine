@@ -156,6 +156,9 @@
     <ClCompile Include="SYS_CLASS_ImguiManager.cpp">
       <Filter>Source Files\Application</Filter>
     </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Camera.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SYS_SET_Dxerr.h">
@@ -310,6 +313,9 @@
     </ClInclude>
     <ClInclude Include="SYS_CLASS_ImguiManager.h">
       <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Camera.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

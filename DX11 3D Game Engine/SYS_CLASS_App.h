@@ -7,7 +7,7 @@
 #include "SYS_CLASS_Window.h"
 #include "SYS_CLASS_Timer.h"
 #include "SYS_CLASS_ImguiManager.h"
-
+#include "GRAPHICS_OBJ_Camera.h"
 class App
 {
 public:
@@ -21,7 +21,8 @@ private:
 	ImguiManager imgui;
 	Window wnd;
 	EngineTimer timer;
+	Camera cam;
 	std::vector<std::unique_ptr<class Drawable>> drawables;
-	float speed_factor = 1.0f;
 	static constexpr size_t nDrawables = 180;
+	float speed_factor = 1.0f;
 };

@@ -156,6 +156,7 @@
     <ClCompile Include="GRAPHICS_BUF_VertextBuffer.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Bindable.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Box.cpp" />
+    <ClCompile Include="GRAPHICS_OBJ_Camera.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Drawable.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Sampler.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Sheet.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="GRAPHICS_BUF_VertexBuffer.h" />
     <ClInclude Include="GRAPHICS_OBJ_Bindable.h" />
     <ClInclude Include="GRAPHICS_OBJ_Box.h" />
+    <ClInclude Include="GRAPHICS_OBJ_Camera.h" />
     <ClInclude Include="GRAPHICS_OBJ_Cone.h" />
     <ClInclude Include="GRAPHICS_OBJ_Cube.h" />
     <ClInclude Include="GRAPHICS_OBJ_Drawable.h" />
