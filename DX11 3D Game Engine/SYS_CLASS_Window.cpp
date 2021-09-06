@@ -1,6 +1,7 @@
 #include "SYS_CLASS_Window.h"
 #include "SYS_SET_resource.h"
 #include "SYS_SET_WindowsThrowMacros.h"
+#include "imgui/imgui_impl_win32.h"
 // Window Class Stuff
 // initialize the singleton
 Window::WindowClass Window::WindowClass::wndClass;
@@ -81,12 +82,15 @@ Window::Window(int width, int height, const char* name)
 	}
 	// show window, newly created window starts off ashidden
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
+	// Init ImGui Win32 Impl
+	ImGui_ImplWin32_Init(hWnd);
 	// create graphics object
 	pGfx = std::make_unique<Graphics>(hWnd);
 }
 
 Window::~Window()
 {
+	ImGui_ImplWin32_Shutdown();
 	DestroyWindow(hWnd);
 }
 
@@ -154,6 +158,11 @@ LRESULT CALLBACK Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPAR
 
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
+	// filter mouse/keyboard input
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam)) { return true; }
+
+	const auto imio = ImGui::GetIO();
+
 	switch (msg)
 	{
 	case WM_CLOSE:
@@ -165,8 +174,10 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	/*********** KEYBOARD MESSAGES ***********/
 	case WM_KEYDOWN: // won't listen to system keys, include Alt and F10 :)
 	case WM_SYSKEYDOWN: // listen to Alt and F10 :)
-	// bit-30 marks if the key is down before the msg is sent
-	// which means the key is being held
+		// stifle this keyboard message if imgui wants to capture
+		if (imio.WantCaptureKeyboard) { break; }
+		// bit-30 marks if the key is down before the msg is sent
+		// which means the key is being held
 		if (!(lParam & 0x40000000) || kbd.AutorepeatIsEnabled()) // filter autorepeat
 		{
 			kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
@@ -174,9 +185,13 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		break;
 	case WM_KEYUP:
 	case WM_SYSKEYUP:
+		// stifle this keyboard message if imgui wants to capture
+		if (imio.WantCaptureKeyboard) { break; }
 		kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
 		break;
 	case WM_CHAR:
+		// stifle this keyboard message if imgui wants to capture
+		if (imio.WantCaptureKeyboard) { break; }
 		kbd.OnChar(static_cast<unsigned char>(wParam));
 		break;
 	/*********** END KEYBOARD MESSAGES ***********/
@@ -184,6 +199,8 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	/************* MOUSE MESSAGES ****************/
 	case WM_MOUSEMOVE:
 	{
+		// stifle this mouse message if imgui wants to capture
+		if (imio.WantCaptureMouse) { break; }
 		const POINTS pt = MAKEPOINTS(lParam);
 		// in client region -> log move, and log enter + capture mouse (if not previously in window)
 		if (pt.x >= 0 && pt.x < width && pt.y >= 0 && pt.y < height)
@@ -216,20 +233,26 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	}
 	case WM_LBUTTONDOWN:
 	{
-		const POINTS pt = MAKEPOINTS(lParam);
-		mouse.OnLeftPressed(pt.x, pt.y);
 		// bring window to foreground on lclick client region
 		SetForegroundWindow(hWnd);
+		// stifle this mouse message if imgui wants to capture
+		if (imio.WantCaptureMouse) { break; }
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnLeftPressed(pt.x, pt.y);
 		break;
 	}
 	case WM_RBUTTONDOWN:
 	{
+		// stifle this mouse message if imgui wants to capture
+		if (imio.WantCaptureMouse) { break; }
 		const POINTS pt = MAKEPOINTS(lParam);
 		mouse.OnRightPressed(pt.x, pt.y);
 		break;
 	}
 	case WM_LBUTTONUP:
 	{
+		// stifle this mouse message if imgui wants to capture
+		if (imio.WantCaptureMouse) { break; }
 		const POINTS pt = MAKEPOINTS(lParam);
 		// release mouse if outside of window
 		if (pt.x < 0 || pt.x >= width || pt.y < 0 || pt.y >= height)
@@ -241,6 +264,8 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	}
 	case WM_RBUTTONUP:
 	{
+		// stifle this mouse message if imgui wants to capture
+		if (imio.WantCaptureMouse) { break; }
 		const POINTS pt = MAKEPOINTS(lParam);
 		// release mouse if outside of window
 		if (pt.x < 0 || pt.x >= width || pt.y < 0 || pt.y >= height)
@@ -252,6 +277,8 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	}
 	case WM_MOUSEWHEEL:
 	{
+		// stifle this mouse message if imgui wants to capture
+		if (imio.WantCaptureMouse) { break; }
 		const POINTS pt = MAKEPOINTS(lParam);
 		// wParam: delta value determines scroll direction
 		const int delta = GET_WHEEL_DELTA_WPARAM(wParam);

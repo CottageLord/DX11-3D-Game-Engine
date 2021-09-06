@@ -6,6 +6,7 @@
 #include "SYS_SET_FilterWinH.h"
 #include "SYS_CLASS_Window.h"
 #include "SYS_CLASS_Timer.h"
+#include "SYS_CLASS_ImguiManager.h"
 
 class App
 {
@@ -17,8 +18,10 @@ public:
 private:
 	void DoFrame();
 private:
+	ImguiManager imgui;
 	Window wnd;
 	EngineTimer timer;
 	std::vector<std::unique_ptr<class Drawable>> drawables;
+	float speed_factor = 1.0f;
 	static constexpr size_t nDrawables = 180;
 };
