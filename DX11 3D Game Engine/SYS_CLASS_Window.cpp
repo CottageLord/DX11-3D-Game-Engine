@@ -160,8 +160,8 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 {
 	// filter mouse/keyboard input
 	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam)) { return true; }
-
-	const auto imio = ImGui::GetIO();
+	// take the ImGui IO module reference
+	const auto& imio = ImGui::GetIO();
 
 	switch (msg)
 	{

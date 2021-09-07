@@ -159,6 +159,12 @@
     <ClCompile Include="GRAPHICS_OBJ_Camera.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="GRAPHICS_LGT_PointLight.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_SolidSphere.cpp">
+      <Filter>Source Files\Graphics\Drawabble</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SYS_SET_Dxerr.h">
@@ -317,6 +323,12 @@
     <ClInclude Include="GRAPHICS_OBJ_Camera.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="GRAPHICS_LGT_PointLight.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_SolidSphere.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc">
@@ -356,6 +368,18 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="TexturePS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongPS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="SolidPS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="SolidVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

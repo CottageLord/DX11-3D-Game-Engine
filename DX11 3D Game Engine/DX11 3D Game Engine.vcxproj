@@ -154,6 +154,7 @@
     <ClCompile Include="GRAPHICS_BUF_IndexBuffer.cpp" />
     <ClCompile Include="GRAPHICS_BUF_TransformCBuffer.cpp" />
     <ClCompile Include="GRAPHICS_BUF_VertextBuffer.cpp" />
+    <ClCompile Include="GRAPHICS_LGT_PointLight.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Bindable.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Box.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Camera.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="GRAPHICS_OBJ_Sampler.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Sheet.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_SkinnedBox.cpp" />
+    <ClCompile Include="GRAPHICS_OBJ_SolidSphere.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Surface.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_InputLayour.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Melon.cpp" />
@@ -193,6 +195,7 @@
     <ClInclude Include="GRAPHICS_BUF_IndexBuffer.h" />
     <ClInclude Include="GRAPHICS_BUF_TransformCBuffer.h" />
     <ClInclude Include="GRAPHICS_BUF_VertexBuffer.h" />
+    <ClInclude Include="GRAPHICS_LGT_PointLight.h" />
     <ClInclude Include="GRAPHICS_OBJ_Bindable.h" />
     <ClInclude Include="GRAPHICS_OBJ_Box.h" />
     <ClInclude Include="GRAPHICS_OBJ_Camera.h" />
@@ -209,6 +212,7 @@
     <ClInclude Include="GRAPHICS_OBJ_Sampler.h" />
     <ClInclude Include="GRAPHICS_OBJ_Sheet.h" />
     <ClInclude Include="GRAPHICS_OBJ_SkinnedBox.h" />
+    <ClInclude Include="GRAPHICS_OBJ_SolidSphere.h" />
     <ClInclude Include="GRAPHICS_OBJ_Sphere.h" />
     <ClInclude Include="GRAPHICS_OBJ_StaticDrawInfo.h" />
     <ClInclude Include="GRAPHICS_OBJ_Surface.h" />
@@ -309,6 +313,34 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="PhongPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="PhongVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="SolidPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="SolidVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="TexturePS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>

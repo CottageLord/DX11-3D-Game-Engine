@@ -3,11 +3,11 @@
 #include "GRAPHICS_SET_GDIPlusManager.h"
 
 #include "GRAPHICS_OBJ_Box.h"
-#include "GRAPHICS_OBJ_Melon.h"
-#include "GRAPHICS_OBJ_Pyramid.h"
+//#include "GRAPHICS_OBJ_Melon.h"
+//#include "GRAPHICS_OBJ_Pyramid.h"
 #include "GRAPHICS_OBJ_Surface.h"
-#include "GRAPHICS_OBJ_Sheet.h"
-#include "GRAPHICS_OBJ_SkinnedBox.h"
+//#include "GRAPHICS_OBJ_Sheet.h"
+//#include "GRAPHICS_OBJ_SkinnedBox.h"
 
 #include "imgui/imgui.h"
 
@@ -19,7 +19,8 @@ GDIPlusManager gdipm;
 
 App::App()
 	:
-	wnd( 800,600,"阿茅的引擎" )
+	wnd( 800,600,"阿茅的引擎" ),
+	light(wnd.Gfx())
 {
 
 	class Factory
@@ -31,6 +32,11 @@ App::App()
 		{}
 		std::unique_ptr<Drawable> operator()()
 		{
+			return std::make_unique<Box>(
+				gfx, rng, adist, ddist,
+				odist, rdist, bdist
+				);
+			/*
 			switch (typedist(rng))
 			{
 			case 0:
@@ -58,10 +64,11 @@ App::App()
 					gfx, rng, adist, ddist,
 					odist, rdist
 					);
+			
 			default:
 				assert(false && "bad drawable type in factory");
 				return {};
-			}
+			}*/
 		}
 	private:
 		Graphics& gfx;
@@ -71,9 +78,11 @@ App::App()
 		std::uniform_real_distribution<float> odist{ 0.0f,PI * 0.08f };
 		std::uniform_real_distribution<float> rdist{ 6.0f,20.0f };
 		std::uniform_real_distribution<float> bdist{ 0.4f,3.0f };
+		/*
 		std::uniform_int_distribution<int> latdist{ 5,20 };
 		std::uniform_int_distribution<int> longdist{ 10,40 };
 		std::uniform_int_distribution<int> typedist{ 0,4 };
+		*/
 	};
 
 	drawables.reserve(nDrawables);
@@ -105,12 +114,15 @@ void App::DoFrame()
 
 	wnd.Gfx().SetCamera(cam.GetMatrix());
 
+	light.Bind(wnd.Gfx());
+
 	for (auto& d : drawables)
 	{
 		d->Update(wnd.kbd.KeyIsPressed(VK_SPACE) ? 0.0f : dt);
 		d->Draw(wnd.Gfx());
 	}
 
+	light.Draw(wnd.Gfx());
 
 	// imgui window to control simulation speed
 	if (ImGui::Begin("Simulation Speed"))
@@ -120,8 +132,9 @@ void App::DoFrame()
 		ImGui::Text("Status: %s", wnd.kbd.KeyIsPressed(VK_SPACE) ? "PAUSED" : "RUNNING (hold spacebar to pause)");
 	}
 	ImGui::End();
-	// imgui window to control camera
+	// imgui windows to control camera and light
 	cam.SpawnControlWindow();
+	light.SpawnControlWindow();
 	// present
 	wnd.Gfx().EndFrame();
 }

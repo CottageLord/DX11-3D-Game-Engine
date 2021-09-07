@@ -8,6 +8,7 @@
 #include "SYS_CLASS_Timer.h"
 #include "SYS_CLASS_ImguiManager.h"
 #include "GRAPHICS_OBJ_Camera.h"
+#include "GRAPHICS_LGT_PointLight.h"
 class App
 {
 public:
@@ -22,6 +23,7 @@ private:
 	Window wnd;
 	EngineTimer timer;
 	Camera cam;
+	PointLight light;
 	std::vector<std::unique_ptr<class Drawable>> drawables;
 	static constexpr size_t nDrawables = 180;
 	float speed_factor = 1.0f;
