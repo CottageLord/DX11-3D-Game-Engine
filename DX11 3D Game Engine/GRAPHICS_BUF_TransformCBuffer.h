@@ -12,7 +12,7 @@ private:
 		DirectX::XMMATRIX model;
 	};
 public:
-	TransformCbuffer(Graphics& gfx, const Drawable& target);
+	TransformCbuffer(Graphics& gfx, const Drawable& target, UINT slot = 0u);
 	void Bind(Graphics& gfx) noexcept override;
 private:
 	/// <summary>

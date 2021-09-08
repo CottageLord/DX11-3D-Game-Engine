@@ -1,25 +1,24 @@
 #include "GRAPHICS_BUF_TransformCbuffer.h"
 
-TransformCbuffer::TransformCbuffer(Graphics& gfx, const Drawable& target)
+TransformCbuffer::TransformCbuffer(Graphics& gfx, const Drawable& target, UINT slot)
 	:
 	drawTarget(target)
 {
 	// if the shared temp space haven't been assigned
 	if (!pVcbFinalMatrix)
 	{
-		pVcbFinalMatrix = std::make_unique<VertexConstantBuffer<Transforms>>(gfx);
+		pVcbFinalMatrix = std::make_unique<VertexConstantBuffer<Transforms>>(gfx, slot);
 	}
 }
 
 void TransformCbuffer::Bind(Graphics& gfx) noexcept
 {
-	const auto model = drawTarget.GetTransformXM();
+	const auto modelView = drawTarget.GetTransformXM() * gfx.GetCamera();
 	const Transforms tf =
 	{
-		DirectX::XMMatrixTranspose(model),
+		DirectX::XMMatrixTranspose(modelView),
 		DirectX::XMMatrixTranspose(
-			model *
-			gfx.GetCamera() *
+			modelView *
 			gfx.GetProjection()
 		)
 	};

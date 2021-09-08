@@ -1,7 +1,7 @@
 #pragma once
-#include "GRAPHICS_OBJ_StaticDrawInfo.h"
+#include "GRAPHICS_OBJ_TestObject.h"
 
-class Box : public StaticDrawInfo<Box>
+class Box : public TestObject<Box>
 {
 public:
 	/**
@@ -15,25 +15,11 @@ public:
 		std::uniform_real_distribution<float>& ddist,
 		std::uniform_real_distribution<float>& odist,
 		std::uniform_real_distribution<float>& rdist,
-		std::uniform_real_distribution<float>& bdist);
-	void Update( float dt ) noexcept override;
+		std::uniform_real_distribution<float>& bdist,
+		DirectX::XMFLOAT3 material);
+	//void Update( float dt ) noexcept override;
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
 private:
-	// positional
-	float randVal;
-	float roll = 0.0f;
-	float pitch = 0.0f;
-	float yaw = 0.0f;
-	float theta;
-	float phi;
-	float chi;
-	// speed (delta/s)
-	float droll;
-	float dpitch;
-	float dyaw;
-	float dtheta;
-	float dphi;
-	float dchi;
 	// model transform
 	DirectX::XMFLOAT3X3 modelTransform;
 };

@@ -31,7 +31,13 @@ public:
 		memcpy(msr.pData, &consts, sizeof(consts)); // write
 		GetContext(gfx)->Unmap(pConstantBuffer.Get(), 0u); // unlock
 	}
-	ConstantBuffer(Graphics& gfx, const C& consts)
+	/**
+	 * @brief Init const buffer with given initialized data struct
+	 * @param consts the data struct to be moved into the const buffer
+	 */
+	ConstantBuffer(Graphics& gfx, const C& consts, UINT slot = 0u)
+		:
+		slot(slot)
 	{
 		GET_INFO_MAN(gfx);
 
@@ -47,7 +53,9 @@ public:
 		csd.pSysMem = &consts;
 		GFX_THROW_INFO(GetDevice(gfx)->CreateBuffer(&cbd, &csd, &pConstantBuffer));
 	}
-	ConstantBuffer(Graphics& gfx)
+	ConstantBuffer(Graphics& gfx, UINT slot = 0u)
+		:
+		slot(slot)
 	{
 		GET_INFO_MAN(gfx);
 
@@ -62,6 +70,7 @@ public:
 	}
 protected:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> pConstantBuffer;
+	UINT slot;
 };
 
 template<typename C>
@@ -69,12 +78,13 @@ class VertexConstantBuffer : public ConstantBuffer<C>
 {
 	// template inheritance losses those refs and need explicit import or this->/:: qualifier
 	using ConstantBuffer<C>::pConstantBuffer;
+	using ConstantBuffer<C>::slot;
 	using Bindable::GetContext;
 public:
 	using ConstantBuffer<C>::ConstantBuffer;
 	void Bind(Graphics& gfx) noexcept override
 	{
-		GetContext(gfx)->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+		GetContext(gfx)->VSSetConstantBuffers(slot, 1u, pConstantBuffer.GetAddressOf());
 	}
 };
 
@@ -82,11 +92,12 @@ template<typename C>
 class PixelConstantBuffer : public ConstantBuffer<C>
 {
 	using ConstantBuffer<C>::pConstantBuffer;
+	using ConstantBuffer<C>::slot;
 	using Bindable::GetContext;
 public:
 	using ConstantBuffer<C>::ConstantBuffer;
 	void Bind(Graphics& gfx) noexcept override
 	{
-		GetContext(gfx)->PSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+		GetContext(gfx)->PSSetConstantBuffers(slot, 1u, pConstantBuffer.GetAddressOf());
 	}
 };

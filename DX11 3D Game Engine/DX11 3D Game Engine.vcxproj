@@ -158,6 +158,7 @@
     <ClCompile Include="GRAPHICS_OBJ_Bindable.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Box.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Camera.cpp" />
+    <ClCompile Include="GRAPHICS_OBJ_Cylinder.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Drawable.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Sampler.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Sheet.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="GRAPHICS_OBJ_Camera.h" />
     <ClInclude Include="GRAPHICS_OBJ_Cone.h" />
     <ClInclude Include="GRAPHICS_OBJ_Cube.h" />
+    <ClInclude Include="GRAPHICS_OBJ_Cylinder.h" />
     <ClInclude Include="GRAPHICS_OBJ_Drawable.h" />
     <ClInclude Include="GRAPHICS_OBJ_IndexedTriangleList.h" />
     <ClInclude Include="GRAPHICS_OBJ_InputLayout.h" />
@@ -216,6 +218,7 @@
     <ClInclude Include="GRAPHICS_OBJ_Sphere.h" />
     <ClInclude Include="GRAPHICS_OBJ_StaticDrawInfo.h" />
     <ClInclude Include="GRAPHICS_OBJ_Surface.h" />
+    <ClInclude Include="GRAPHICS_OBJ_TestObject.h" />
     <ClInclude Include="GRAPHICS_OBJ_Texture.h" />
     <ClInclude Include="GRAPHICS_OBJ_Topology.h" />
     <ClInclude Include="GRAPHICS_OBJ_VertexShader.h" />
@@ -313,6 +316,14 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="IndexedPhongPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="PhongPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
