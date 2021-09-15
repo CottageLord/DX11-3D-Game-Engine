@@ -26,6 +26,21 @@ public:
 	virtual ~Drawable() = default;
 protected:
 	/**
+	 * @brief Find the particular bindable object by its type.
+	 */
+	template<class T>
+	T* QueryBindable() noexcept
+	{
+		for (auto& pb : binds)
+		{
+			if (auto pt = dynamic_cast<T*>(pb.get()))
+			{
+				return pt;
+			}
+		}
+		return nullptr;
+	}
+	/**
 	 * @brief Stores the *dynamic* bindable objects/settings, like transformation matrix. 
 	 * @param bind The bindable object that contains things like vertex buffer.
 	 */

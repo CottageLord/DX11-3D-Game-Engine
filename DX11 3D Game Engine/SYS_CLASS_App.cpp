@@ -4,13 +4,20 @@
 
 #include "GRAPHICS_OBJ_Box.h"
 //#include "GRAPHICS_OBJ_Melon.h"
-//#include "GRAPHICS_OBJ_Pyramid.h"
+#include "GRAPHICS_OBJ_Pyramid.h"
 #include "GRAPHICS_OBJ_Surface.h"
 //#include "GRAPHICS_OBJ_Sheet.h"
-//#include "GRAPHICS_OBJ_SkinnedBox.h"
+#include "GRAPHICS_OBJ_SkinnedBox.h"
 #include "GRAPHICS_OBJ_Cylinder.h"
+#include "AssTest.h"
 
 #include "imgui/imgui.h"
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
+#pragma comment(lib,"assimp-vc142-mtd.lib")
 
 #include <algorithm>
 #include <memory>
@@ -23,6 +30,8 @@ App::App()
 	wnd( 800,600,"°¢Ã©µÄÒýÇæ" ),
 	light(wnd.Gfx())
 {
+	
+	
 
 	class Factory
 	{
@@ -46,43 +55,25 @@ App::App()
 					gfx, rng, adist, ddist, odist,
 					rdist, bdist, tdist
 					);
-			default:
-				assert(false && "impossible drawable option in factory");
-				return {};
-			}
-			/*
-			switch (typedist(rng))
-			{
-			case 0:
-				return std::make_unique<Pyramid>(
-					gfx, rng, adist, ddist,
-					odist, rdist
-					);
-			case 1:
-				return std::make_unique<Box>(
-					gfx, rng, adist, ddist,
-					odist, rdist, bdist
-					);
 			case 2:
-				return std::make_unique<Melon>(
-					gfx, rng, adist, ddist,
-					odist, rdist, longdist, latdist
+				return std::make_unique<Pyramid>(
+					gfx, rng, adist, ddist, odist,
+					rdist, tdist
 					);
 			case 3:
-				return std::make_unique<Sheet>(
-					gfx, rng, adist, ddist,
-					odist, rdist
-					);
-			case 4:
 				return std::make_unique<SkinnedBox>(
 					gfx, rng, adist, ddist,
 					odist, rdist
 					);
-			
+			case 4:
+				return std::make_unique<AssTest>(
+					gfx, rng, adist, ddist,
+					odist, rdist, mat, 1.5f
+					);
 			default:
-				assert(false && "bad drawable type in factory");
+				assert(false && "impossible drawable option in factory");
 				return {};
-			}*/
+			}
 		}
 	private:
 		Graphics& gfx;
@@ -93,12 +84,21 @@ App::App()
 		std::uniform_real_distribution<float> rdist{ 6.0f,20.0f };
 		std::uniform_real_distribution<float> bdist{ 0.4f,3.0f };
 		std::uniform_real_distribution<float> cdist{ 0.0f,1.0f };
-		std::uniform_int_distribution<int> sdist{ 0,1 };
+		std::uniform_int_distribution<int> sdist{ 0,4 };
 		std::uniform_int_distribution<int> tdist{ 3,30 };
 	};
 
 	drawables.reserve(nDrawables);
 	std::generate_n(std::back_inserter(drawables), nDrawables, Factory{ wnd.Gfx() });
+
+	// init box pointers for editing instance parameters
+	for (auto& pd : drawables)
+	{
+		if (auto pb = dynamic_cast<Box*>(pd.get()))
+		{
+			boxes.push_back(pb);
+		}
+	}
 
 	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
 }
@@ -119,7 +119,7 @@ int App::Go()
 
 void App::DoFrame()
 {
-	
+
 	const auto dt = timer.Mark() * speed_factor;
 
 	wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
@@ -128,7 +128,7 @@ void App::DoFrame()
 
 	// bind the light info so it could be accessed by all drawables
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
-	
+	// render geometry
 	for (auto& d : drawables)
 	{
 		d->Update(wnd.kbd.KeyIsPressed(VK_SPACE) ? 0.0f : dt);
@@ -136,8 +136,19 @@ void App::DoFrame()
 	}
 
 	light.Draw(wnd.Gfx());
+	// imgui windows
+	SpawnSimulationWindow();
+	cam.SpawnControlWindow();
+	light.SpawnControlWindow();
+	SpawnBoxWindowManagerWindow();
+	SpawnBoxWindows();
 
-	// imgui window to control simulation speed
+	// present
+	wnd.Gfx().EndFrame();
+	// imgui windows to control camera and light
+}
+void App::SpawnSimulationWindow() noexcept
+{
 	if (ImGui::Begin("Simulation Speed"))
 	{
 		ImGui::SliderFloat("Speed Factor", &speed_factor, 0.0f, 6.0f, "%.4f", 3.2f);
@@ -145,11 +156,48 @@ void App::DoFrame()
 		ImGui::Text("Status: %s", wnd.kbd.KeyIsPressed(VK_SPACE) ? "PAUSED" : "RUNNING (hold spacebar to pause)");
 	}
 	ImGui::End();
-	// imgui windows to control camera and light
-	cam.SpawnControlWindow();
-	light.SpawnControlWindow();
-	// present
-	wnd.Gfx().EndFrame();
+}
+void App::SpawnBoxWindowManagerWindow() noexcept
+{
+	if (ImGui::Begin("Boxes"))
+	{
+		using namespace std::string_literals;
+		const auto preview = comboBoxIndex ? std::to_string(*comboBoxIndex) : "Choose a box..."s;
+		if (ImGui::BeginCombo("Box Number", preview.c_str()))
+		{
+			for (int i = 0; i < boxes.size(); i++)
+			{
+				const bool selected = *comboBoxIndex == i;
+				if (ImGui::Selectable(std::to_string(i).c_str(), selected))
+				{
+					comboBoxIndex = i;
+				}
+				if (selected)
+				{
+					ImGui::SetItemDefaultFocus();
+				}
+			}
+			ImGui::EndCombo();
+		}
+		if (ImGui::Button("Spawn Control Window") && comboBoxIndex)
+		{
+			boxControlIds.insert(*comboBoxIndex);
+			comboBoxIndex.reset();
+		}
+	}
+	ImGui::End();
+}
+void App::SpawnBoxWindows() noexcept
+{
+	// imgui box attribute control windows
+	for(auto i = boxControlIds.begin(); i != boxControlIds.end(); )
+	{
+		if (!boxes[*i]->SpawnControlWindow(*i, wnd.Gfx()))
+		{
+			i = boxControlIds.erase(i);
+		}
+		else{i++;}
+	}
 }
 
 App::~App()

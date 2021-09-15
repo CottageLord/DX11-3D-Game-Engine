@@ -168,6 +168,12 @@
     <ClCompile Include="GRAPHICS_OBJ_Cylinder.cpp">
       <Filter>Source Files\Graphics\Drawabble</Filter>
     </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_VertexLayout.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="AssTest.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SYS_SET_Dxerr.h">
@@ -337,6 +343,9 @@
     </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Cylinder.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="AssTest.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 #pragma once
 #include "GRAPHICS_OBJ_TestObject.h"
+#include "GRAPHICS_BUF_ConstantBuffers.h"
 
 class Box : public TestObject<Box>
 {
@@ -19,6 +20,22 @@ public:
 		DirectX::XMFLOAT3 material);
 	//void Update( float dt ) noexcept override;
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
+	// returns false if window is closed
+	bool SpawnControlWindow(int id, Graphics& gfx) noexcept;
+private:
+	void SyncMaterial(Graphics& gfx) noexcept(!IS_DEBUG);
+private:
+	/// <summary>
+	/// A private member class stores material color and shineness
+	/// </summary>
+	struct PSMaterialConstant
+	{
+		DirectX::XMFLOAT3 color;
+		float specularIntensity = 0.6f;
+		float specularPower = 30.0f;
+		float padding[3];
+	} materialConstants;
+	using MaterialCbuf = PixelConstantBuffer<PSMaterialConstant>;
 private:
 	// model transform
 	DirectX::XMFLOAT3X3 modelTransform;
