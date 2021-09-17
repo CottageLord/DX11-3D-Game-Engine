@@ -180,7 +180,7 @@
     <ClCompile Include="GRAPHICS_OBJ_Pyramid.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Texture.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Topology.cpp" />
-    <ClCompile Include="GRAPHICS_OBJ_VertexLayout.h" />
+    <ClCompile Include="GRAPHICS_OBJ_DynamicVertex.h" />
     <ClCompile Include="GRAPHICS_OBJ_VertexShader.cpp" />
     <ClCompile Include="GRAPHICS_SET_GDIPlusManager.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />

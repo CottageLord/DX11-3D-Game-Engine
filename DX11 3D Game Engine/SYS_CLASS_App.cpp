@@ -9,6 +9,7 @@
 //#include "GRAPHICS_OBJ_Sheet.h"
 #include "GRAPHICS_OBJ_SkinnedBox.h"
 #include "GRAPHICS_OBJ_Cylinder.h"
+//#include "GRAPHICS_OBJ_DynamicVertex.h"
 #include "AssTest.h"
 
 #include "imgui/imgui.h"
@@ -30,9 +31,6 @@ App::App()
 	wnd( 800,600,"°¢Ã©µÄÒýÇæ" ),
 	light(wnd.Gfx())
 {
-	
-	
-
 	class Factory
 	{
 	public:

@@ -6,7 +6,7 @@ cbuffer CBuf
 
 struct VSOut
 {
-	float3 camPos : Position;
+	float3 camPos	: Position;
 	float3 normal	: Normal;
 	float4 pos		: SV_Position;
 };

@@ -168,11 +168,11 @@
     <ClCompile Include="GRAPHICS_OBJ_Cylinder.cpp">
       <Filter>Source Files\Graphics\Drawabble</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_VertexLayout.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="AssTest.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_DynamicVertex.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
