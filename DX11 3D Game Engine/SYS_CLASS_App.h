@@ -8,6 +8,7 @@
 #include "SYS_CLASS_Timer.h"
 #include "SYS_CLASS_ImguiManager.h"
 #include "GRAPHICS_OBJ_Camera.h"
+#include "GRAPHICS_OBJ_Model.h"
 #include "GRAPHICS_LGT_PointLight.h"
 #include <set>
 
@@ -20,19 +21,22 @@ public:
 	~App();
 private:
 	void DoFrame();
-	void SpawnSimulationWindow() noexcept;
-	void SpawnBoxWindowManagerWindow() noexcept;
-	void SpawnBoxWindows() noexcept;
+	void ShowModelWindow();
 private:
 	ImguiManager imgui;
 	Window wnd;
 	EngineTimer timer;
 	Camera cam;
 	PointLight light;
-	std::vector<std::unique_ptr<class Drawable>> drawables;
-	std::vector<class Box*> boxes;
-	static constexpr size_t nDrawables = 180;
-	std::optional<int> comboBoxIndex;
-	std::set<int> boxControlIds;
 	float speed_factor = 1.0f;
+	Model nano{ wnd.Gfx(),"Models\\nanosuit.obj" };
+	struct
+	{
+		float roll = 0.0f;
+		float pitch = 0.0f;
+		float yaw = 0.0f;
+		float x = 0.0f;
+		float y = 0.0f;
+		float z = 0.0f;
+	} pos;
 };

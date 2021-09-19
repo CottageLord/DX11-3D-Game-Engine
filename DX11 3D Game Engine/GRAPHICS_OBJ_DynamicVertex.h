@@ -33,7 +33,8 @@ namespace DynamicVertex {
 			Float4Color,
 			BGRAColor,
 			Count
-		};/**
+		};
+		/**
 		 * @brief A compile time look-up table that maps enum types to its info
 		 */
 		template<ElementType> struct Map;

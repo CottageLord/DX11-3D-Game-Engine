@@ -2,7 +2,9 @@
 #include "SYS_SET_GraphicsThrowMacros.h"
 #include "GRAPHICS_BUF_IndexBuffer.h"
 #include <cassert>
-
+/**
+* @brief Binds all info to the gpu pipeline and excute drawIndexed()
+*/
 void Drawable::Draw(Graphics& gfx) const noexcept(!IS_DEBUG)
 {
 	for (auto& b : binds)

@@ -218,6 +218,7 @@
     <ClInclude Include="GRAPHICS_OBJ_IndexedTriangleList.h" />
     <ClInclude Include="GRAPHICS_OBJ_InputLayout.h" />
     <ClInclude Include="GRAPHICS_OBJ_Melon.h" />
+    <ClInclude Include="GRAPHICS_OBJ_Model.h" />
     <ClInclude Include="GRAPHICS_OBJ_PixelShader.h" />
     <ClInclude Include="GRAPHICS_OBJ_Plane.h" />
     <ClInclude Include="GRAPHICS_OBJ_Prism.h" />

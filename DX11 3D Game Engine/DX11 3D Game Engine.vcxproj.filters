@@ -347,6 +347,9 @@
     <ClInclude Include="AssTest.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Model.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc">
