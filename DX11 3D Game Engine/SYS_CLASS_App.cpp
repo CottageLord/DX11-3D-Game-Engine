@@ -1,11 +1,10 @@
 #include "SYS_CLASS_App.h"
 #include "SYS_SET_Math.h"
 #include "GRAPHICS_SET_GDIPlusManager.h"
-
+#include "GRAPHICS_OBJ_Surface.h"
 //#include "GRAPHICS_OBJ_Box.h"
 //#include "GRAPHICS_OBJ_Melon.h"
 //#include "GRAPHICS_OBJ_Pyramid.h"
-#include "GRAPHICS_OBJ_Surface.h"
 //#include "GRAPHICS_OBJ_Sheet.h"
 //#include "GRAPHICS_OBJ_SkinnedBox.h"
 //#include "GRAPHICS_OBJ_Cylinder.h"
@@ -13,7 +12,6 @@
 #include "AssTest.h"
 
 #include "imgui/imgui.h"
-
 
 #pragma comment(lib,"assimp-vc142-mtd.lib")
 

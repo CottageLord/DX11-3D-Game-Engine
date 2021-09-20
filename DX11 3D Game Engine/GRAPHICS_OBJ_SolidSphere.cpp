@@ -1,12 +1,13 @@
 #include "GRAPHICS_OBJ_SolidSphere.h"
 #include "SYS_SET_GraphicsThrowMacros.h"
-#include "GRAPHICS_SET_BindableBase.h"
+#include "GRAPHICS_SET_BindableCommon.h"
 #include "GRAPHICS_OBJ_Sphere.h"
 
 
 SolidSphere::SolidSphere(Graphics & gfx, float radius)
 {
 	namespace dx = DirectX;
+	using namespace GPipeline;
 
 	if (!IsStaticInitialized())
 	{

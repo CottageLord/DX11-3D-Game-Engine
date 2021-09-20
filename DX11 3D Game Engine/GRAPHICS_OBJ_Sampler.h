@@ -5,11 +5,14 @@
 #pragma once
 #include "GRAPHICS_OBJ_Bindable.h"
 
-class Sampler : public Bindable
+namespace GPipeline
 {
-public:
-	Sampler(Graphics& gfx);
-	void Bind(Graphics& gfx) noexcept override;
-protected:
-	Microsoft::WRL::ComPtr<ID3D11SamplerState> pSampler;
-};
+	class Sampler : public Bindable
+	{
+	public:
+		Sampler(Graphics& gfx);
+		void Bind(Graphics& gfx) noexcept override;
+	protected:
+		Microsoft::WRL::ComPtr<ID3D11SamplerState> pSampler;
+	};
+}

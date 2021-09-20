@@ -4,9 +4,15 @@
  */
 #pragma once
 #include "SYS_CLASS_Graphics.h"
+#include "SYS_SET_ConditionalNoexcept.h"
+#include "GRAPHICS_OBJ_Bindable.h"
 #include <DirectXMath.h>
 
-class Bindable;
+namespace GPipeline
+{
+	class Bindable;
+	class IndexBuffer;
+}
 
 /**
  * @brief The base class for all drawable geomrtric primitives (Cube, Sphere, Plane...).
@@ -21,7 +27,7 @@ public:
 	Drawable() = default;
 	Drawable(const Drawable&) = delete;
 	virtual DirectX::XMMATRIX GetTransformXM() const noexcept = 0;
-	void Draw(Graphics& gfx) const noexcept(!IS_DEBUG);
+	void Draw(Graphics& gfx) const noxnd;
 	virtual void Update(float dt) noexcept {};
 	virtual ~Drawable() = default;
 protected:
@@ -44,19 +50,19 @@ protected:
 	 * @brief Stores the *dynamic* bindable objects/settings, like transformation matrix. 
 	 * @param bind The bindable object that contains things like vertex buffer.
 	 */
-	void AddBind(std::unique_ptr<Bindable> bind) noexcept (!IS_DEBUG);
+	void AddBind(std::unique_ptr<GPipeline::Bindable> bind) noxnd;
 	/**
 	 * @brief Stores the index buffer. This need to be specialized because the index are independent argument in DX's Draw()
 	 * @param ibuf The bindable index buffer that will be used in drawing
 	 */
-	void AddIndexBuffer(std::unique_ptr<class IndexBuffer> ibuf) noexcept (!IS_DEBUG);
+	void AddIndexBuffer(std::unique_ptr<GPipeline::IndexBuffer> ibuf) noxnd;
 private:
 	/**
 	 * @brief Get all of the *static* bindable objects/settings, like vertex buffer 
 	 */
-	virtual const std::vector<std::unique_ptr<Bindable>>& GetStaticBinds() const noexcept = 0;
+	virtual const std::vector<std::unique_ptr<GPipeline::Bindable>>& GetStaticBinds() const noexcept = 0;
 	/// pointer to the GRAPHICS_BUF_IndexBuffer object, this should be set of every drawable instance
-	const class IndexBuffer* pIndexBuffer = nullptr;
+	const class GPipeline::IndexBuffer* pIndexBuffer = nullptr;
 	/// stores all *dynamic* bindable objects
-	std::vector<std::unique_ptr<Bindable>> binds;
+	std::vector<std::unique_ptr<GPipeline::Bindable>> binds;
 };

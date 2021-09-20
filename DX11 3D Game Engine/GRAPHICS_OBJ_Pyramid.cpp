@@ -1,6 +1,6 @@
 #include "GRAPHICS_OBJ_Pyramid.h"
 #include "SYS_SET_GraphicsThrowMacros.h"
-#include "GRAPHICS_SET_BindableBase.h"
+#include "GRAPHICS_SET_BindableCommon.h"
 #include "GRAPHICS_OBJ_Cone.h"
 #include <array>
 

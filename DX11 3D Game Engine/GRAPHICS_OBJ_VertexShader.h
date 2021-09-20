@@ -1,13 +1,15 @@
 #pragma once
 #include "GRAPHICS_OBJ_Bindable.h"
-
-class VertexShader : public Bindable
+namespace GPipeline
 {
-public:
-	VertexShader(Graphics& gfx, const std::wstring& path);
-	void Bind(Graphics& gfx) noexcept override;
-	ID3DBlob* GetBytecode() const noexcept;
-protected:
-	Microsoft::WRL::ComPtr<ID3DBlob> pBytecodeBlob;
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> pVertexShader;
-};
+	class VertexShader : public Bindable
+	{
+	public:
+		VertexShader(Graphics& gfx, const std::wstring& path);
+		void Bind(Graphics& gfx) noexcept override;
+		ID3DBlob* GetBytecode() const noexcept;
+	protected:
+		Microsoft::WRL::ComPtr<ID3DBlob> pBytecodeBlob;
+		Microsoft::WRL::ComPtr<ID3D11VertexShader> pVertexShader;
+	};
+}

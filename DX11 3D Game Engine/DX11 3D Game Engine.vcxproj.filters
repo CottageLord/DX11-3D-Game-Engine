@@ -93,14 +93,8 @@
     <ClCompile Include="GRAPHICS_OBJ_Bindable.cpp">
       <Filter>Source Files\Graphics\Bindable</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_Box.cpp">
-      <Filter>Source Files\Graphics\Drawabble</Filter>
-    </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_Drawable.cpp">
       <Filter>Source Files\Graphics\Drawabble</Filter>
-    </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_InputLayour.cpp">
-      <Filter>Source Files\Graphics\Bindable</Filter>
     </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_PixelShader.cpp">
       <Filter>Source Files\Graphics\Bindable</Filter>
@@ -111,12 +105,6 @@
     <ClCompile Include="GRAPHICS_OBJ_VertexShader.cpp">
       <Filter>Source Files\Graphics\Bindable</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_Pyramid.cpp">
-      <Filter>Source Files\Graphics\Drawabble</Filter>
-    </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_Melon.cpp">
-      <Filter>Source Files\Graphics\Drawabble</Filter>
-    </ClCompile>
     <ClCompile Include="GRAPHICS_SET_GDIPlusManager.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
@@ -126,14 +114,8 @@
     <ClCompile Include="GRAPHICS_OBJ_Texture.cpp">
       <Filter>Source Files\Graphics\Bindable</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_Sheet.cpp">
-      <Filter>Source Files\Graphics\Drawabble</Filter>
-    </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_Sampler.cpp">
       <Filter>Source Files\Graphics\Bindable</Filter>
-    </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_SkinnedBox.cpp">
-      <Filter>Source Files\Graphics\Drawabble</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>Header Files\imgui</Filter>
@@ -165,14 +147,20 @@
     <ClCompile Include="GRAPHICS_OBJ_SolidSphere.cpp">
       <Filter>Source Files\Graphics\Drawabble</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_Cylinder.cpp">
-      <Filter>Source Files\Graphics\Drawabble</Filter>
-    </ClCompile>
     <ClCompile Include="AssTest.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_DynamicVertex.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Mesh.cpp">
+      <Filter>Source Files\Graphics\Drawabble</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_InputLayout.cpp">
+      <Filter>Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_DynamicVertex.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,9 +209,6 @@
     <ClInclude Include="GRAPHICS_OBJ_Drawable.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_Box.h">
-      <Filter>Header Files\Graphics\Drawable</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_VertexShader.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
     </ClInclude>
@@ -251,9 +236,6 @@
     <ClInclude Include="GRAPHICS_OBJ_Topology.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_SET_BindableBase.h">
-      <Filter>Header Files\Graphics\Bindable</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_StaticDrawInfo.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
@@ -278,12 +260,6 @@
     <ClInclude Include="GRAPHICS_OBJ_Cone.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_Pyramid.h">
-      <Filter>Header Files\Graphics\Drawable</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_Melon.h">
-      <Filter>Header Files\Graphics\Drawable</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Surface.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
@@ -293,14 +269,8 @@
     <ClInclude Include="GRAPHICS_OBJ_Texture.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_Sheet.h">
-      <Filter>Header Files\Graphics\Drawable</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Sampler.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_SkinnedBox.h">
-      <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>Header Files\imgui</Filter>
@@ -341,14 +311,20 @@
     <ClInclude Include="GRAPHICS_OBJ_TestObject.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_Cylinder.h">
-      <Filter>Header Files\Graphics\Drawable</Filter>
-    </ClInclude>
     <ClInclude Include="AssTest.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_Model.h">
+    <ClInclude Include="GRAPHICS_SET_Color.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_SET_ConditionalNoexcept.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Mesh.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_SET_BindableCommon.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

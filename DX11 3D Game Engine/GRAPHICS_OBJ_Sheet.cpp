@@ -1,6 +1,6 @@
 #include "GRAPHICS_OBJ_Sheet.h"
 #include "SYS_SET_GraphicsThrowMacros.h"
-#include "GRAPHICS_SET_BindableBase.h"
+#include "GRAPHICS_SET_BindableCommon.h"
 #include "GRAPHICS_OBJ_Plane.h"
 #include "GRAPHICS_OBJ_Surface.h"
 #include "GRAPHICS_OBJ_Texture.h"

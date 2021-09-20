@@ -2,6 +2,8 @@
 #include "SYS_SET_FilterWinH.h"
 #include "SYS_CLASS_MFException.h"
 #include "SYS_CLASS_DXgiInfoManager.h"
+#include "SYS_SET_ConditionalNoexcept.h"
+
 
 #include <vector>
 #include <wrl.h>
@@ -11,10 +13,14 @@
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 
+namespace GPipeline
+{
+	class Bindable;
+}
 
 class Graphics
 {
-	friend class Bindable;
+	friend /*class*/ GPipeline::Bindable;
 public:
 	class Exception : public MFException
 	{
@@ -60,7 +66,7 @@ public:
 	// draw what we've got in this frame
 	void EndFrame();
 	void BeginFrame(float red, float green, float blue) noexcept;
-	void DrawIndexed(UINT count) noexcept(!IS_DEBUG);
+	void DrawIndexed(UINT count) noxnd;
 	void SetProjection(DirectX::FXMMATRIX proj) noexcept;
 	DirectX::XMMATRIX GetProjection() const noexcept;
 	void SetCamera(DirectX::FXMMATRIX cam) noexcept;

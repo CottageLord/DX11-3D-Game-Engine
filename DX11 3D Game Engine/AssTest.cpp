@@ -1,11 +1,13 @@
 #include "AssTest.h"
-#include "GRAPHICS_SET_BindableBase.h"
+#include "GRAPHICS_SET_BindableCommon.h"
 #include "SYS_SET_GraphicsThrowMacros.h"
 #include "GRAPHICS_OBJ_DynamicVertex.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+
+using namespace GPipeline;
 
 AssTest::AssTest(Graphics & gfx, std::mt19937 & rng,
 	std::uniform_real_distribution<float>&adist,

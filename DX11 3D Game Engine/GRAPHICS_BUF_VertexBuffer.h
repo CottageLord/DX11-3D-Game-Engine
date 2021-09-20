@@ -3,54 +3,38 @@
 #include "SYS_SET_GraphicsThrowMacros.h"
 #include "GRAPHICS_OBJ_DynamicVertex.h"
 
-class VertexBuffer : public Bindable
+namespace GPipeline
 {
-public:
-	/*
-	Templates get inlined by default. Therefore they are not visible to the linker. 
-	And the file that contains main() cannot see the definition of the templates.
-	We usually put the implementation in header file or in a .tpp file
-	*/
-	template<class V>
-	VertexBuffer(Graphics& gfx, const std::vector<V>& vertices)
-		:
-		stride( sizeof( V ) )
+	class VertexBuffer : public Bindable
 	{
-		GET_INFO_MAN(gfx);
+	public:
+		/*
+		Templates get inlined by default. Therefore they are not visible to the linker.
+		And the file that contains main() cannot see the definition of the templates.
+		We usually put the implementation in header file or in a .tpp file
+		*/
+		template<class V>
+		VertexBuffer(Graphics& gfx, const std::vector<V>& vertices)
+			:
+			stride(sizeof(V))
+		{
+			GET_INFO_MAN(gfx);
 
-		D3D11_BUFFER_DESC bd = {};
-		bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.CPUAccessFlags = 0u;
-		bd.MiscFlags = 0u;
-		bd.ByteWidth = UINT(sizeof(V) * vertices.size());
-		bd.StructureByteStride = sizeof(V);
-		D3D11_SUBRESOURCE_DATA sd = {};
-		sd.pSysMem = vertices.data();
-
-		GFX_THROW_INFO(GetDevice(gfx)->CreateBuffer(&bd, &sd, &pVertexBuffer));
-	}
-
-	VertexBuffer(Graphics& gfx, const DynamicVertex::VertexBuffer& vbuf)
-		:
-		stride((UINT)vbuf.GetLayout().Size())
-	{
-		GET_INFO_MAN(gfx);
-
-		D3D11_BUFFER_DESC bd = {};
-		bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.CPUAccessFlags = 0u;
-		bd.MiscFlags = 0u;
-		bd.ByteWidth = UINT(vbuf.SizeBytes());
-		bd.StructureByteStride = stride;
-		D3D11_SUBRESOURCE_DATA sd = {};
-		sd.pSysMem = vbuf.GetData();
-		GFX_THROW_INFO(GetDevice(gfx)->CreateBuffer(&bd, &sd, &pVertexBuffer));
-	}
-
-	void Bind(Graphics& gfx) noexcept override;
-protected:
-	UINT stride = 0;
-	Microsoft::WRL::ComPtr<ID3D11Buffer> pVertexBuffer;
-};
+			D3D11_BUFFER_DESC bd = {};
+			bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+			bd.Usage = D3D11_USAGE_DEFAULT;
+			bd.CPUAccessFlags = 0u;
+			bd.MiscFlags = 0u;
+			bd.ByteWidth = UINT(sizeof(V) * vertices.size());
+			bd.StructureByteStride = sizeof(V);
+			D3D11_SUBRESOURCE_DATA sd = {};
+			sd.pSysMem = vertices.data();
+			GFX_THROW_INFO(GetDevice(gfx)->CreateBuffer(&bd, &sd, &pVertexBuffer));
+		}
+		VertexBuffer(Graphics& gfx, const DynamicVertex::VertexBuffer& vbuf);
+		void Bind(Graphics& gfx) noexcept override;
+	protected:
+		UINT stride;
+		Microsoft::WRL::ComPtr<ID3D11Buffer> pVertexBuffer;
+	};
+}

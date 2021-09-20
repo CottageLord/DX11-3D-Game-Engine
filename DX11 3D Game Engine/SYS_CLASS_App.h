@@ -8,7 +8,7 @@
 #include "SYS_CLASS_Timer.h"
 #include "SYS_CLASS_ImguiManager.h"
 #include "GRAPHICS_OBJ_Camera.h"
-#include "GRAPHICS_OBJ_Model.h"
+#include "GRAPHICS_OBJ_Mesh.h"
 #include "GRAPHICS_LGT_PointLight.h"
 #include <set>
 

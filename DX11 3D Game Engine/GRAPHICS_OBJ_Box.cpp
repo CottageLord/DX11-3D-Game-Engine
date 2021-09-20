@@ -1,5 +1,5 @@
 #include "GRAPHICS_OBJ_Box.h"
-#include "GRAPHICS_SET_BindableBase.h"
+#include "GRAPHICS_SET_BindableCommon.h"
 #include "SYS_SET_GraphicsThrowMacros.h"
 #include "GRAPHICS_OBJ_Cube.h"
 #include "GRAPHICS_OBJ_Cylinder.h"
@@ -101,7 +101,7 @@ bool Box::SpawnControlWindow(int id, Graphics& gfx) noexcept
 	return open;
 }
 
-void Box::SyncMaterial(Graphics& gfx) noexcept(!IS_DEBUG)
+void Box::SyncMaterial(Graphics& gfx) noxnd
 {
 	auto pConstPS = QueryBindable<MaterialCbuf>();
 	assert(pConstPS != nullptr);

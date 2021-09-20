@@ -2,10 +2,13 @@
 #include "SYS_SET_GraphicsThrowMacros.h"
 #include "GRAPHICS_BUF_IndexBuffer.h"
 #include <cassert>
+
+using namespace GPipeline;
+
 /**
 * @brief Binds all info to the gpu pipeline and excute drawIndexed()
 */
-void Drawable::Draw(Graphics& gfx) const noexcept(!IS_DEBUG)
+void Drawable::Draw(Graphics& gfx) const noxnd
 {
 	for (auto& b : binds)
 	{
@@ -18,13 +21,13 @@ void Drawable::Draw(Graphics& gfx) const noexcept(!IS_DEBUG)
 	gfx.DrawIndexed(pIndexBuffer->GetCount());
 }
 
-void Drawable::AddBind(std::unique_ptr<Bindable> bind) noexcept(!IS_DEBUG)
+void Drawable::AddBind(std::unique_ptr<GPipeline::Bindable> bind) noxnd
 {
 	assert("*Must* use AddIndexBuffer to bind index buffer" && typeid(*bind) != typeid(IndexBuffer));
 	binds.push_back(std::move(bind));
 }
 
-void Drawable::AddIndexBuffer(std::unique_ptr<IndexBuffer> ibuf) noexcept(!IS_DEBUG)
+void Drawable::AddIndexBuffer(std::unique_ptr<IndexBuffer> ibuf) noxnd
 {
 	assert("Attempting to add index buffer a second time" && pIndexBuffer == nullptr);
 	pIndexBuffer = ibuf.get();

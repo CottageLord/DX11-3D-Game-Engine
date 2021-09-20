@@ -23,7 +23,7 @@ public:
 	// returns false if window is closed
 	bool SpawnControlWindow(int id, Graphics& gfx) noexcept;
 private:
-	void SyncMaterial(Graphics& gfx) noexcept(!IS_DEBUG);
+	void SyncMaterial(Graphics& gfx) noxnd;
 private:
 	/// <summary>
 	/// A private member class stores material color and shineness
@@ -35,7 +35,7 @@ private:
 		float specularPower = 30.0f;
 		float padding[3];
 	} materialConstants;
-	using MaterialCbuf = PixelConstantBuffer<PSMaterialConstant>;
+	//using MaterialCbuf = PixelConstantBuffer<PSMaterialConstant>;
 private:
 	// model transform
 	DirectX::XMFLOAT3X3 modelTransform;

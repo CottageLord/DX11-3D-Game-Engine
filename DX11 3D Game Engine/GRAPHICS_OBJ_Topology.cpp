@@ -1,11 +1,14 @@
 #include "GRAPHICS_OBJ_Topology.h"
 
-Topology::Topology(Graphics& gfx, D3D11_PRIMITIVE_TOPOLOGY type)
-	:
-	type(type)
-{}
-
-void Topology::Bind(Graphics& gfx) noexcept
+namespace GPipeline
 {
-	GetContext(gfx)->IASetPrimitiveTopology(type);
+	Topology::Topology(Graphics& gfx, D3D11_PRIMITIVE_TOPOLOGY type)
+		:
+		type(type)
+	{}
+
+	void Topology::Bind(Graphics& gfx) noexcept
+	{
+		GetContext(gfx)->IASetPrimitiveTopology(type);
+	}
 }

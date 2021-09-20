@@ -4,12 +4,14 @@
  */
 #pragma once
 #include "GRAPHICS_OBJ_Bindable.h"
-
-class Texture : public Bindable
+namespace GPipeline
 {
-public:
-	Texture(Graphics& gfx, const class Surface& s);
-	void Bind(Graphics& gfx) noexcept override;
-protected:
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> pTextureView;
-};
+	class Texture : public Bindable
+	{
+	public:
+		Texture(Graphics& gfx, const class Surface& s);
+		void Bind(Graphics& gfx) noexcept override;
+	protected:
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> pTextureView;
+	};
+}

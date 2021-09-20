@@ -6,6 +6,7 @@
 #pragma once
 #include "GRAPHICS_OBJ_Drawable.h"
 #include "GRAPHICS_BUF_IndexBuffer.h"
+#include "SYS_SET_ConditionalNoexcept.h"
 
 /*
 Template class gets automatically shared within a group of children and exists independently across types
@@ -25,16 +26,17 @@ protected:
 	 * @brief bind a static object (i.e. Vertex Buffer of all cubes)
 	 * @param bind unique_ptr to the object
 	 */
-	/*static*/ void AddStaticBind(std::unique_ptr<Bindable> bind) noexcept(!IS_DEBUG)
+	/*static*/ void AddStaticBind(std::unique_ptr<GPipeline::Bindable> bind) noxnd
 	{
-		assert("*Must* use AddStaticIndexBuffer to bind index buffer" && typeid(*bind) != typeid(IndexBuffer)); 
+		assert("*Must* use AddStaticIndexBuffer to bind index buffer" && 
+			typeid(*bind) != typeid(GPipeline::IndexBuffer));
 		staticBinds.push_back(std::move(bind));
 	}
 	/**
 	 * @brief bind the shared index buffer
 	 * @param ibuf unique_ptr to the index buffer
 	 */
-	void AddStaticIndexBuffer(std::unique_ptr<IndexBuffer> ibuf) noexcept(!IS_DEBUG)
+	void AddStaticIndexBuffer(std::unique_ptr<GPipeline::IndexBuffer> ibuf) noxnd
 	{
 		assert("Attempting to add index buffer a second time" && pIndexBuffer == nullptr);
 		pIndexBuffer = ibuf.get(); // set the index buf for current obj
@@ -44,7 +46,7 @@ protected:
 	/**
 	 * @brief bind the shared index buffer with the shared ibuf from siblings
 	 */
-	void SetIndexFromStatic() noexcept(!IS_DEBUG)
+	void SetIndexFromStatic() noxnd
 	{
 		assert("Attempting to add index buffer a second time" && pIndexBuffer == nullptr);
 		/*for (const auto& b : staticBinds)
@@ -62,18 +64,18 @@ private:
 	/**
 	 * @brief returns pointers to all shared bindable data
 	 */
-	const std::vector<std::unique_ptr<Bindable>>& GetStaticBinds() const noexcept override
+	const std::vector<std::unique_ptr<GPipeline::Bindable>>& GetStaticBinds() const noexcept override
 	{
 		return staticBinds;
 	}
 private:
 	/// all shared bindable data
-	static std::vector<std::unique_ptr<Bindable>> staticBinds;
+	static std::vector<std::unique_ptr<GPipeline::Bindable>> staticBinds;
 	/// the shared index buffer
-	static class IndexBuffer* pSharedIndBuf;
+	static class GPipeline::IndexBuffer* pSharedIndBuf;
 };
 // initialize the static variable
 template<class T>
-std::vector<std::unique_ptr<Bindable>> StaticDrawInfo<T>::staticBinds;
+std::vector<std::unique_ptr<GPipeline::Bindable>> StaticDrawInfo<T>::staticBinds;
 template<class T>
-IndexBuffer* StaticDrawInfo<T>::pSharedIndBuf;
+GPipeline::IndexBuffer* StaticDrawInfo<T>::pSharedIndBuf;
