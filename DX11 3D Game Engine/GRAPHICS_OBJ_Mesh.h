@@ -50,12 +50,11 @@ private:
 class Node
 {
 	friend class Model;
-	friend class ModelWindow;
 public:
 	/**
 	* @brief Initialize a node with given mesh and inutial transform
 	*/
-	Node(const std::string& name, std::vector<Mesh*> meshPtrs, const DirectX::XMMATRIX& transform_in) noxnd;
+	Node(int id, const std::string& name, std::vector<Mesh*> meshPtrs, const DirectX::XMMATRIX& transform) noxnd;
 	/**
 	* @brief Draw a node with given accumulatedTransform
 	* @param DirectX::FXMMATRIX accumulatedTransform we need to mutiply the node's trans with this one
@@ -65,19 +64,24 @@ public:
 	* @brief
 	*/
 	void SetAppliedTransform(DirectX::FXMMATRIX transform) noexcept;
-private:
-	/**
-	* @brief An addChild() that could only be accessed by friend Model class
-	*/
-	void AddChild( std::unique_ptr<Node> pChild ) noxnd;
 	/**
 	* @brief Draw a node with given accumulatedTransform
 	* @param nodeIndex An unique index id for each node, increment through recursion
 	* @param selectedIndex An index num for tracking the selected node, member var, neccessary for imgui
 	* @param selectedNode neccessary for graphics
 	*/
-	void ShowTree(int& nodeIndex, std::optional<int>& selectedIndex, Node*& pSelectedNode) const noexcept;
+	void ShowTree(Node*& pSelectedNode) const noexcept;
+	/**
+	* @brief return the permanant ID of the current node
+	*/
+	int GetId() const noexcept;
 private:
+	/**
+	* @brief An addChild() that could only be accessed by friend Model class
+	*/
+	void AddChild( std::unique_ptr<Node> pChild ) noxnd;
+private:
+	int id;
 	std::string name;
 	std::vector<std::unique_ptr<Node>> childPtrs;
 	std::vector<Mesh*> meshPtrs;
@@ -105,7 +109,7 @@ public:
 	void ShowWindow(const char* windowName = nullptr) noexcept;
 private:
 	static std::unique_ptr<Mesh> ParseMesh( Graphics& gfx,const aiMesh& mesh );
-	std::unique_ptr<Node> ParseNode( const aiNode& node ) noexcept;
+	std::unique_ptr<Node> ParseNode(int& nextId, const aiNode& node) noexcept;
 private:
 	std::unique_ptr<Node> pRoot;
 	std::vector<std::unique_ptr<Mesh>> meshPtrs;

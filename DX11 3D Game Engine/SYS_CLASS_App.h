@@ -23,6 +23,7 @@ private:
 	void DoFrame();
 	void ShowImguiDemoWindow();
 private:
+	bool show_demo_window = true;
 	ImguiManager imgui;
 	Window wnd;
 	EngineTimer timer;
