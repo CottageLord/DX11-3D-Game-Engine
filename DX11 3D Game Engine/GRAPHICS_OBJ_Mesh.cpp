@@ -35,7 +35,9 @@ const std::string& ModelException::GetNote() const noexcept
 // Mesh
 Mesh::Mesh(Graphics & gfx, std::vector<std::shared_ptr<GPipeline::Bindable>> bindPtrs)
 {
-	AddBind(std::make_shared<GPipeline::Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
+	// make sure to share the topology
+	AddBind(GPipeline::Topology::Resolve(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
+
 	for (auto& pb : bindPtrs)
 	{
 		AddBind(std::move(pb));
@@ -230,6 +232,7 @@ Model::~Model() noexcept
 std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials)
 {
 	using DynamicVertex::VertexLayout;
+	using namespace GPipeline;
 	// specify layout
 	DynamicVertex::VertexBuffer vbuf(std::move(
 		VertexLayout{}
@@ -258,7 +261,10 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 		indices.push_back(face.mIndices[2]);
 	}
 
-	std::vector<std::shared_ptr<GPipeline::Bindable>> bindablePtrs;
+	std::vector<std::shared_ptr<Bindable>> bindablePtrs;
+
+	using namespace std::string_literals;
+	const auto base = "Models\\nano_textured\\"s;
 
 	bool hasSpecularMap = false;
 	float shininess = 35.0f; // default shineness
@@ -266,19 +272,14 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 	if (mesh.mMaterialIndex >= 0)
 	{
 		auto& material = *pMaterials[mesh.mMaterialIndex];
-
-		using namespace std::string_literals;
-		const auto base = "models\\nano_textured\\"s;
 		aiString texFileName;
 		material.GetTexture(aiTextureType_DIFFUSE, 0, &texFileName);
-		bindablePtrs.push_back(std::make_shared<GPipeline::Texture>
-			(gfx, GPipeline::Surface::FromFile(base + texFileName.C_Str())));
+		bindablePtrs.push_back(Texture::Resolve(gfx, base + texFileName.C_Str()));
 
 		// if textures are loaded successfully
 		if (material.GetTexture(aiTextureType_SPECULAR, 0, &texFileName) == aiReturn_SUCCESS)
 		{
-			bindablePtrs.push_back(std::make_shared<GPipeline::Texture>
-				(gfx, GPipeline::Surface::FromFile(base + texFileName.C_Str()), 1));
+			bindablePtrs.push_back(Texture::Resolve(gfx, base + texFileName.C_Str(), 1));
 			hasSpecularMap = true;
 		}
 		else
@@ -287,27 +288,28 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 			material.Get(AI_MATKEY_SHININESS, shininess);
 		}
 
-		bindablePtrs.push_back(std::make_shared<GPipeline::Sampler>(gfx));
+		bindablePtrs.push_back(GPipeline::Sampler::Resolve(gfx));
 	}
 
-	bindablePtrs.push_back(std::make_shared<GPipeline::VertexBuffer>(gfx, vbuf));
+	auto meshTag = base + "%" + mesh.mName.C_Str();
+	bindablePtrs.push_back(VertexBuffer::Resolve(gfx, meshTag, vbuf));
 
-	bindablePtrs.push_back(std::make_shared<GPipeline::IndexBuffer>(gfx, indices));
+	bindablePtrs.push_back(IndexBuffer::Resolve(gfx, meshTag, indices));
 
-	auto pvs = std::make_shared<GPipeline::VertexShader>(gfx, L"PhongVS.cso");
+	auto pvs = VertexShader::Resolve(gfx, "PhongVS.cso");
 	auto pvsbc = pvs->GetBytecode();
+
 	bindablePtrs.push_back(std::move(pvs));
 
-
-	bindablePtrs.push_back(std::make_shared<GPipeline::InputLayout>(gfx, vbuf.GetLayout().GetD3DLayout(), pvsbc));
+	bindablePtrs.push_back(InputLayout::Resolve(gfx, vbuf.GetLayout(), pvsbc));
 	// use different shaders with or without specular map
 	if (hasSpecularMap)
 	{
-		bindablePtrs.push_back(std::make_shared<GPipeline::PixelShader>(gfx, L"PhongPSSpecMap.cso"));
+		bindablePtrs.push_back(PixelShader::Resolve(gfx, "PhongPSSpecMap.cso"));
 	}
 	else
 	{
-		bindablePtrs.push_back(std::make_shared<GPipeline::PixelShader>(gfx, L"PhongPS.cso"));
+		bindablePtrs.push_back(PixelShader::Resolve(gfx, "PhongPSSpecMap.cso"));
 
 		struct PSMaterialConstant
 		{
@@ -316,8 +318,9 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 			float padding[2];
 		} pmc;
 		pmc.specularPower = shininess;
-		bindablePtrs.push_back(std::make_shared<GPipeline::PixelConstantBuffer<PSMaterialConstant>>
-			(gfx, pmc, 1u));
+		// this is CLEARLY an issue... all meshes will share same mat const, but may have different
+		// Ns (specular power) specified for each in the material properties... bad conflict
+		bindablePtrs.push_back(PixelConstantBuffer<PSMaterialConstant>::Resolve(gfx, pmc, 1u));
 	}
 	// create the mesh drawable
 	return std::make_unique<Mesh>(gfx, std::move(bindablePtrs));

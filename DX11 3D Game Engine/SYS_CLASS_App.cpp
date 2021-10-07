@@ -2,6 +2,7 @@
 #include "SYS_SET_Math.h"
 #include "GRAPHICS_SET_GDIPlusManager.h"
 #include "GRAPHICS_OBJ_Surface.h"
+#include "GRAPHICS_BUF_VertexBuffer.h"
 //#include "GRAPHICS_OBJ_Box.h"
 //#include "GRAPHICS_OBJ_Melon.h"
 //#include "GRAPHICS_OBJ_Pyramid.h"
@@ -55,6 +56,8 @@ void App::DoFrame()
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
 
 	nano.Draw(wnd.Gfx());
+	nano2.Draw(wnd.Gfx());
+
 	light.Draw(wnd.Gfx());
 
 	while (const auto e = wnd.kbd.ReadKey())
@@ -103,7 +106,8 @@ void App::DoFrame()
 	light.SpawnControlWindow();
 
 	//zShowImguiDemoWindow();
-	nano.ShowWindow();
+	nano.ShowWindow("Model 1");
+	nano2.ShowWindow("Model 2");
 	// present
 	wnd.Gfx().EndFrame();
 	// imgui windows to control camera and light

@@ -1,16 +1,21 @@
 #include "GRAPHICS_OBJ_Texture.h"
 #include "GRAPHICS_OBJ_Surface.h"
+#include "GRAPHICS_OBJ_BindablePool.h"
 #include "SYS_SET_GraphicsThrowMacros.h"
 
 namespace GPipeline
 {
 	namespace wrl = Microsoft::WRL;
 
-	Texture::Texture(Graphics& gfx, const Surface& s, unsigned int slot)
+	Texture::Texture(Graphics& gfx, const std::string& path, UINT slot)
 		:
+		path(path),
 		tSlot(slot)
 	{
 		GET_INFO_MAN(gfx);
+
+		// load surface
+		const auto s = Surface::FromFile(path);
 
 		// create texture2D resource
 		D3D11_TEXTURE2D_DESC textureDesc = {};
@@ -51,5 +56,20 @@ namespace GPipeline
 		// |__Bound texture to pipeline register(slot 0), can be accessed with 
 		// declaring Texture in ps
 		// Texture2D tex : register(t0) t for texture
+	}
+
+	std::shared_ptr<Texture> Texture::Resolve(Graphics& gfx, const std::string& path, UINT slot)
+	{
+		return BindablePool::Resolve<Texture>(gfx, path, slot);
+	}
+	std::string Texture::GenerateUID(const std::string& path, UINT slot)
+	{
+		using namespace std::string_literals;
+		// distinguisah between textures in different slots
+		return typeid(Texture).name() + "#"s + path + "#" + std::to_string(slot);
+	}
+	std::string Texture::GetUID() const noexcept
+	{
+		return GenerateUID(path, tSlot);
 	}
 }

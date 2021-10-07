@@ -1,5 +1,7 @@
 #include "GRAPHICS_OBJ_Sampler.h"
 #include "SYS_SET_GraphicsThrowMacros.h"
+#include "GRAPHICS_OBJ_BindablePool.h"
+
 namespace GPipeline
 {
 	Sampler::Sampler(Graphics& gfx)
@@ -14,7 +16,7 @@ namespace GPipeline
 		//         |___the rendered is doing mipmaping
 		//             |___in this case all 3 are doing linear (smooth blending between pixels)
 		//                 use POINT for pixel-art like effect
-// set wrapping mode
+		// set wrapping mode
 		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
@@ -27,5 +29,17 @@ namespace GPipeline
 		GetContext(gfx)->PSSetSamplers(0, 1, pSampler.GetAddressOf());
 		// |__Bound sampler to pipeline register(slot 0), 
 		// can be accessed with declaring SamplerState in ps
+	}
+	std::shared_ptr<Sampler> Sampler::Resolve(Graphics& gfx)
+	{
+		return BindablePool::Resolve<Sampler>(gfx);
+	}
+	std::string Sampler::GenerateUID()
+	{
+		return typeid(Sampler).name();
+	}
+	std::string Sampler::GetUID() const noexcept
+	{
+		return GenerateUID();
 	}
 }

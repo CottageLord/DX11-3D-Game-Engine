@@ -302,6 +302,9 @@
     <ClInclude Include="GRAPHICS_OBJ_DynamicVertex.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_BindablePool.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc">

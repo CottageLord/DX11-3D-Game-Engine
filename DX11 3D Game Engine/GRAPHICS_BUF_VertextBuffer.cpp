@@ -1,10 +1,20 @@
 #include "GRAPHICS_BUF_VertexBuffer.h"
+#include "GRAPHICS_OBJ_BindablePool.h"
 
 namespace GPipeline
 {
+	/**
+	* @brief Constructor for vBuf that is not in the BindablePool system
+	*/
 	VertexBuffer::VertexBuffer(Graphics& gfx, const DynamicVertex::VertexBuffer& vbuf)
 		:
-		stride((UINT)vbuf.GetLayout().Size())
+		VertexBuffer(gfx, "?", vbuf)
+	{}
+
+	VertexBuffer::VertexBuffer(Graphics& gfx, const std::string& tag, const DynamicVertex::VertexBuffer& vbuf)
+		:
+		stride((UINT)vbuf.GetLayout().Size()),
+		tag(tag)
 	{
 		GET_INFO_MAN(gfx);
 
@@ -24,5 +34,22 @@ namespace GPipeline
 	{
 		const UINT offset = 0u;
 		GetContext(gfx)->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
+	}
+
+	std::shared_ptr<VertexBuffer> VertexBuffer::Resolve(Graphics& gfx, const std::string& tag,
+		const DynamicVertex::VertexBuffer& vbuf)
+	{
+		// cannot use Bindable system when constructed without tag
+		assert(tag != "?");
+		return BindablePool::Resolve<VertexBuffer>(gfx, tag, vbuf);
+	}
+	std::string VertexBuffer::GenerateUID_(const std::string& tag)
+	{
+		using namespace std::string_literals;
+		return typeid(VertexBuffer).name() + "#"s + tag;
+	}
+	std::string VertexBuffer::GetUID() const noexcept
+	{
+		return GenerateUID(tag);
 	}
 }

@@ -201,6 +201,7 @@
     <ClInclude Include="GRAPHICS_BUF_TransformCBuffer.h" />
     <ClInclude Include="GRAPHICS_BUF_VertexBuffer.h" />
     <ClInclude Include="GRAPHICS_LGT_PointLight.h" />
+    <ClInclude Include="GRAPHICS_OBJ_BindablePool.h" />
     <ClInclude Include="GRAPHICS_OBJ_Bindable.h" />
     <ClInclude Include="GRAPHICS_OBJ_Camera.h" />
     <ClInclude Include="GRAPHICS_OBJ_Drawable.h" />

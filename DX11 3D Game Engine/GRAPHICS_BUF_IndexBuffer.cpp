@@ -1,10 +1,20 @@
 #include "GRAPHICS_BUF_IndexBuffer.h"
 #include "SYS_SET_GraphicsThrowMacros.h"
+#include "GRAPHICS_OBJ_BindablePool.h"
 
 namespace GPipeline
 {
+	/**
+	* @brief Constructor for iBuf that is not in the BindablePool system
+	*/
 	IndexBuffer::IndexBuffer(Graphics& gfx, const std::vector<unsigned short>& indices)
 		:
+		IndexBuffer(gfx, "?", indices)
+	{}
+
+	IndexBuffer::IndexBuffer(Graphics& gfx, std::string tag, const std::vector<unsigned short>& indices)
+		:
+		tag(tag),
 		count((UINT)indices.size())
 	{
 		GET_INFO_MAN(gfx);
@@ -29,5 +39,21 @@ namespace GPipeline
 	UINT IndexBuffer::GetCount() const noexcept
 	{
 		return count;
+	}
+	std::shared_ptr<IndexBuffer> IndexBuffer::Resolve(Graphics& gfx, const std::string& tag,
+		const std::vector<unsigned short>& indices)
+	{
+		// cannot use Bindable system when constructed without tag
+		assert(tag != "?");
+		return BindablePool::Resolve<IndexBuffer>(gfx, tag, indices);
+	}
+	std::string IndexBuffer::GenerateUID_(const std::string& tag)
+	{
+		using namespace std::string_literals;
+		return typeid(IndexBuffer).name() + "#"s + tag;
+	}
+	std::string IndexBuffer::GetUID() const noexcept
+	{
+		return GenerateUID_(tag);
 	}
 }
