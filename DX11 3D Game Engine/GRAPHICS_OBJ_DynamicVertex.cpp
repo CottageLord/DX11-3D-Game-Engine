@@ -12,14 +12,17 @@ namespace DynamicVertex
 		elements.emplace_back(type, Size());
 		return *this;
 	}
+
 	size_t VertexLayout::Size() const noxnd
 	{
 		return elements.empty() ? 0u : elements.back().GetOffsetAfter();
 	}
+	
 	size_t VertexLayout::GetElementCount() const noexcept
 	{
 		return elements.size();
 	}
+
 	std::vector<D3D11_INPUT_ELEMENT_DESC> VertexLayout::GetD3DLayout() const noxnd
 	{
 		std::vector<D3D11_INPUT_ELEMENT_DESC> desc;

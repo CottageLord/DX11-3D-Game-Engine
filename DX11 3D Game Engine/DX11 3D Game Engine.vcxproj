@@ -159,7 +159,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AssTest.cpp" />
     <ClCompile Include="GRAPHICS_BUF_IndexBuffer.cpp" />
     <ClCompile Include="GRAPHICS_BUF_TransformCBuffer.cpp" />
     <ClCompile Include="GRAPHICS_BUF_VertextBuffer.cpp" />
@@ -176,7 +175,6 @@
     <ClCompile Include="GRAPHICS_OBJ_PixelShader.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Texture.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Topology.cpp" />
-    <ClCompile Include="GRAPHICS_OBJ_DynamicVertex.h" />
     <ClCompile Include="GRAPHICS_OBJ_VertexShader.cpp" />
     <ClCompile Include="GRAPHICS_SET_GDIPlusManager.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -198,7 +196,6 @@
     <ClCompile Include="SYS_SET_Dxerr.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AssTest.h" />
     <ClInclude Include="GRAPHICS_BUF_ConstantBuffers.h" />
     <ClInclude Include="GRAPHICS_BUF_IndexBuffer.h" />
     <ClInclude Include="GRAPHICS_BUF_TransformCBuffer.h" />
@@ -206,21 +203,17 @@
     <ClInclude Include="GRAPHICS_LGT_PointLight.h" />
     <ClInclude Include="GRAPHICS_OBJ_Bindable.h" />
     <ClInclude Include="GRAPHICS_OBJ_Camera.h" />
-    <ClInclude Include="GRAPHICS_OBJ_Cone.h" />
-    <ClInclude Include="GRAPHICS_OBJ_Cube.h" />
     <ClInclude Include="GRAPHICS_OBJ_Drawable.h" />
+    <ClInclude Include="GRAPHICS_OBJ_DynamicVertex.h" />
     <ClInclude Include="GRAPHICS_OBJ_IndexedTriangleList.h" />
     <ClInclude Include="GRAPHICS_OBJ_InputLayout.h" />
     <ClInclude Include="GRAPHICS_OBJ_Mesh.h" />
     <ClInclude Include="GRAPHICS_OBJ_PixelShader.h" />
-    <ClInclude Include="GRAPHICS_OBJ_Plane.h" />
-    <ClInclude Include="GRAPHICS_OBJ_Prism.h" />
     <ClInclude Include="GRAPHICS_OBJ_Sampler.h" />
     <ClInclude Include="GRAPHICS_OBJ_SolidSphere.h" />
     <ClInclude Include="GRAPHICS_OBJ_Sphere.h" />
     <ClInclude Include="GRAPHICS_OBJ_StaticDrawInfo.h" />
     <ClInclude Include="GRAPHICS_OBJ_Surface.h" />
-    <ClInclude Include="GRAPHICS_OBJ_TestObject.h" />
     <ClInclude Include="GRAPHICS_OBJ_Texture.h" />
     <ClInclude Include="GRAPHICS_OBJ_Topology.h" />
     <ClInclude Include="GRAPHICS_OBJ_VertexShader.h" />

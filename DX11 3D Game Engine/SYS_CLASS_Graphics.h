@@ -1,8 +1,8 @@
 #pragma once
 #include "SYS_SET_FilterWinH.h"
-#include "SYS_CLASS_MFException.h"
-#include "SYS_CLASS_DXgiInfoManager.h"
 #include "SYS_SET_ConditionalNoexcept.h"
+#include "SYS_CLASS_DXgiInfoManager.h"
+#include "SYS_CLASS_MFException.h"
 
 
 #include <vector>
@@ -59,7 +59,7 @@ public:
 		std::string info;
 	};
 public:
-	Graphics(HWND hWnd);
+	Graphics(HWND hWnd, int width, int height);
 	Graphics(const Graphics&) = delete;
 	Graphics& operator=(const Graphics&) = delete;
 	~Graphics();

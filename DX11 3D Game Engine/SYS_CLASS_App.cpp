@@ -9,7 +9,7 @@
 //#include "GRAPHICS_OBJ_SkinnedBox.h"
 //#include "GRAPHICS_OBJ_Cylinder.h"
 //#include "GRAPHICS_OBJ_DynamicVertex.h"
-#include "AssTest.h"
+//#include "AssTest.h"
 
 #include "imgui/imgui.h"
 
@@ -23,10 +23,10 @@ GDIPlusManager gdipm;
 
 App::App()
 	:
-	wnd( 800,600,"阿茅的引擎" ),
+	wnd( 1280,720,"阿茅的引擎" ),
 	light(wnd.Gfx())
 {
-	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
+	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 40.0f));
 }
 
 int App::Go()
@@ -55,38 +55,28 @@ void App::DoFrame()
 	// bind the light info so it could be accessed by all drawables
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
 
-	const auto transform = dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
-		dx::XMMatrixTranslation(pos.x, pos.y, pos.z);
-	nano.Draw(wnd.Gfx(), transform);
+	nano.Draw(wnd.Gfx());
 
 	light.Draw(wnd.Gfx());
 	// imgui windows
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
-	ShowModelWindow();
+
+	//zShowImguiDemoWindow();
+	nano.ShowWindow();
 
 	// present
 	wnd.Gfx().EndFrame();
 	// imgui windows to control camera and light
 }
 
-void App::ShowModelWindow()
+void App::ShowImguiDemoWindow()
 {
-	if (ImGui::Begin("Model"))
+	static bool show_demo_window = true;
+	if (show_demo_window)
 	{
-		using namespace std::string_literals;
-
-		ImGui::Text("Orientation");
-		ImGui::SliderAngle("Roll", &pos.roll, -180.0f, 180.0f);
-		ImGui::SliderAngle("Pitch", &pos.pitch, -180.0f, 180.0f);
-		ImGui::SliderAngle("Yaw", &pos.yaw, -180.0f, 180.0f);
-
-		ImGui::Text("Position");
-		ImGui::SliderFloat("X", &pos.x, -20.0f, 20.0f);
-		ImGui::SliderFloat("Y", &pos.y, -20.0f, 20.0f);
-		ImGui::SliderFloat("Z", &pos.z, -20.0f, 20.0f);
+		ImGui::ShowDemoWindow(&show_demo_window);
 	}
-	ImGui::End();
 }
 
 App::~App()

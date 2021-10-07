@@ -3,8 +3,8 @@
 	* @brief 
 	*/
 #pragma once
-#include "SYS_CLASS_Graphics.h"
 #include "SYS_SET_ConditionalNoexcept.h"
+#include "SYS_CLASS_Graphics.h"
 #include "GRAPHICS_SET_Color.h"
 
 #include <vector>
@@ -136,7 +136,7 @@ namespace DynamicVertex
 		 */
 		size_t Size() const noxnd;
 		/**
-		 * @brief returns the size of the vertex info in nums of elements
+		 * @brief returns the count of elements vector
 		 * @return size_t the count of elements in the std::vector<Element>
 		 */
 		size_t GetElementCount() const noexcept;

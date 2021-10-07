@@ -147,12 +147,6 @@
     <ClCompile Include="GRAPHICS_OBJ_SolidSphere.cpp">
       <Filter>Source Files\Graphics\Drawabble</Filter>
     </ClCompile>
-    <ClCompile Include="AssTest.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_DynamicVertex.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_Mesh.cpp">
       <Filter>Source Files\Graphics\Drawabble</Filter>
     </ClCompile>
@@ -245,19 +239,7 @@
     <ClInclude Include="SYS_SET_Math.h">
       <Filter>Header Files\Application</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_Prism.h">
-      <Filter>Header Files\Graphics\Drawable</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_Plane.h">
-      <Filter>Header Files\Graphics\Drawable</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_IndexedTriangleList.h">
-      <Filter>Header Files\Graphics\Drawable</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_Cube.h">
-      <Filter>Header Files\Graphics\Drawable</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_Cone.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Surface.h">
@@ -308,12 +290,6 @@
     <ClInclude Include="GRAPHICS_OBJ_SolidSphere.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_TestObject.h">
-      <Filter>Header Files\Graphics\Drawable</Filter>
-    </ClInclude>
-    <ClInclude Include="AssTest.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_SET_Color.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
@@ -325,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="GRAPHICS_SET_BindableCommon.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_DynamicVertex.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
