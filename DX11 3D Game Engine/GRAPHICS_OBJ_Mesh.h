@@ -1,7 +1,8 @@
 #pragma once
 #include "SYS_SET_ConditionalNoexcept.h"
 #include "GRAPHICS_SET_BindableCommon.h"
-#include "GRAPHICS_OBJ_StaticDrawInfo.h"
+//#include "GRAPHICS_OBJ_StaticDrawInfo.h"
+#include "GRAPHICS_OBJ_Drawable.h"
 #include "GRAPHICS_OBJ_DynamicVertex.h"
 
 #include <assimp/Importer.hpp>
@@ -27,14 +28,14 @@ private:
 /**
 * @brief
 */
-class Mesh : public StaticDrawInfo<Mesh>
+class Mesh : public Drawable
 {
 public:
 	/**
 	* @brief Take in the drawable data for flexibility concern (Dependency Injection)
 	* @param std::vector<std::unique_ptr<Bindable>> bindPtrs all bindable info
 	*/
-	Mesh( Graphics& gfx,std::vector<std::unique_ptr<GPipeline::Bindable>> bindPtrs );
+	Mesh( Graphics& gfx,std::vector<std::shared_ptr<GPipeline::Bindable>> bindPtrs );
 	/**
 	* @brief Store the parents' transforms and excute draw()
 	* @param DirectX::FXMMATRIX accumulatedTransform The combined transform from the parent nodes
@@ -108,7 +109,12 @@ public:
 	void Draw(Graphics& gfx) const noxnd;
 	void ShowWindow(const char* windowName = nullptr) noexcept;
 private:
-	static std::unique_ptr<Mesh> ParseMesh( Graphics& gfx,const aiMesh& mesh );
+	/**
+	* @brief 
+	* @param mesh A reference to the model itself
+	* @param pMaterials An array of ptrs to materials
+	*/
+	static std::unique_ptr<Mesh> ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials);
 	std::unique_ptr<Node> ParseNode(int& nextId, const aiNode& node) noexcept;
 private:
 	std::unique_ptr<Node> pRoot;

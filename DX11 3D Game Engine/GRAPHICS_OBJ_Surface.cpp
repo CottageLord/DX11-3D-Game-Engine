@@ -123,7 +123,6 @@ namespace GPipeline
 				}
 			}
 		}
-
 		return Surface(width, height, std::move(pBuffer));
 	}
 

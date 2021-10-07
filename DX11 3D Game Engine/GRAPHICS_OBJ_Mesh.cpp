@@ -1,5 +1,6 @@
 
 #include "GRAPHICS_OBJ_Mesh.h"
+#include "GRAPHICS_OBJ_Surface.h"
 #include "imgui/imgui.h"
 #include <unordered_map>
 #include <sstream>
@@ -32,29 +33,15 @@ const std::string& ModelException::GetNote() const noexcept
 }
 
 // Mesh
-Mesh::Mesh(Graphics & gfx, std::vector<std::unique_ptr<GPipeline::Bindable>> bindPtrs)
+Mesh::Mesh(Graphics & gfx, std::vector<std::shared_ptr<GPipeline::Bindable>> bindPtrs)
 {
-	if (!IsStaticInitialized())
-	{
-		AddStaticBind(std::make_unique<GPipeline::Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
-	}
-
+	AddBind(std::make_shared<GPipeline::Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 	for (auto& pb : bindPtrs)
 	{
-		// if passed, we have two unique pointers pointing to the index buff
-		if (auto pi = dynamic_cast<GPipeline::IndexBuffer*>(pb.get()))
-		{
-			AddIndexBuffer(std::unique_ptr<GPipeline::IndexBuffer>{ pi });
-			// thus we need to release the original one
-			pb.release();
-		}
-		else
-		{
-			AddBind(std::move(pb));
-		}
+		AddBind(std::move(pb));
 	}
 
-	AddBind(std::make_unique<GPipeline::TransformCbuffer>(gfx, *this));
+	AddBind(std::make_shared<GPipeline::TransformCbuffer>(gfx, *this));
 }
 void Mesh::Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const noxnd
 {
@@ -215,7 +202,7 @@ Model::Model(Graphics& gfx, const std::string fileName)
 	// store all meshes
 	for (size_t i = 0; i < pScene->mNumMeshes; i++)
 	{
-		meshPtrs.push_back(ParseMesh(gfx, *pScene->mMeshes[i]));
+		meshPtrs.push_back(ParseMesh(gfx, *pScene->mMeshes[i], pScene->mMaterials));
 	}
 
 	// recursively calls all children
@@ -240,7 +227,7 @@ void Model::ShowWindow(const char* windowName) noexcept
 Model::~Model() noexcept
 {}
 
-std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh)
+std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials)
 {
 	using DynamicVertex::VertexLayout;
 	// specify layout
@@ -248,13 +235,15 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh)
 		VertexLayout{}
 		.Append(VertexLayout::Position3D)
 		.Append(VertexLayout::Normal)
+		.Append(VertexLayout::Texture2D)
 	));
 	// interpret vertecies
 	for (unsigned int i = 0; i < mesh.mNumVertices; i++)
 	{
 		vbuf.EmplaceBack(
 			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mVertices[i]),
-			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mNormals[i])
+			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mNormals[i]),
+			*reinterpret_cast<dx::XMFLOAT2*>(&mesh.mTextureCoords[0][i]) // scan channel 0
 		);
 	}
 	// iterate through the polygons
@@ -269,28 +258,67 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh)
 		indices.push_back(face.mIndices[2]);
 	}
 
-	std::vector<std::unique_ptr<GPipeline::Bindable>> bindablePtrs;
+	std::vector<std::shared_ptr<GPipeline::Bindable>> bindablePtrs;
 
-	bindablePtrs.push_back(std::make_unique<GPipeline::VertexBuffer>(gfx, vbuf));
+	bool hasSpecularMap = false;
+	float shininess = 35.0f; // default shineness
+	// load meshes
+	if (mesh.mMaterialIndex >= 0)
+	{
+		auto& material = *pMaterials[mesh.mMaterialIndex];
 
-	bindablePtrs.push_back(std::make_unique<GPipeline::IndexBuffer>(gfx, indices));
+		using namespace std::string_literals;
+		const auto base = "models\\nano_textured\\"s;
+		aiString texFileName;
+		material.GetTexture(aiTextureType_DIFFUSE, 0, &texFileName);
+		bindablePtrs.push_back(std::make_shared<GPipeline::Texture>
+			(gfx, GPipeline::Surface::FromFile(base + texFileName.C_Str())));
 
-	auto pvs = std::make_unique<GPipeline::VertexShader>(gfx, L"PhongVS.cso");
+		// if textures are loaded successfully
+		if (material.GetTexture(aiTextureType_SPECULAR, 0, &texFileName) == aiReturn_SUCCESS)
+		{
+			bindablePtrs.push_back(std::make_shared<GPipeline::Texture>
+				(gfx, GPipeline::Surface::FromFile(base + texFileName.C_Str()), 1));
+			hasSpecularMap = true;
+		}
+		else
+		{
+			// load the shineness from the model file if exists
+			material.Get(AI_MATKEY_SHININESS, shininess);
+		}
+
+		bindablePtrs.push_back(std::make_shared<GPipeline::Sampler>(gfx));
+	}
+
+	bindablePtrs.push_back(std::make_shared<GPipeline::VertexBuffer>(gfx, vbuf));
+
+	bindablePtrs.push_back(std::make_shared<GPipeline::IndexBuffer>(gfx, indices));
+
+	auto pvs = std::make_shared<GPipeline::VertexShader>(gfx, L"PhongVS.cso");
 	auto pvsbc = pvs->GetBytecode();
 	bindablePtrs.push_back(std::move(pvs));
 
-	bindablePtrs.push_back(std::make_unique<GPipeline::PixelShader>(gfx, L"PhongPS.cso"));
 
-	bindablePtrs.push_back(std::make_unique<GPipeline::InputLayout>(gfx, vbuf.GetLayout().GetD3DLayout(), pvsbc));
-	// temporary material
-	struct PSMaterialConstant
+	bindablePtrs.push_back(std::make_shared<GPipeline::InputLayout>(gfx, vbuf.GetLayout().GetD3DLayout(), pvsbc));
+	// use different shaders with or without specular map
+	if (hasSpecularMap)
 	{
-		DirectX::XMFLOAT3 color = { 0.6f,0.6f,0.8f };
-		float specularIntensity = 0.6f;
-		float specularPower = 30.0f;
-		float padding[3];
-	} pmc;
-	bindablePtrs.push_back(std::make_unique<GPipeline::PixelConstantBuffer<PSMaterialConstant>>(gfx, pmc, 1u));
+		bindablePtrs.push_back(std::make_shared<GPipeline::PixelShader>(gfx, L"PhongPSSpecMap.cso"));
+	}
+	else
+	{
+		bindablePtrs.push_back(std::make_shared<GPipeline::PixelShader>(gfx, L"PhongPS.cso"));
+
+		struct PSMaterialConstant
+		{
+			float specularIntensity = 0.8f;
+			float specularPower = 0.0f;
+			float padding[2];
+		} pmc;
+		pmc.specularPower = shininess;
+		bindablePtrs.push_back(std::make_shared<GPipeline::PixelConstantBuffer<PSMaterialConstant>>
+			(gfx, pmc, 1u));
+	}
 	// create the mesh drawable
 	return std::make_unique<Mesh>(gfx, std::move(bindablePtrs));
 }

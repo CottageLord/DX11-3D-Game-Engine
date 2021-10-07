@@ -6,7 +6,9 @@ namespace GPipeline
 {
 	namespace wrl = Microsoft::WRL;
 
-	Texture::Texture(Graphics& gfx, const Surface& s)
+	Texture::Texture(Graphics& gfx, const Surface& s, unsigned int slot)
+		:
+		tSlot(slot)
 	{
 		GET_INFO_MAN(gfx);
 
@@ -45,7 +47,7 @@ namespace GPipeline
 
 	void Texture::Bind(Graphics& gfx) noexcept
 	{
-		GetContext(gfx)->PSSetShaderResources(0u, 1u, pTextureView.GetAddressOf());
+		GetContext(gfx)->PSSetShaderResources(tSlot, 1u, pTextureView.GetAddressOf());
 		// |__Bound texture to pipeline register(slot 0), can be accessed with 
 		// declaring Texture in ps
 		// Texture2D tex : register(t0) t for texture

@@ -230,9 +230,6 @@
     <ClInclude Include="GRAPHICS_OBJ_Topology.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_StaticDrawInfo.h">
-      <Filter>Header Files\Graphics\Drawable</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Sphere.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
@@ -359,6 +356,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="IndexedPhongPS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongPSSpecMap.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

@@ -1,23 +1,25 @@
 cbuffer LightCBuf
 {
-	float3 lightPos;
-	float3 ambient;
-	float3 diffuseColor;
-	float diffuseIntensity;
-	float attConst;
-	float attLin;
-	float attQuad;
+    float3 lightPos;
+    float3 ambient;
+    float3 diffuseColor;
+    float diffuseIntensity;
+    float attConst;
+    float attLin;
+    float attQuad;
 };
 // for each object's material
 cbuffer ObjectCBuf
 {
-	float3 materialColor;
-	float specularIntensity;
-	float specularPower;
+    float specularIntensity;
+    float specularPower;
+    float padding[2];
 };
 
+Texture2D tex;
+SamplerState splr;
 
-float4 main(float3 worldPos : Position, float3 n : Normal) : SV_Target
+float4 main(float3 worldPos : Position, float3 n : Normal, float2 tc : Texcoord) : SV_Target
 {
 	// fragment to light vector data
 	const float3 vToL = lightPos - worldPos;
@@ -33,6 +35,6 @@ float4 main(float3 worldPos : Position, float3 n : Normal) : SV_Target
 	// calculate specular intensity based on angle between viewing vector and reflection vector, 
 	// narrow with power function and attenuation
 	const float3 specular = att * (diffuseColor * diffuseIntensity) * specularIntensity * pow(max(0.0f, dot(normalize(-r), normalize(worldPos))), specularPower);
-	// final color
-	return float4(saturate((diffuse + ambient + specular) * materialColor), 1.0f);
+	// final color, differenciate specular, in case the black texture cancels out all specular
+    return float4(saturate((diffuse + ambient) * tex.Sample(splr, tc).rgb + specular), 1.0f);
 }
