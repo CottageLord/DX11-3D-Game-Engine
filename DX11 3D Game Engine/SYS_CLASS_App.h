@@ -12,6 +12,8 @@
 #include "GRAPHICS_LGT_PointLight.h"
 #include <set>
 
+#include "TestPlane.h"
+
 class App
 {
 public:
@@ -33,4 +35,5 @@ private:
 	Model nano { wnd.Gfx(),"models\\nano_textured\\nanosuit.obj" };
 	Model nano2{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj" };
 	//Model nano{ wnd.Gfx(),"Models\\zhongli_textured\\zhongli.pmx" };
+	TestPlane plane;
 };

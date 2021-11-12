@@ -14,7 +14,7 @@
 namespace DynamicVertex 
 {
 	/**
-	 * @brief 
+	 * @brief a vertex buffer class that could accept various layouts (how data is stored in model file)
 	 */
 	class VertexLayout
 	{

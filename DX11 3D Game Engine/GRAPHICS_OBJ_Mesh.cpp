@@ -48,7 +48,7 @@ Mesh::Mesh(Graphics & gfx, std::vector<std::shared_ptr<GPipeline::Bindable>> bin
 void Mesh::Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const noxnd
 {
 	DirectX::XMStoreFloat4x4(&transform, accumulatedTransform);
-	Drawable::Draw(gfx);
+	Drawable::Draw(gfx); // call parent's draw func
 }
 DirectX::XMMATRIX Mesh::GetTransformXM() const noexcept
 {

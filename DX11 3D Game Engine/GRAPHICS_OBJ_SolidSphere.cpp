@@ -27,7 +27,7 @@ SolidSphere::SolidSphere(Graphics& gfx, float radius)
 		float padding;
 	} colorConst;
 
-	AddBind(PixelConstantBuffer<PSColorConstant>::Resolve(gfx, colorConst));
+	AddBind(PixelConstantBuffer<PSColorConstant>::Resolve(gfx, colorConst, 1u));
 	// load the layout from the model file
 	AddBind(InputLayout::Resolve(gfx, model.vertices.GetLayout(), pvsbc));
 

@@ -37,7 +37,7 @@ public:
 	*/
 	Mesh( Graphics& gfx,std::vector<std::shared_ptr<GPipeline::Bindable>> bindPtrs );
 	/**
-	* @brief Store the parents' transforms and excute draw()
+	* @brief Store the parents' transforms and excute the parent's draw()
 	* @param DirectX::FXMMATRIX accumulatedTransform The combined transform from the parent nodes
 	*/
 	void Draw( Graphics& gfx,DirectX::FXMMATRIX accumulatedTransform ) const noxnd;
@@ -62,7 +62,7 @@ public:
 	*/
 	void Draw( Graphics& gfx,DirectX::FXMMATRIX accumulatedTransform ) const noxnd;
 	/**
-	* @brief
+	* @brief stores the new position of this node
 	*/
 	void SetAppliedTransform(DirectX::FXMMATRIX transform) noexcept;
 	/**
@@ -91,12 +91,12 @@ private:
 	/// </summary>
 	DirectX::XMFLOAT4X4 localTransform;
 	/// <summary>
-	/// Controlled by the gui sliders
+	/// the moved position in the engine
 	/// </summary>
 	DirectX::XMFLOAT4X4 appliedTransform;
 };
 /**
-* @brief
+* @brief a loaded model with multiple nodes
 */
 class Model
 {
@@ -110,11 +110,14 @@ public:
 	void ShowWindow(const char* windowName = nullptr) noexcept;
 private:
 	/**
-	* @brief 
+	* @brief parse and store (vertex/index/normal/tc...) data from the mesh file
 	* @param mesh A reference to the model itself
 	* @param pMaterials An array of ptrs to materials
 	*/
 	static std::unique_ptr<Mesh> ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials);
+	/**
+	* @brief parse the node structure from the assimp node input
+	*/
 	std::unique_ptr<Node> ParseNode(int& nextId, const aiNode& node) noexcept;
 private:
 	std::unique_ptr<Node> pRoot;

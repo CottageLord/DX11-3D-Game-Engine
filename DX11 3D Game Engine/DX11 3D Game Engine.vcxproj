@@ -194,6 +194,7 @@
     <ClCompile Include="SYS_MAIN_Loop.cpp" />
     <ClCompile Include="SYS_CLASS_Window.cpp" />
     <ClCompile Include="SYS_SET_Dxerr.cpp" />
+    <ClCompile Include="TestPlane.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GRAPHICS_BUF_ConstantBuffers.h" />
@@ -219,6 +220,7 @@
     <ClInclude Include="GRAPHICS_OBJ_VertexShader.h" />
     <ClInclude Include="GRAPHICS_SET_BindableCommon.h" />
     <ClInclude Include="GRAPHICS_SET_Color.h" />
+    <ClInclude Include="Plane.h" />
     <ClInclude Include="SYS_SET_ConditionalNoexcept.h" />
     <ClInclude Include="GRAPHICS_SET_GDIPlusManager.h" />
     <ClInclude Include="imgui\imconfig.h" />
@@ -245,6 +247,7 @@
     <ClInclude Include="SYS_SET_Dxerr.h" />
     <ClInclude Include="SYS_SET_FilterWinH.h" />
     <ClInclude Include="SYS_SET_WindowsThrowMacros.h" />
+    <ClInclude Include="TestPlane.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc" />
@@ -328,6 +331,14 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="PhongPSNormalMap.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="PhongVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
