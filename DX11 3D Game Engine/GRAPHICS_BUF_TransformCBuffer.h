@@ -6,15 +6,21 @@ namespace GPipeline
 {
 	class TransformCbuffer : public Bindable
 	{
-	private:
+	protected:
 		struct Transforms
 		{
+			DirectX::XMMATRIX modelView;
 			DirectX::XMMATRIX modelViewProj;
-			DirectX::XMMATRIX model;
 		};
 	public:
 		TransformCbuffer(Graphics& gfx, const Drawable& target, UINT slot = 0u);
+		/**
+		* @brief update vs shader with the new transform matrix
+		*/
 		void Bind(Graphics& gfx) noexcept override;
+	protected:
+		void UpdateBindImpl(Graphics& gfx, const Transforms& tf) noexcept;
+		Transforms GetTransforms(Graphics& gfx) noexcept;
 	private:
 		/// <summary>
 		/// A static constant buffer that will be reused across all primitives to store 

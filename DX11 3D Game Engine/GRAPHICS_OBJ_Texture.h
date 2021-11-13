@@ -17,7 +17,9 @@ namespace GPipeline
 		*/
 		static std::string GenerateUID(const std::string& path, UINT slot = 0);
 		std::string GetUID() const noexcept override;
+		bool HasAlpha() const noexcept;
 	protected:
+		bool hasAlpha = false;
 		std::string path;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> pTextureView;
 	private:

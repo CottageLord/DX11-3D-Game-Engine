@@ -25,7 +25,6 @@ public:
 	virtual DirectX::XMMATRIX GetTransformXM() const noexcept = 0;
 	void Draw(Graphics& gfx) const noxnd;
 	virtual ~Drawable() = default;
-protected:
 	/**
 	 * @brief Find the particular bindable object by its type.
 	 */
@@ -41,6 +40,7 @@ protected:
 		}
 		return nullptr;
 	}
+protected:
 	/**
 	 * @brief Stores the *dynamic* bindable objects/settings, like transformation matrix. 
 	 * @param bind The bindable object that contains things like vertex buffer.

@@ -32,8 +32,11 @@ private:
 	Camera cam;
 	PointLight light;
 	float speed_factor = 1.0f;
-	Model nano { wnd.Gfx(),"models\\nano_textured\\nanosuit.obj" };
-	Model nano2{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj" };
-	//Model nano{ wnd.Gfx(),"Models\\zhongli_textured\\zhongli.pmx" };
-	TestPlane plane;
+
+	//Model zhongli{ wnd.Gfx(),"Models\\zhongli_textured\\zhongli.pmx" };
+	Model gobber{ wnd.Gfx(),"Models\\gobber\\GoblinX.obj",6.0f };
+	Model wall{ wnd.Gfx(),"Models\\brick_wall\\brick_wall.obj",6.0f };
+	TestPlane tp{ wnd.Gfx(),6.0 };
+	Model nano{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj",2.0f };
+	//TestPlane plane;
 };

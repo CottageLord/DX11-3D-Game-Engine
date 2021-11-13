@@ -16,6 +16,7 @@ namespace GPipeline
 
 		// load surface
 		const auto s = Surface::FromFile(path);
+		hasAlpha = s.AlphaLoaded();
 
 		// create texture2D resource
 		D3D11_TEXTURE2D_DESC textureDesc = {};
@@ -71,5 +72,9 @@ namespace GPipeline
 	std::string Texture::GetUID() const noexcept
 	{
 		return GenerateUID(path, tSlot);
+	}
+	bool Texture::HasAlpha() const noexcept
+	{
+		return hasAlpha;
 	}
 }

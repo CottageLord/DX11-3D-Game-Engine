@@ -1,6 +1,7 @@
 #include "TestPlane.h"
 #include "Plane.h"
 #include "GRAPHICS_SET_BindableCommon.h"
+#include "GRAPHICS_BUF_TransformCbufferPS.h"
 #include "imgui/imgui.h"
 
 TestPlane::TestPlane(Graphics& gfx, float size)
@@ -21,15 +22,16 @@ TestPlane::TestPlane(Graphics& gfx, float size)
 	auto pvsbc = pvs->GetBytecode();
 	AddBind(std::move(pvs));
 
-	AddBind(PixelShader::Resolve(gfx, "PhongPSNormalMap.cso"));
+	AddBind(PixelShader::Resolve(gfx, "PhongPSNormalMapObjSpace.cso"));
 
 	AddBind(PixelConstantBuffer<PSMaterialConstant>::Resolve(gfx, pmc, 1u));
 
 	AddBind(InputLayout::Resolve(gfx, model.vertices.GetLayout(), pvsbc));
 
 	AddBind(Topology::Resolve(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
-
-	AddBind(std::make_shared<TransformCbuffer>(gfx, *this));
+	// update transform to vs slot 0u and ps slot 2u (see shader code)
+	AddBind(std::make_shared<TransformCbufferPS>(gfx, *this, 0u, 2u));
+	//AddBind(std::make_shared<TransformCbuffer>(gfx, *this));
 }
 
 void TestPlane::SetPos(DirectX::XMFLOAT3 pos) noexcept

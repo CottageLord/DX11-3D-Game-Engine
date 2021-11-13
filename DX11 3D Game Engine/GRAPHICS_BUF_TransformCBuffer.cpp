@@ -14,17 +14,25 @@ namespace GPipeline
 
 	void TransformCbuffer::Bind(Graphics& gfx) noexcept
 	{
+		UpdateBindImpl(gfx, GetTransforms(gfx));
+	}
+
+	void TransformCbuffer::UpdateBindImpl(Graphics & gfx, const Transforms & tf) noexcept
+	{
+		pVcbFinalMatrix->Update(gfx, tf);
+		pVcbFinalMatrix->Bind(gfx);
+	}
+
+	TransformCbuffer::Transforms TransformCbuffer::GetTransforms(Graphics & gfx) noexcept
+	{
 		const auto modelView = drawTarget.GetTransformXM() * gfx.GetCamera();
-		const Transforms tf =
-		{
+		return {
 			DirectX::XMMatrixTranspose(modelView),
 			DirectX::XMMatrixTranspose(
 				modelView *
 				gfx.GetProjection()
 			)
 		};
-		pVcbFinalMatrix->Update(gfx, tf);
-		pVcbFinalMatrix->Bind(gfx);
 	}
 
 	std::unique_ptr<VertexConstantBuffer<TransformCbuffer::Transforms>> TransformCbuffer::pVcbFinalMatrix;

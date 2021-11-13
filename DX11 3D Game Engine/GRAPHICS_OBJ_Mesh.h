@@ -4,12 +4,16 @@
 //#include "GRAPHICS_OBJ_StaticDrawInfo.h"
 #include "GRAPHICS_OBJ_Drawable.h"
 #include "GRAPHICS_OBJ_DynamicVertex.h"
+#include "GRAPHICS_BUF_ConstantBuffers.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <type_traits>
+#include "imgui/imgui.h"
 
 #include <optional>
+#include <filesystem>
 
 /**
 * @brief An exception object that reports model loading error
@@ -52,6 +56,23 @@ class Node
 {
 	friend class Model;
 public:
+	struct PSMaterialConstantFullmonte
+	{
+		BOOL  normalMapEnabled = TRUE;
+		BOOL  specularMapEnabled = TRUE;
+		BOOL  hasGlossMap = FALSE;
+		float specularPower = 3.1f;
+		DirectX::XMFLOAT3 specularColor = { 0.75f,0.75f,0.75f };
+		float specularMapWeight = 0.671f;
+	};
+	struct PSMaterialConstantNotex
+	{
+		DirectX::XMFLOAT4 materialColor = { 0.447970f,0.327254f,0.176283f,1.0f };
+		DirectX::XMFLOAT4 specularColor = { 0.65f,0.65f,0.65f,1.0f };
+		float specularPower = 120.0f;
+		float padding[3];
+	};
+public:
 	/**
 	* @brief Initialize a node with given mesh and inutial transform
 	*/
@@ -76,6 +97,61 @@ public:
 	* @brief return the permanant ID of the current node
 	*/
 	int GetId() const noexcept;
+	// a tester
+	template<class T>
+	bool ControlMeDaddy(Graphics& gfx, T& c)
+	{
+		if (meshPtrs.empty())
+		{
+			return false;
+		}
+
+		if constexpr (std::is_same<T, PSMaterialConstantFullmonte>::value)
+		{
+			if (auto pcb = meshPtrs.front()->QueryBindable<GPipeline::PixelConstantBuffer<T>>())
+			{
+				ImGui::Text("Material");
+
+				bool normalMapEnabled = (bool)c.normalMapEnabled;
+				ImGui::Checkbox("Norm Map", &normalMapEnabled);
+				c.normalMapEnabled = normalMapEnabled ? TRUE : FALSE;
+
+				bool specularMapEnabled = (bool)c.specularMapEnabled;
+				ImGui::Checkbox("Spec Map", &specularMapEnabled);
+				c.specularMapEnabled = specularMapEnabled ? TRUE : FALSE;
+
+				bool hasGlossMap = (bool)c.hasGlossMap;
+				ImGui::Checkbox("Gloss Alpha", &hasGlossMap);
+				c.hasGlossMap = hasGlossMap ? TRUE : FALSE;
+
+				ImGui::SliderFloat("Spec Weight", &c.specularMapWeight, 0.0f, 2.0f);
+
+				ImGui::SliderFloat("Spec Pow", &c.specularPower, 0.0f, 1000.0f, "%f", 5.0f);
+
+				ImGui::ColorPicker3("Spec Color", reinterpret_cast<float*>(&c.specularColor));
+
+				pcb->Update(gfx, c);
+				return true;
+			}
+		}
+		else if constexpr (std::is_same<T, PSMaterialConstantNotex>::value)
+		{
+			if (auto pcb = meshPtrs.front()->QueryBindable<GPipeline::PixelConstantBuffer<T>>())
+			{
+				ImGui::Text("Material");
+
+				ImGui::ColorPicker3("Spec Color", reinterpret_cast<float*>(&c.specularColor));
+
+				ImGui::SliderFloat("Spec Pow", &c.specularPower, 0.0f, 1000.0f, "%f", 5.0f);
+
+				ImGui::ColorPicker3("Diff Color", reinterpret_cast<float*>(&c.materialColor));
+
+				pcb->Update(gfx, c);
+				return true;
+			}
+		}
+		return false;
+	}
 private:
 	/**
 	* @brief An addChild() that could only be accessed by friend Model class
@@ -104,17 +180,18 @@ public:
 	/**
 	* @brief Load a model with given model file
 	*/
-	Model( Graphics& gfx,const std::string fileName );
+	Model(Graphics& gfx, const std::string& pathString, float scale = 1.0f);
 	~Model() noexcept;
+	void SetRootTransform(DirectX::FXMMATRIX tf) noexcept;
 	void Draw(Graphics& gfx) const noxnd;
-	void ShowWindow(const char* windowName = nullptr) noexcept;
+	void ShowWindow(Graphics& gfx, const char* windowName = nullptr) noexcept;
 private:
 	/**
 	* @brief parse and store (vertex/index/normal/tc...) data from the mesh file
 	* @param mesh A reference to the model itself
 	* @param pMaterials An array of ptrs to materials
 	*/
-	static std::unique_ptr<Mesh> ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials);
+	static std::unique_ptr<Mesh> ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials, const std::filesystem::path& path, float scale);
 	/**
 	* @brief parse the node structure from the assimp node input
 	*/
