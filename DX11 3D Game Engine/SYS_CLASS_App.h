@@ -17,7 +17,7 @@
 class App
 {
 public:
-	App();
+	App(const std::string& commandLine = "");
 	// master frame / message loop
 	int Go();
 	~App();
@@ -25,6 +25,7 @@ private:
 	void DoFrame();
 	void ShowImguiDemoWindow();
 private:
+	std::string commandLine;
 	bool show_demo_window = true;
 	ImguiManager imgui;
 	Window wnd;
@@ -33,10 +34,12 @@ private:
 	PointLight light;
 	float speed_factor = 1.0f;
 
-	//Model zhongli{ wnd.Gfx(),"Models\\zhongli_textured\\zhongli.pmx" };
-	Model gobber{ wnd.Gfx(),"Models\\gobber\\GoblinX.obj",6.0f };
-	Model wall{ wnd.Gfx(),"Models\\brick_wall\\brick_wall.obj",6.0f };
+	//Model gobber{ wnd.Gfx(),"Models\\gobber\\GoblinX.obj",6.0f };
+	//Model nano{ wnd.Gfx(),"Models\\traveler_textured\\traveler_En.pmx" };
+	//Model wall{ wnd.Gfx(),"Models\\brick_wall\\brick_wall.obj",6.0f };
+	//Model gobber{ wnd.Gfx(),"Models\\zhongli_textured\\zhongli_En.pmx" };
+	//Model nano{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj",2.0f };
+	Model sponza{ wnd.Gfx(),"Models\\sponza\\sponza.obj",1.0f / 20.0f };
 	TestPlane tp{ wnd.Gfx(),6.0 };
-	Model nano{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj",2.0f };
 	//TestPlane plane;
 };

@@ -3,6 +3,8 @@
 #include "GRAPHICS_SET_GDIPlusManager.h"
 #include "GRAPHICS_OBJ_Surface.h"
 #include "GRAPHICS_BUF_VertexBuffer.h"
+//#include "GRAPHICS_HELP_NormalMapTwerker.h"
+#include "GRAPHICS_HELP_TexturePreprocessor.h"
 //#include "GRAPHICS_OBJ_Box.h"
 //#include "GRAPHICS_OBJ_Melon.h"
 //#include "GRAPHICS_OBJ_Pyramid.h"
@@ -18,21 +20,58 @@
 
 #include <algorithm>
 #include <memory>
+#include <shellapi.h>
 
 namespace dx = DirectX;
 GDIPlusManager gdipm;
 
-App::App()
+App::App(const std::string& commandLine)
 	:
 	wnd( 1280,720,"°¢Ã©µÄÒýÇæ" ),
 	light(wnd.Gfx())
 {
-	wall.SetRootTransform(dx::XMMatrixTranslation(-12.0f, 0.0f, 0.0f));
-	tp.SetPos({ 12.0f,0.0f,0.0f });
-	gobber.SetRootTransform(dx::XMMatrixTranslation(0.0f, 0.0f, -4.0f));
-	nano.SetRootTransform(dx::XMMatrixTranslation(0.0f, -7.0f, 6.0f));
+	// makeshift cli for doing some preprocessing bullshit (so many hacks here)
+	if (this->commandLine != "")
+	{
+		int nArgs;
+		const auto pLineW = GetCommandLineW();
+		const auto pArgs = CommandLineToArgvW(pLineW, &nArgs);
+		if (nArgs >= 3 && std::wstring(pArgs[1]) == L"--twerk-objnorm")
+		{
+			const std::wstring pathInWide = pArgs[2];
+			TexturePreprocessor::FlipYAllNormalMapsInObj(
+				std::string(pathInWide.begin(), pathInWide.end())
+			);
+			throw std::runtime_error("Normal maps all processed successfully. Just kidding about that whole runtime error thing.");
+		}
+		else if (nArgs >= 4 && std::wstring(pArgs[1]) == L"--twerk-validate")
+		{
+			const std::wstring minWide = pArgs[2];
+			const std::wstring maxWide = pArgs[3];
+			const std::wstring pathWide = pArgs[4];
+			TexturePreprocessor::ValidateNormalMap(
+				std::string(pathWide.begin(), pathWide.end()), std::stof(minWide), std::stof(maxWide)
+			);
+			throw std::runtime_error("Normal map validated successfully. Just kidding about that whole runtime error thing.");
+		} 
+		else if (nArgs >= 3 && std::wstring(pArgs[1]) == L"--twerk-flipy")
+		{
+			const std::wstring pathInWide = pArgs[2];
+			const std::wstring pathOutWide = pArgs[3];
+			TexturePreprocessor::FlipYNormalMap(
+				std::string(pathInWide.begin(), pathInWide.end()),
+				std::string(pathOutWide.begin(), pathOutWide.end())
+			);
+			throw std::runtime_error("Normal map processed successfully. Just kidding about that whole runtime error thing.");
+		}
+	}
 
-	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 40.0f));
+	//wall.SetRootTransform(dx::XMMatrixTranslation(-12.0f, 0.0f, 0.0f));
+	//tp.SetPos({ 12.0f,0.0f,0.0f });
+	//gobber.SetRootTransform(dx::XMMatrixTranslation(0.0f, 0.0f, -4.0f));
+	//nano.SetRootTransform(dx::XMMatrixTranslation(0.0f, -7.0f, 6.0f));
+
+	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
 }
 
 int App::Go()
@@ -60,12 +99,13 @@ void App::DoFrame()
 	// bind the light info so it could be accessed by all drawables
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
 
-	wall.Draw(wnd.Gfx());
-	tp.Draw(wnd.Gfx());
-	nano.Draw(wnd.Gfx());
-	gobber.Draw(wnd.Gfx());
+	//wall.Draw(wnd.Gfx());
+	//tp.Draw(wnd.Gfx());
+	//nano.Draw(wnd.Gfx());
+	//gobber.Draw(wnd.Gfx());
 
 	light.Draw(wnd.Gfx());
+	sponza.Draw(wnd.Gfx());
 
 	while (const auto e = wnd.kbd.ReadKey())
 	{
@@ -113,11 +153,14 @@ void App::DoFrame()
 	light.SpawnControlWindow();
 
 	//ShowImguiDemoWindow();
+	/*
 	wall.ShowWindow(wnd.Gfx(), "Wall");
 	tp.SpawnControlWindow(wnd.Gfx());
 	nano.ShowWindow(wnd.Gfx(), "Nano");
 	gobber.ShowWindow(wnd.Gfx(), "gobber");
+	*/
 
+	sponza.ShowWindow(wnd.Gfx(), "Sponza");
 	// present
 	wnd.Gfx().EndFrame();
 	// imgui windows to control camera and light

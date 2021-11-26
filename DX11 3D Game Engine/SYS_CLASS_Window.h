@@ -119,4 +119,5 @@ private:
 	HWND hWnd;
 	std::unique_ptr<Graphics> pGfx; // deletes instandly when window destructs
 	std::vector<BYTE> rawBuffer;
+	std::string commandLine;
 };

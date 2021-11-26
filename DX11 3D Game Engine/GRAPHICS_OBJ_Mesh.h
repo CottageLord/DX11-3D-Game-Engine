@@ -94,6 +94,10 @@ public:
 	*/
 	void ShowTree(Node*& pSelectedNode) const noexcept;
 	/**
+	* @brief return the current transform of the current node
+	*/
+	const DirectX::XMFLOAT4X4& GetAppliedTransform() const noexcept;
+	/**
 	* @brief return the permanant ID of the current node
 	*/
 	int GetId() const noexcept;

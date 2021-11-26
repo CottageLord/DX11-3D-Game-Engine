@@ -163,6 +163,8 @@
     <ClCompile Include="GRAPHICS_BUF_TransformCBuffer.cpp" />
     <ClCompile Include="GRAPHICS_BUF_TransformCBufferPS.cpp" />
     <ClCompile Include="GRAPHICS_BUF_VertextBuffer.cpp" />
+    <ClCompile Include="GRAPHICS_HELP_MatrixTranslator.cpp" />
+    <ClCompile Include="GRAPHICS_HELP_TexturePreprocessor.cpp" />
     <ClCompile Include="GRAPHICS_LGT_PointLight.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Bindable.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Camera.cpp" />
@@ -204,6 +206,9 @@
     <ClInclude Include="GRAPHICS_BUF_TransformCBuffer.h" />
     <ClInclude Include="GRAPHICS_BUF_TransformCBufferPS.h" />
     <ClInclude Include="GRAPHICS_BUF_VertexBuffer.h" />
+    <ClInclude Include="GRAPHICS_HELP_MatrixTranslator.h" />
+    <ClInclude Include="GRAPHICS_HELP_NormalMapTwerker.h" />
+    <ClInclude Include="GRAPHICS_HELP_TexturePreprocessor.h" />
     <ClInclude Include="GRAPHICS_LGT_PointLight.h" />
     <ClInclude Include="GRAPHICS_OBJ_BindablePool.h" />
     <ClInclude Include="GRAPHICS_OBJ_Bindable.h" />
@@ -370,6 +375,14 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="PhongPSSpec.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="PhongPSSpecNormalMap.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>

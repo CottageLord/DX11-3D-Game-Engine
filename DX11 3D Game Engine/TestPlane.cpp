@@ -16,7 +16,7 @@ TestPlane::TestPlane(Graphics& gfx, float size)
 	AddBind(IndexBuffer::Resolve(gfx, geometryTag, model.indices));
 
 	AddBind(Texture::Resolve(gfx, "Images\\brickwall.jpg"));
-	AddBind(Texture::Resolve(gfx, "Images\\brickwall_normal.jpg", 1u));
+	AddBind(Texture::Resolve(gfx, "Images\\brickwall_normal_obj.png", 1u));
 
 	auto pvs = VertexShader::Resolve(gfx, "PhongVS.cso");
 	auto pvsbc = pvs->GetBytecode();
@@ -24,7 +24,7 @@ TestPlane::TestPlane(Graphics& gfx, float size)
 
 	AddBind(PixelShader::Resolve(gfx, "PhongPSNormalMapObjSpace.cso"));
 
-	AddBind(PixelConstantBuffer<PSMaterialConstant>::Resolve(gfx, pmc, 1u));
+	AddBind(PixelConstantBuffer<PSMaterialConstant>::Resolve(gfx, pmc, 2u)); // align with the shader slot
 
 	AddBind(InputLayout::Resolve(gfx, model.vertices.GetLayout(), pvsbc));
 

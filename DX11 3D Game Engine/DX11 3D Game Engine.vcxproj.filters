@@ -165,6 +165,12 @@
     <ClCompile Include="TestCube.cpp">
       <Filter>Source Files\Graphics\Drawabble</Filter>
     </ClCompile>
+    <ClCompile Include="GRAPHICS_HELP_MatrixTranslator.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_HELP_TexturePreprocessor.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SYS_SET_Dxerr.h">
@@ -329,6 +335,15 @@
     <ClInclude Include="TestCube.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
+    <ClInclude Include="GRAPHICS_HELP_NormalMapTwerker.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_HELP_MatrixTranslator.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_HELP_TexturePreprocessor.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc">
@@ -416,6 +431,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Transform.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongPSSpec.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

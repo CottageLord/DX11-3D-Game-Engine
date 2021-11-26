@@ -1,6 +1,7 @@
 
 #include "GRAPHICS_OBJ_Mesh.h"
 #include "GRAPHICS_OBJ_Surface.h"
+#include "GRAPHICS_HELP_MatrixTranslator.h"
 #include "imgui/imgui.h"
 #include <unordered_map>
 #include <sstream>
@@ -122,6 +123,10 @@ void Node::SetAppliedTransform(DirectX::FXMMATRIX transform) noexcept
 
 int Node::GetId() const noexcept { return id; }
 
+const DirectX::XMFLOAT4X4& Node::GetAppliedTransform() const noexcept
+{
+	return appliedTransform;
+}
 /*void Node::ControlMeDaddy(Graphics& gfx, PSMaterialConstantFullmonte& c)
 {
 	if (meshPtrs.empty())
@@ -171,9 +176,30 @@ public:
 			root.ShowTree(pSelectedNode);
 
 			ImGui::NextColumn();
+			// search the node transform and make sure we don't reinitialize any nodes
 			if (pSelectedNode != nullptr)
 			{
-				auto& transform = transforms[pSelectedNode->GetId()];
+				const auto id = pSelectedNode->GetId();
+				auto i = transforms.find(id);
+				if (i == transforms.end())
+				{
+					const auto& applied = pSelectedNode->GetAppliedTransform();
+					const auto angles = ExtractEulerAngles(applied);
+					const auto translation = ExtractTranslation(applied);
+					TransformParameters tp;
+					tp.roll = angles.z;
+					tp.pitch = angles.x;
+					tp.yaw = angles.y;
+					tp.x = translation.x;
+					tp.y = translation.y;
+					tp.z = translation.z;
+					/*
+						insert() returns pair<iterator (to the newly inseted info if insertion success), bool (whether success or not)>
+						std::tie destruct the returned pair, ignore the second bool
+					*/
+					std::tie(i, std::ignore) = transforms.insert({ id,tp });
+				}
+				auto& transform = i->second;
 				ImGui::Text("Orientation");
 				ImGui::SliderAngle("Roll", &transform.roll, -180.0f, 180.0f);
 				ImGui::SliderAngle("Pitch", &transform.pitch, -180.0f, 180.0f);
@@ -457,6 +483,61 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 		// this is CLEARLY an issue... all meshes will share same mat const, but may have different
 		// Ns (specular power) specified for each in the material properties... bad conflict
 		bindablePtrs.push_back(PixelConstantBuffer<PSMaterialConstantDiffnorm>::Resolve(gfx, pmc, 1u));
+	}
+	else if (hasDiffuseMap && !hasNormalMap && hasSpecularMap)
+	{
+	DynamicVertex::VertexBuffer vbuf(std::move(
+		VertexLayout{}
+		.Append(VertexLayout::Position3D)
+		.Append(VertexLayout::Normal)
+		.Append(VertexLayout::Texture2D)
+	));
+
+	for (unsigned int i = 0; i < mesh.mNumVertices; i++)
+	{
+		vbuf.EmplaceBack(
+			dx::XMFLOAT3(mesh.mVertices[i].x * scale, mesh.mVertices[i].y * scale, mesh.mVertices[i].z * scale),
+			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mNormals[i]),
+			*reinterpret_cast<dx::XMFLOAT2*>(&mesh.mTextureCoords[0][i])
+		);
+	}
+
+	std::vector<unsigned short> indices;
+	indices.reserve(mesh.mNumFaces * 3);
+	for (unsigned int i = 0; i < mesh.mNumFaces; i++)
+	{
+		const auto& face = mesh.mFaces[i];
+		assert(face.mNumIndices == 3);
+		indices.push_back(face.mIndices[0]);
+		indices.push_back(face.mIndices[1]);
+		indices.push_back(face.mIndices[2]);
+	}
+
+	bindablePtrs.push_back(VertexBuffer::Resolve(gfx, meshTag, vbuf));
+
+	bindablePtrs.push_back(IndexBuffer::Resolve(gfx, meshTag, indices));
+
+	auto pvs = VertexShader::Resolve(gfx, "PhongVS.cso");
+	auto pvsbc = pvs->GetBytecode();
+	bindablePtrs.push_back(std::move(pvs));
+
+	bindablePtrs.push_back(PixelShader::Resolve(gfx, "PhongPSSpec.cso"));
+
+	bindablePtrs.push_back(InputLayout::Resolve(gfx, vbuf.GetLayout(), pvsbc));
+
+	struct PSMaterialConstantDiffuseSpec
+	{
+		float specularPowerConst;
+		BOOL hasGloss;
+		float specularMapWeight;
+		float padding;
+	} pmc;
+	pmc.specularPowerConst = shininess;
+	pmc.hasGloss = hasAlphaGloss ? TRUE : FALSE;
+	pmc.specularMapWeight = 1.0f;
+	// this is CLEARLY an issue... all meshes will share same mat const, but may have different
+	// Ns (specular power) specified for each in the material properties... bad conflict
+	bindablePtrs.push_back(PixelConstantBuffer<PSMaterialConstantDiffuseSpec>::Resolve(gfx, pmc, 1u));
 	}
 	else if (hasDiffuseMap)
 	{

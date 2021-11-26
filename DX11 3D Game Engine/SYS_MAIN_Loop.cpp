@@ -18,7 +18,7 @@ int CALLBACK WinMain(		// CALLBACK modifies the function, specifies stdcall call
 	try 
 	{
 		// initialize and start looping
-		return App{}.Go();
+		return App{ lpCmdLine }.Go();
 	}
 	catch (const MFException& e)
 	{
