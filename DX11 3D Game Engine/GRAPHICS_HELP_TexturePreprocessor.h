@@ -10,6 +10,9 @@ class TexturePreprocessor
 public:
 	static void FlipYAllNormalMapsInObj(const std::string& objPath);
 	static void FlipYNormalMap(const std::string& pathIn, const std::string& pathOut);
+	/**
+	* @brief validate the input normal map for vector length, z direction, and
+	*/
 	static void ValidateNormalMap(const std::string& pathIn, float thresholdMin, float thresholdMax);
 private:
 	template<typename F>
