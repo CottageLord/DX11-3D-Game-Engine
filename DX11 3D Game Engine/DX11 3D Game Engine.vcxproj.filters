@@ -49,6 +49,12 @@
     <Filter Include="Source Files\Application">
       <UniqueIdentifier>{6aeb0e31-b19d-4167-8042-91e889a057e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Graphics\Object">
+      <UniqueIdentifier>{15ffa6e6-43dd-48b2-95e6-b320fc217094}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Object">
+      <UniqueIdentifier>{085bf53d-3564-4ee9-a170-18e6d8748e22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SYS_CLASS_App.cpp">
@@ -108,9 +114,6 @@
     <ClCompile Include="GRAPHICS_SET_GDIPlusManager.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_Surface.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_Texture.cpp">
       <Filter>Source Files\Graphics\Bindable</Filter>
     </ClCompile>
@@ -138,12 +141,6 @@
     <ClCompile Include="SYS_CLASS_ImguiManager.cpp">
       <Filter>Source Files\Application</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_Camera.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="GRAPHICS_LGT_PointLight.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_SolidSphere.cpp">
       <Filter>Source Files\Graphics\Drawabble</Filter>
     </ClCompile>
@@ -152,9 +149,6 @@
     </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_InputLayout.cpp">
       <Filter>Source Files\Graphics\Bindable</Filter>
-    </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_DynamicVertex.cpp">
-      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="TestPlane.cpp">
       <Filter>Source Files\Graphics\Drawabble</Filter>
@@ -170,6 +164,24 @@
     </ClCompile>
     <ClCompile Include="GRAPHICS_HELP_TexturePreprocessor.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_LGT_PointLight.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Camera.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_DynamicVertex.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Surface.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Blender.cpp">
+      <Filter>Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Rasterizer.cpp">
+      <Filter>Source Files\Graphics\Bindable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,9 +266,6 @@
     <ClInclude Include="GRAPHICS_OBJ_IndexedTriangleList.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_Surface.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_SET_GDIPlusManager.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
@@ -293,12 +302,6 @@
     <ClInclude Include="SYS_CLASS_ImguiManager.h">
       <Filter>Header Files\Application</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_Camera.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_LGT_PointLight.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_SolidSphere.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
@@ -313,9 +316,6 @@
     </ClInclude>
     <ClInclude Include="GRAPHICS_SET_BindableCommon.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_DynamicVertex.h">
-      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_BindablePool.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
@@ -343,6 +343,24 @@
     </ClInclude>
     <ClInclude Include="GRAPHICS_HELP_TexturePreprocessor.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_LGT_PointLight.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Camera.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_DynamicVertex.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Surface.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Blender.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Rasterizer.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -434,6 +452,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="PhongPSSpec.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongPSSpecNormMask.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

@@ -9,4 +9,6 @@
 #include "GRAPHICS_BUF_VertexBuffer.h"
 #include "GRAPHICS_OBJ_VertexShader.h" 
 #include "GRAPHICS_OBJ_Texture.h"
+#include "GRAPHICS_OBJ_Blender.h" 
 #include "GRAPHICS_OBJ_Sampler.h" 
+#include "GRAPHICS_OBJ_Rasterizer.h" 

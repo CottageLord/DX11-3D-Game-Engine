@@ -11,6 +11,7 @@ public:
 	// rotate according to mouse move deltas 
 	void Rotate(float dx, float dy) noexcept;
 	void Translate(DirectX::XMFLOAT3 translation) noexcept;
+	DirectX::XMFLOAT3 GetPos() const noexcept;
 private:
 	/*
 	float distFromOrigin = 20.0f;

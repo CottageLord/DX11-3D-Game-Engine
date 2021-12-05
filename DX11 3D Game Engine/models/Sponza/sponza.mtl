@@ -2,7 +2,7 @@
 # File Created: 20.08.2010 18:13:43
 
 newmtl leaf
-	Ns 10.0000
+	Ns 3.0000
 	Ni 1.5000
 	d 1.0000
 	Tr 0.0000
@@ -13,8 +13,8 @@ newmtl leaf
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
 	map_Kd textures\sponza_thorn_diff.png
-	map_d textures\sponza_thorn_mask.png
 	map_Kn textures\sponza_thorn_ddn.png
+	map_Ks textures\sponza_thorn_spec.png
 
 newmtl vase_round
 	Ns 10.0000
@@ -32,7 +32,7 @@ newmtl vase_round
 	map_Ks textures\vase_round_spec.png
 
 newmtl VasePlant
-	Ns 10.0000
+	Ns 3.0000
 	Ni 1.5000
 	d 1.0000
 	Tr 0.0000
@@ -43,8 +43,8 @@ newmtl VasePlant
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
 	map_Kd textures\vase_plant.png
-	map_d textures\vase_plant_mask.png
 	map_Kn textures\vase_plant_NRM.png
+	map_Ks textures\vase_plant_spec.png
 
 newmtl Material__57
 	Ns 10.0000
@@ -58,7 +58,8 @@ newmtl Material__57
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
 	map_Kd textures\vase_plant.png
-	map_d textures\vase_plant_mask.png
+	map_Kn textures\vase_plant_ddn.jpg
+	map_Ks textures\vase_plant_spec.png
 
 newmtl Material__298
 	Ns 10.0000
@@ -336,7 +337,7 @@ newmtl chain
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
 	map_Kd textures\chain_texture.png
-	map_d textures\chain_texture_mask.png
+	map_Ks textures\chain_texture_spec.png
 	map_Kn textures\chain_texture_ddn.png
 
 newmtl vase_hanging

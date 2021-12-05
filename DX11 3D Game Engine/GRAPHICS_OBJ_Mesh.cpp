@@ -1,6 +1,7 @@
 
 #include "GRAPHICS_OBJ_Mesh.h"
 #include "GRAPHICS_OBJ_Surface.h"
+#include "GRAPHICS_OBJ_Blender.h"
 #include "GRAPHICS_HELP_MatrixTranslator.h"
 #include "imgui/imgui.h"
 #include <unordered_map>
@@ -312,6 +313,7 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 
 	bool hasSpecularMap = false;
 	bool hasAlphaGloss = false;
+	bool hasAlphaDiffuse = false;
 	bool hasNormalMap = false;
 	bool hasDiffuseMap = false;
 
@@ -329,7 +331,9 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 
 		if (material.GetTexture(aiTextureType_DIFFUSE, 0, &texFileName) == aiReturn_SUCCESS)
 		{
-			bindablePtrs.push_back(Texture::Resolve(gfx, rootPath + texFileName.C_Str()));
+			auto tex = Texture::Resolve(gfx, rootPath + texFileName.C_Str());
+			hasAlphaDiffuse = tex->HasAlpha();
+			bindablePtrs.push_back(std::move(tex));
 			hasDiffuseMap = true;
 		}
 		else
@@ -415,7 +419,9 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 		bindablePtrs.push_back(std::move(pvs));
 	// use different shaders with or without specular map
 
-		bindablePtrs.push_back(PixelShader::Resolve(gfx, "PhongPSSpecNormalMap.cso"));
+		bindablePtrs.push_back(PixelShader::Resolve(gfx,
+			hasAlphaDiffuse ? "PhongPSSpecNormMask.cso" : "PhongPSSpecNormalMap.cso"
+		));
 
 		bindablePtrs.push_back(InputLayout::Resolve(gfx, vbuf.GetLayout(), pvsbc));
 
@@ -643,6 +649,15 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 	{
 		throw std::runtime_error("terrible combination of textures in material smh");
 	}
+
+	// all materials need a blending mode
+	//bindablePtrs.push_back(Blender::Resolve(gfx, hasAlphaDiffuse));
+
+	// anything with alpha diffuse is 2-sided IN SPONZA, need a better way
+	// of signalling 2-sidedness to be more general in the future
+	bindablePtrs.push_back(Rasterizer::Resolve(gfx, hasAlphaDiffuse));
+
+	bindablePtrs.push_back(Blender::Resolve(gfx, false));
 	// create the mesh drawable
 	return std::make_unique<Mesh>(gfx, std::move(bindablePtrs));
 }

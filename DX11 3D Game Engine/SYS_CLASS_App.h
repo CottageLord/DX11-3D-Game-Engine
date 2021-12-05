@@ -40,6 +40,7 @@ private:
 	//Model gobber{ wnd.Gfx(),"Models\\zhongli_textured\\zhongli_En.pmx" };
 	//Model nano{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj",2.0f };
 	Model sponza{ wnd.Gfx(),"Models\\sponza\\sponza.obj",1.0f / 20.0f };
-	TestPlane tp{ wnd.Gfx(),6.0 };
+	TestPlane bluePlane{ wnd.Gfx(),6.0f,{ 0.3f,0.3f,1.0f,0.0f } };
+	//TestPlane tp{ wnd.Gfx(),6.0 };
 	//TestPlane plane;
 };
