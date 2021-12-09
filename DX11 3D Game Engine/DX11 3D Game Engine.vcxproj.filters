@@ -383,6 +383,7 @@
     <None Include="SYS_SET_DXGetErrorDescription.inl">
       <Filter>Dxerr Setting</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ColorIndexPS.hlsl">
