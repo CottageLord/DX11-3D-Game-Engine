@@ -1,4 +1,5 @@
 #include "GRAPHICS_OBJ_Bindable.h"
+#include <stdexcept>
 
 namespace GPipeline
 {

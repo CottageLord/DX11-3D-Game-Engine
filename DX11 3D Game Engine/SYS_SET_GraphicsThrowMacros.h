@@ -20,7 +20,7 @@
 // macro for importing infomanager into local scope
 // this.GetInfoManager(Graphics& gfx) must exist
 #ifdef NDEBUG
-#define INIT_INFO_MAN(gfx) HRESULT hr
+#define GET_INFO_MAN(gfx) HRESULT hr
 #else
 #define GET_INFO_MAN(gfx) HRESULT hr; DxgiInfoManager& infoManager = GetInfoManager((gfx))
 #endif

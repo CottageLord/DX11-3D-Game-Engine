@@ -1,5 +1,6 @@
 #include "GRAPHICS_OBJ_VertexShader.h"
 #include "SYS_SET_GraphicsThrowMacros.h"
+#include "SYS_HELP_Utility.h"
 #include "GRAPHICS_OBJ_BindablePool.h"
 #include <typeinfo>
 
@@ -12,7 +13,7 @@ namespace GPipeline
 	{
 		GET_INFO_MAN(gfx);
 
-		GFX_THROW_INFO(D3DReadFileToBlob(std::wstring{ path.begin(),path.end() }.c_str(), &pBytecodeBlob));
+		GFX_THROW_INFO(D3DReadFileToBlob(ToWide(path).c_str(), &pBytecodeBlob));
 		GFX_THROW_INFO(GetDevice(gfx)->CreateVertexShader(
 			pBytecodeBlob->GetBufferPointer(),
 			pBytecodeBlob->GetBufferSize(),

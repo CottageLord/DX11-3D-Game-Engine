@@ -39,7 +39,7 @@ void PointLight::SpawnControlWindow() noexcept
 void PointLight::Reset() noexcept
 {
 	cbData = {
-		{ 10.0f,9.0f,2.5f },	// float3 lightPos;
+		{ 7.0f, 0.0f, 0.0f },	// float3 lightPos;
 		{ 0.05f,0.05f,0.05f },	// float3 ambient;
 		{ 1.0f,1.0f,1.0f },		// float3 diffuseColor;
 		1.0f,					// float diffuseIntensity;

@@ -1,10 +1,10 @@
 #pragma once
 #include "SYS_SET_ConditionalNoexcept.h"
 #include "GRAPHICS_SET_BindableCommon.h"
-//#include "GRAPHICS_OBJ_StaticDrawInfo.h"
 #include "GRAPHICS_OBJ_Drawable.h"
 #include "GRAPHICS_OBJ_DynamicVertex.h"
 #include "GRAPHICS_BUF_ConstantBuffers.h"
+#include "GRAPHICS_OBJ_DynamicConstant.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -30,136 +30,66 @@ private:
 };
 
 /**
-* @brief
-*/
+ * @brief contains (partial) mesh data of an object
+ */
 class Mesh : public Drawable
 {
 public:
 	/**
-	* @brief Take in the drawable data for flexibility concern (Dependency Injection)
-	* @param std::vector<std::unique_ptr<Bindable>> bindPtrs all bindable info
-	*/
+	 * @brief Take in the drawable data for flexibility concern (Dependency Injection)
+	 * @param std::vector<std::unique_ptr<Bindable>> bindPtrs all bindable info
+	 */
 	Mesh( Graphics& gfx,std::vector<std::shared_ptr<GPipeline::Bindable>> bindPtrs );
 	/**
-	* @brief Store the parents' transforms and excute the parent's draw()
-	* @param DirectX::FXMMATRIX accumulatedTransform The combined transform from the parent nodes
-	*/
+	 * @brief Store the parents' transforms and excute the parent's draw()
+	 * @param DirectX::FXMMATRIX accumulatedTransform The combined transform from the parent nodes
+	 */
 	void Draw( Graphics& gfx,DirectX::FXMMATRIX accumulatedTransform ) const noxnd;
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
 private:
 	mutable DirectX::XMFLOAT4X4 transform;
 };
 /**
-* @brief
-*/
+ * @brief
+ */
 class Node
 {
 	friend class Model;
 public:
-	struct PSMaterialConstantFullmonte
-	{
-		BOOL  normalMapEnabled = TRUE;
-		BOOL  specularMapEnabled = TRUE;
-		BOOL  hasGlossMap = FALSE;
-		float specularPower = 3.1f;
-		DirectX::XMFLOAT3 specularColor = { 0.75f,0.75f,0.75f };
-		float specularMapWeight = 0.671f;
-	};
-	struct PSMaterialConstantNotex
-	{
-		DirectX::XMFLOAT4 materialColor = { 0.447970f,0.327254f,0.176283f,1.0f };
-		DirectX::XMFLOAT4 specularColor = { 0.65f,0.65f,0.65f,1.0f };
-		float specularPower = 120.0f;
-		float padding[3];
-	};
-public:
 	/**
-	* @brief Initialize a node with given mesh and inutial transform
-	*/
+	 * @brief Initialize a node with given mesh and inutial transform
+	 */
 	Node(int id, const std::string& name, std::vector<Mesh*> meshPtrs, const DirectX::XMMATRIX& transform) noxnd;
 	/**
-	* @brief Draw a node with given accumulatedTransform
-	* @param DirectX::FXMMATRIX accumulatedTransform we need to mutiply the node's trans with this one
-	*/
+	 * @brief Draw a node with given accumulatedTransform
+	 * @param DirectX::FXMMATRIX accumulatedTransform we need to mutiply the node's trans with this one
+	 */
 	void Draw( Graphics& gfx,DirectX::FXMMATRIX accumulatedTransform ) const noxnd;
 	/**
-	* @brief stores the new position of this node
-	*/
+	 * @brief stores the new position of this node
+	 */
 	void SetAppliedTransform(DirectX::FXMMATRIX transform) noexcept;
 	/**
-	* @brief Draw a node with given accumulatedTransform
-	* @param nodeIndex An unique index id for each node, increment through recursion
-	* @param selectedIndex An index num for tracking the selected node, member var, neccessary for imgui
-	* @param selectedNode neccessary for graphics
-	*/
+	 * @brief Draw a node with given accumulatedTransform
+	 * @param nodeIndex An unique index id for each node, increment through recursion
+	 * @param selectedIndex An index num for tracking the selected node, member var, neccessary for imgui
+	 * @param selectedNode neccessary for graphics
+	 */
 	void ShowTree(Node*& pSelectedNode) const noexcept;
 	/**
-	* @brief return the current transform of the current node
-	*/
+	 * @brief return the current transform of the current node
+	 */
 	const DirectX::XMFLOAT4X4& GetAppliedTransform() const noexcept;
 	/**
-	* @brief return the permanant ID of the current node
-	*/
+	 * @brief return the permanant ID of the current node
+	 */
 	int GetId() const noexcept;
-	// a tester
-	template<class T>
-	bool ControlMeDaddy(Graphics& gfx, T& c)
-	{
-		if (meshPtrs.empty())
-		{
-			return false;
-		}
-
-		if constexpr (std::is_same<T, PSMaterialConstantFullmonte>::value)
-		{
-			if (auto pcb = meshPtrs.front()->QueryBindable<GPipeline::PixelConstantBuffer<T>>())
-			{
-				ImGui::Text("Material");
-
-				bool normalMapEnabled = (bool)c.normalMapEnabled;
-				ImGui::Checkbox("Norm Map", &normalMapEnabled);
-				c.normalMapEnabled = normalMapEnabled ? TRUE : FALSE;
-
-				bool specularMapEnabled = (bool)c.specularMapEnabled;
-				ImGui::Checkbox("Spec Map", &specularMapEnabled);
-				c.specularMapEnabled = specularMapEnabled ? TRUE : FALSE;
-
-				bool hasGlossMap = (bool)c.hasGlossMap;
-				ImGui::Checkbox("Gloss Alpha", &hasGlossMap);
-				c.hasGlossMap = hasGlossMap ? TRUE : FALSE;
-
-				ImGui::SliderFloat("Spec Weight", &c.specularMapWeight, 0.0f, 2.0f);
-
-				ImGui::SliderFloat("Spec Pow", &c.specularPower, 0.0f, 1000.0f, "%f", 5.0f);
-
-				ImGui::ColorPicker3("Spec Color", reinterpret_cast<float*>(&c.specularColor));
-
-				pcb->Update(gfx, c);
-				return true;
-			}
-		}
-		else if constexpr (std::is_same<T, PSMaterialConstantNotex>::value)
-		{
-			if (auto pcb = meshPtrs.front()->QueryBindable<GPipeline::PixelConstantBuffer<T>>())
-			{
-				ImGui::Text("Material");
-
-				ImGui::ColorPicker3("Spec Color", reinterpret_cast<float*>(&c.specularColor));
-
-				ImGui::SliderFloat("Spec Pow", &c.specularPower, 0.0f, 1000.0f, "%f", 5.0f);
-
-				ImGui::ColorPicker3("Diff Color", reinterpret_cast<float*>(&c.materialColor));
-
-				pcb->Update(gfx, c);
-				return true;
-			}
-		}
-		return false;
-	}
+	const Dcb::Buffer* GetMaterialConstants() const noxnd;
+	void SetMaterialConstants(const Dcb::Buffer&) noxnd;
 private:
 	/**
-	* @brief An addChild() that could only be accessed by friend Model class
-	*/
+	 * @brief An addChild() that could only be accessed by friend Model class
+	 */
 	void AddChild( std::unique_ptr<Node> pChild ) noxnd;
 private:
 	int id;
@@ -175,9 +105,11 @@ private:
 	/// </summary>
 	DirectX::XMFLOAT4X4 appliedTransform;
 };
-/**
-* @brief a loaded model with multiple nodes
-*/
+
+ /**
+  * @brief object loader that parse and store model data, materials and hierarchy.
+  * Defines shading settings according to the model type
+  */
 class Model
 {
 public:

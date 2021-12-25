@@ -3,6 +3,7 @@
 #include "GRAPHICS_OBJ_BindablePool.h"
 #include "SYS_SET_GraphicsThrowMacros.h"
 
+
 namespace GPipeline
 {
 	namespace wrl = Microsoft::WRL;

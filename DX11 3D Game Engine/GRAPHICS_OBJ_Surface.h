@@ -4,19 +4,21 @@
 #include "SYS_SET_ConditionalNoexcept.h"
 #include "SYS_CLASS_MFException.h"
 
-#include <assert.h>
-#include <memory>
 #include <string>
+#include <optional>
+#include <DirectXTex.h>
 
 namespace GPipeline
 {
+	/**
+	 * @brief image loader class with DirectXTex
+	 */
 	class Surface
 	{
 	public:
 		class Color
 		{
 		public:
-			/// stores ARGB values (packed together)
 			unsigned int dword;
 		public:
 			constexpr Color() noexcept : dword()
@@ -35,7 +37,7 @@ namespace GPipeline
 			{}
 			constexpr Color(unsigned char r, unsigned char g, unsigned char b) noexcept
 				:
-				dword((r << 16u) | (g << 8u) | b)
+				dword((255u << 24u) | (r << 16u) | (g << 8u) | b)
 			{}
 			constexpr Color(Color col, unsigned char x) noexcept
 				:
@@ -91,21 +93,22 @@ namespace GPipeline
 		class Exception : public MFException
 		{
 		public:
-			Exception(int line, const char* file, std::string note) noexcept;
+			Exception(int line, const char* file, std::string note, std::optional<HRESULT> hr = {}) noexcept;
+			Exception(int line, const char* file, std::string filename, std::string note, std::optional<HRESULT> hr = {}) noexcept;
 			const char* what() const noexcept override;
 			const char* GetType() const noexcept override;
 			const std::string& GetNote() const noexcept;
 		private:
+			std::optional<HRESULT> hr;
 			std::string note;
 		};
 	public:
-		//Surface(unsigned int width, unsigned int height, unsigned int pitch) noexcept;
-		Surface(unsigned int width, unsigned int height) noexcept;
-		Surface(Surface&& source) noexcept;
+		Surface(unsigned int width, unsigned int height);
+		Surface(Surface&& source) noexcept = default;
 		Surface(Surface&) = delete;
-		Surface& operator=(Surface&& donor) noexcept;
+		Surface& operator=(Surface&& donor) noexcept = default;
 		Surface& operator=(const Surface&) = delete;
-		~Surface();
+		~Surface() = default;
 		void Clear(Color fillValue) noexcept;
 		void PutPixel(unsigned int x, unsigned int y, Color c) noxnd;
 		Color GetPixel(unsigned int x, unsigned int y) const noxnd;
@@ -116,14 +119,11 @@ namespace GPipeline
 		const Color* GetBufferPtrConst() const noexcept;
 		static Surface FromFile(const std::string& name);
 		void Save(const std::string& filename) const;
-		void Copy(const Surface& src) noxnd;
 		bool AlphaLoaded() const noexcept;
 	private:
-		Surface(unsigned int width, unsigned int height, std::unique_ptr<Color[]> pBufferParam, bool alphaLoaded = false) noexcept;
+		Surface(DirectX::ScratchImage scratch) noexcept;
 	private:
-		std::unique_ptr<Color[]> pBuffer;
-		bool alphaLoaded = false;
-		unsigned int width;
-		unsigned int height;
+		static constexpr DXGI_FORMAT format = DXGI_FORMAT::DXGI_FORMAT_B8G8R8A8_UNORM;
+		DirectX::ScratchImage scratch;
 	};
 }

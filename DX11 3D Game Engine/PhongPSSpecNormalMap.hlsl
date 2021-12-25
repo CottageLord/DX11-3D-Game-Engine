@@ -16,6 +16,7 @@ cbuffer ObjectCBuf
 Texture2D tex;
 Texture2D spec;
 Texture2D nmap;
+//Texture2D toon : register(t3);
 
 SamplerState splr;
 
@@ -71,9 +72,15 @@ float4 main(float3 viewFragPos : Position, float3 viewNormal : Normal, float3 vi
         specularReflectionColor, 1.0f, viewNormal,
         lv.vToL, viewFragPos, att, specularPower
     );
+    
+    // maps from (-1, 1) to (0, 1)
+    //const float2 toonTexCoord = float2(dot(viewNormal, normalize(lv.dirToL)) / 2 + 0.5f, 0.0f);
+    //const float3 toonification = dtex.rgb - (float3(1.0f, 1.0f, 1.0f) - toon.Sample(splr, toonTexCoord).rgb) / 4;
     // sample diffuse texture
     //float4 dtex = tex.Sample(splr, tc);
 	// final color = attenuate diffuse & ambient by diffuse texture color and add specular reflected
     //return float4(saturate((diffuse + ambient) * tex.Sample(splr, tc).rgb + specularReflected), 1.0f);
     return float4(saturate((diffuse + ambient) * dtex.rgb + specularReflected), dtex.a);
+    
+
 }

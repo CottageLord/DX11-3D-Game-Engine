@@ -55,6 +55,9 @@
     <Filter Include="Source Files\Graphics\Object">
       <UniqueIdentifier>{085bf53d-3564-4ee9-a170-18e6d8748e22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Json">
+      <UniqueIdentifier>{67bd6d2f-247e-4cab-9e8c-904403edc076}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SYS_CLASS_App.cpp">
@@ -111,9 +114,6 @@
     <ClCompile Include="GRAPHICS_OBJ_VertexShader.cpp">
       <Filter>Source Files\Graphics\Bindable</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_SET_GDIPlusManager.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_Texture.cpp">
       <Filter>Source Files\Graphics\Bindable</Filter>
     </ClCompile>
@@ -156,9 +156,6 @@
     <ClCompile Include="GRAPHICS_BUF_TransformCBufferPS.cpp">
       <Filter>Source Files\Graphics\Bindable</Filter>
     </ClCompile>
-    <ClCompile Include="TestCube.cpp">
-      <Filter>Source Files\Graphics\Drawabble</Filter>
-    </ClCompile>
     <ClCompile Include="GRAPHICS_HELP_MatrixTranslator.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
@@ -182,6 +179,21 @@
     </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_Rasterizer.cpp">
       <Filter>Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="SYS_HELP_Utility.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="SYS_CLASS_ScriptCommander.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_DynamicConstant.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_LayoutPool.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Testing.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -266,9 +278,6 @@
     <ClInclude Include="GRAPHICS_OBJ_IndexedTriangleList.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_SET_GDIPlusManager.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Texture.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
     </ClInclude>
@@ -332,9 +341,6 @@
     <ClInclude Include="GRAPHICS_OBJ_Cube.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
-    <ClInclude Include="TestCube.h">
-      <Filter>Header Files\Graphics\Drawable</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_HELP_NormalMapTwerker.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
@@ -361,6 +367,27 @@
     </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Rasterizer.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_HELP_Utility.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>Header Files\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_CLASS_ScriptCommander.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_DynamicConstant.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_LayoutPool.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_BUF_ConstantBuffersEx.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="Testing.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -416,9 +443,6 @@
     <FxCompile Include="SolidVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="IndexedPhongPS.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
     <FxCompile Include="PhongPSSpecMap.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
@@ -456,6 +480,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="PhongPSSpecNormMask.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongPSCel.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

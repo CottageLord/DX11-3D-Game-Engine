@@ -1,89 +1,34 @@
 #include "SYS_CLASS_App.h"
 #include "SYS_SET_Math.h"
-#include "GRAPHICS_SET_GDIPlusManager.h"
 #include "GRAPHICS_OBJ_Surface.h"
 #include "GRAPHICS_BUF_VertexBuffer.h"
-//#include "GRAPHICS_HELP_NormalMapTwerker.h"
 #include "GRAPHICS_HELP_TexturePreprocessor.h"
-//#include "GRAPHICS_OBJ_Box.h"
-//#include "GRAPHICS_OBJ_Melon.h"
-//#include "GRAPHICS_OBJ_Pyramid.h"
-//#include "GRAPHICS_OBJ_Sheet.h"
-//#include "GRAPHICS_OBJ_SkinnedBox.h"
-//#include "GRAPHICS_OBJ_Cylinder.h"
-//#include "GRAPHICS_OBJ_DynamicVertex.h"
-//#include "AssTest.h"
-//#pragma comment(lib,"DirectXTex.lib")
+#include "SYS_HELP_Utility.h"
+#include "Testing.h"
 
 #include "imgui/imgui.h"
 #include <DirectXTex.h>
-
-//#pragma comment(lib,"assimp-vc142-mtd.lib")
-
 
 #include <algorithm>
 #include <memory>
 #include <shellapi.h>
 
 namespace dx = DirectX;
-GDIPlusManager gdipm;
 
 App::App(const std::string& commandLine)
 	:
 	wnd( 1280,720,"°¢Ã©µÄÒýÇæ" ),
+	scriptCommander(TokenizeQuoted(commandLine)),
 	light(wnd.Gfx())
 {
-	
-	auto scratch = DirectX::ScratchImage{};
-	
-	DirectX::LoadFromWICFile(L"Images\\brickwall.jpg", DirectX::WIC_FLAGS_NONE, nullptr, scratch);
-	auto image = scratch.GetImage(0, 0, 0);
-	auto a = image->pixels[0];
-	auto b = image->pixels[1];
-	auto c = image->pixels[2];
-	auto d = image->pixels[3];
-	// makeshift cli for doing some preprocessing bullshit (so many hacks here)
-	if (this->commandLine != "")
-	{
-		int nArgs;
-		const auto pLineW = GetCommandLineW();
-		const auto pArgs = CommandLineToArgvW(pLineW, &nArgs);
-		if (nArgs >= 3 && std::wstring(pArgs[1]) == L"--twerk-objnorm")
-		{
-			const std::wstring pathInWide = pArgs[2];
-			TexturePreprocessor::FlipYAllNormalMapsInObj(
-				std::string(pathInWide.begin(), pathInWide.end())
-			);
-			throw std::runtime_error("Normal maps all processed successfully. Just kidding about that whole runtime error thing.");
-		}
-		else if (nArgs >= 4 && std::wstring(pArgs[1]) == L"--twerk-validate")
-		{
-			const std::wstring minWide = pArgs[2];
-			const std::wstring maxWide = pArgs[3];
-			const std::wstring pathWide = pArgs[4];
-			TexturePreprocessor::ValidateNormalMap(
-				std::string(pathWide.begin(), pathWide.end()), std::stof(minWide), std::stof(maxWide)
-			);
-			throw std::runtime_error("Normal map validated successfully. Just kidding about that whole runtime error thing.");
-		} 
-		else if (nArgs >= 3 && std::wstring(pArgs[1]) == L"--twerk-flipy")
-		{
-			const std::wstring pathInWide = pArgs[2];
-			const std::wstring pathOutWide = pArgs[3];
-			TexturePreprocessor::FlipYNormalMap(
-				std::string(pathInWide.begin(), pathInWide.end()),
-				std::string(pathOutWide.begin(), pathOutWide.end())
-			);
-			throw std::runtime_error("Normal map processed successfully. Just kidding about that whole runtime error thing.");
-		}
-	}
-
+	TestDynamicConstant();
 	//wall.SetRootTransform(dx::XMMatrixTranslation(-12.0f, 0.0f, 0.0f));
 	//tp.SetPos({ 12.0f,0.0f,0.0f });
-	gobber.SetRootTransform(dx::XMMatrixTranslation(0.0f, 0.0f, -4.0f));
+	//gobber.SetRootTransform(dx::XMMatrixTranslation(0.0f, -10.0f, 0.0f));
+	
 	//nano.SetRootTransform(dx::XMMatrixTranslation(0.0f, -7.0f, 6.0f));
-	bluePlane.SetPos(cam.GetPos());
-	redPlane.SetPos(cam.GetPos());
+	//bluePlane.SetPos(cam.GetPos());
+	//redPlane.SetPos(cam.GetPos());
 
 	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
 }
@@ -116,7 +61,7 @@ void App::DoFrame()
 	//wall.Draw(wnd.Gfx());
 	//tp.Draw(wnd.Gfx());
 	//nano.Draw(wnd.Gfx());
-	gobber.Draw(wnd.Gfx());
+	//gobber.Draw(wnd.Gfx());
 
 	light.Draw(wnd.Gfx());
 	sponza.Draw(wnd.Gfx());
@@ -176,7 +121,7 @@ void App::DoFrame()
 	tp.SpawnControlWindow(wnd.Gfx());
 	nano.ShowWindow(wnd.Gfx(), "Nano");
 	*/
-	gobber.ShowWindow(wnd.Gfx(), "gobber");
+	//gobber.ShowWindow(wnd.Gfx(), "Zhongli");
 
 	sponza.ShowWindow(wnd.Gfx(), "Sponza");
 	// present
