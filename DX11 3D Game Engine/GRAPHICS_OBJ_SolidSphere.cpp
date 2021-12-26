@@ -3,7 +3,7 @@
 #include "GRAPHICS_SET_BindableCommon.h"
 #include "GRAPHICS_OBJ_DynamicVertex.h"
 #include "GRAPHICS_OBJ_Sphere.h"
-
+#include "GRAPHICS_OBJ_Stencil.h"
 SolidSphere::SolidSphere(Graphics& gfx, float radius)
 {
 	using namespace GPipeline;
@@ -38,6 +38,8 @@ SolidSphere::SolidSphere(Graphics& gfx, float radius)
 	AddBind(Blender::Resolve(gfx, false));
 
 	AddBind(Rasterizer::Resolve(gfx, false));
+
+	AddBind(std::make_shared<Stencil>(gfx, Stencil::Mode::Off));
 }
 
 void SolidSphere::SetPos(DirectX::XMFLOAT3 pos) noexcept

@@ -23,16 +23,15 @@ AssTest::AssTest(Graphics & gfx, std::mt19937 & rng,
 
 	if (!IsStaticInitialized())
 	{
-		DynamicVertex::VertexBuffer vbuf(
-			std::move(
-				DynamicVertex::VertexLayout{}
-				.Append(DynamicVertex::VertexLayout::Position3D)
-				.Append(DynamicVertex::VertexLayout::Normal)
-			)
-		);
+		using DynamicVertex::VertexLayout;
+		DynamicVertex::VertexBuffer vbuf(std::move(
+			VertexLayout{}
+			.Append(VertexLayout::Position3D)
+			.Append(VertexLayout::Normal)
+		));
 
 		Assimp::Importer imp;
-		const auto pModel = imp.ReadFile("models\\zhongli.pmx",
+		const auto pModel = imp.ReadFile("models\\suzanne.obj",
 			aiProcess_Triangulate |
 			aiProcess_JoinIdenticalVertices
 		);

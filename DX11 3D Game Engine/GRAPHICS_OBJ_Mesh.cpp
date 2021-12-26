@@ -6,6 +6,7 @@
 #include "GRAPHICS_OBJ_DynamicConstant.h"
 #include "GRAPHICS_BUF_ConstantBuffersEx.h"
 #include "GRAPHICS_OBJ_LayoutPool.h"
+#include "GRAPHICS_OBJ_Stencil.h"
 
 #include "imgui/imgui.h"
 #include <unordered_map>
@@ -760,6 +761,8 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 	bindablePtrs.push_back(Rasterizer::Resolve(gfx, hasAlphaDiffuse));
 
 	bindablePtrs.push_back(Blender::Resolve(gfx, false));
+	// disable general stencil effect
+	bindablePtrs.push_back(std::make_shared<Stencil>(gfx, Stencil::Mode::Off));
 	// create the mesh drawable
 	return std::make_unique<Mesh>(gfx, std::move(bindablePtrs));
 }

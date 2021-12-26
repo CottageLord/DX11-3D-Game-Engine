@@ -11,6 +11,8 @@
 #include "GRAPHICS_OBJ_Camera.h"
 #include "GRAPHICS_OBJ_Mesh.h"
 #include "GRAPHICS_LGT_PointLight.h"
+#include "GRAPHICS_OBJ_Stencil.h"
+#include "TestCube.h"
 #include <set>
 
 #include "TestPlane.h"
@@ -46,4 +48,6 @@ private:
 	//TestPlane redPlane{ wnd.Gfx(),6.0f,{ 1.0f,0.3f,0.3f,0.0f } };
 	//TestPlane tp{ wnd.Gfx(),6.0 };
 	//TestPlane plane;
+	TestCube cube{ wnd.Gfx(),4.0f };
+	TestCube cube2{ wnd.Gfx(),4.0f };
 };

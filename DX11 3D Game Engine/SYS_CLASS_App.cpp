@@ -21,7 +21,7 @@ App::App(const std::string& commandLine)
 	scriptCommander(TokenizeQuoted(commandLine)),
 	light(wnd.Gfx())
 {
-	TestDynamicConstant();
+	//TestDynamicConstant();
 	//wall.SetRootTransform(dx::XMMatrixTranslation(-12.0f, 0.0f, 0.0f));
 	//tp.SetPos({ 12.0f,0.0f,0.0f });
 	//gobber.SetRootTransform(dx::XMMatrixTranslation(0.0f, -10.0f, 0.0f));
@@ -67,6 +67,10 @@ void App::DoFrame()
 	sponza.Draw(wnd.Gfx());
 	//bluePlane.Draw(wnd.Gfx());
 	//redPlane.Draw(wnd.Gfx());
+	cube.Draw(wnd.Gfx());
+	cube2.Draw(wnd.Gfx());
+	cube.DrawOutline(wnd.Gfx());
+	cube2.DrawOutline(wnd.Gfx());
 
 	while (const auto e = wnd.kbd.ReadKey())
 	{
@@ -122,7 +126,8 @@ void App::DoFrame()
 	nano.ShowWindow(wnd.Gfx(), "Nano");
 	*/
 	//gobber.ShowWindow(wnd.Gfx(), "Zhongli");
-
+	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
+	cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
 	sponza.ShowWindow(wnd.Gfx(), "Sponza");
 	// present
 	wnd.Gfx().EndFrame();

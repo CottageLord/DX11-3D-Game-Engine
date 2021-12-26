@@ -1,7 +1,6 @@
 #include "GRAPHICS_OBJ_DynamicConstant.h"
 #include "GRAPHICS_OBJ_LayoutPool.h"
 #include <cstring>
-
 namespace dx = DirectX;
 
 void TestDynamicConstant()
@@ -165,7 +164,7 @@ void TestDynamicConstant()
 		assert(static_cast<dx::XMFLOAT3>(b1["arr"][0]).x == 69.0f);
 		assert(static_cast<dx::XMFLOAT3>(b2["arr"][0]).x == 420.0f);
 	}
-	// specific testing scenario
+	// specific testing scenario (packing error)
 	{
 		Dcb::RawLayout pscLayout;
 		pscLayout.Add<Dcb::Float3>("materialColor");
@@ -192,5 +191,34 @@ void TestDynamicConstant()
 		pscLayout["arr"].T().Add<Dcb::Float2>("y");
 		auto cooked = Dcb::LayoutPool::Resolve(std::move(pscLayout));
 		assert(cooked.GetSizeInBytes() == 320u);
+	}
+	// testing pointer stuff
+	{
+		Dcb::RawLayout s;
+		s.Add<Dcb::Struct>("butts"s);
+		s["butts"s].Add<Dcb::Float3>("pubes"s);
+		s["butts"s].Add<Dcb::Float>("dank"s);
+
+		auto b = Dcb::Buffer(std::move(s));
+		const auto exp = 696969.6969f;
+		b["butts"s]["dank"s] = 696969.6969f;
+		assert((float&)b["butts"s]["dank"s] == exp);
+		assert(*(float*)&b["butts"s]["dank"s] == exp);
+		const auto exp2 = 42.424242f;
+		*(float*)&b["butts"s]["dank"s] = exp2;
+		assert((float&)b["butts"s]["dank"s] == exp2);
+	}
+	// specific testing scenario (packing error)
+	{
+		Dcb::RawLayout lay;
+		lay.Add<Dcb::Bool>("normalMapEnabled");
+		lay.Add<Dcb::Bool>("specularMapEnabled");
+		lay.Add<Dcb::Bool>("hasGlossMap");
+		lay.Add<Dcb::Float>("specularPower");
+		lay.Add<Dcb::Float3>("specularColor");
+		lay.Add<Dcb::Float>("specularMapWeight");
+
+		auto buf = Dcb::Buffer(std::move(lay));
+		assert(buf.GetSizeInBytes() == 32u);
 	}
 }
