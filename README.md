@@ -17,30 +17,44 @@ This renderer engine is a half-year-long personal project following [ChiliTomato
       <th>Filename</th>
       <th align="center">Description</th>
     </tr>
-    <tr>
-      <td>A</td>
+	<tr>
+      <td>SYS_MAIN_Loop.cpp</td>
 	    <td align="left">
 	    	<ul>
-	    		<li>aaaaa</li>
-	    		<li>bbbbb</li>
-	    		<li>ccccc</li>
+	    		<li>The main loop of the program. Invokes App::Go().</li>
 	    	</ul>
 	    </td>
-    </tr>   
-    <tr>
-      <td>B</td>
+	</tr>
+	<tr>
+      <td>SYS_CLASS_App.h</td>
 	    <td align="left">
 	    	<ul>
-	    		<li>aaaaa</li>
+	    		<li>Contains the program behavior in each frame. Responsible for instanciating, updating and rendering objects.</li>
+	    	</ul>
+	    </td>
+	</tr>
+    <tr>
+      <td>SYS_CLASS_MFException.h</td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Inherit from std::exception, the MFException is the base class for all exception handlers in this program (Window, Graphics, Tools, etc.)</li>
+	    	</ul>
+	    </td>
+    </tr>
+    <tr>
+      <td>SYS_CLASS_Window.h</td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A singleton win32 window class that configures win32 settings and provides message communication between our app and the windows system.z</li>
 	    	</ul>
 	    </td>
 	</tr>
     <tr>
     <tr>
-      <td>C</td>
+      <td>SYS_CLASS_IO_Mouse/Keyboard.h</td>
 	    <td align="left">
 	    	<ul>
-	    		<li>aaaaa</li>
+	    		<li>The IO event handler that are envoked by Window::ProcessMessages. Translate and process the raw data from the OS such that our app can use them intuitively.</li>
 	    	</ul>
 	    </td>
 	</tr>
