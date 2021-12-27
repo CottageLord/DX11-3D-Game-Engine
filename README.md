@@ -18,7 +18,7 @@ This renderer engine is a half-year-long personal project following [ChiliTomato
       <th align="center">Description</th>
     </tr>
 	<tr>
-      <td>[SYS_MAIN_Loop.h](./'DX11 3D Game Engine'/SYS_MAIN_Loop.h)</td>
+      <td><a href="./'DX11 3D Game Engine'/SYS_MAIN_Loop.h">SYS_MAIN_Loop.h</a></td>
 	    <td align="left">
 	    	<ul>
 	    		<li>The main loop of the program. Invokes App::Go().</li>
