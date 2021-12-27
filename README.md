@@ -8,7 +8,7 @@ This renderer engine is a half-year-long personal project following [ChiliTomato
 
 ## 1. First commit - a win32 window
 
-![Alt text](./screenshots/2021-8-26.png "The hello world window")
+![Alt text](./Screenshots/2021-8-26.png "The hello world window")
 
 ### New files
 <table>
