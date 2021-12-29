@@ -8,6 +8,12 @@ This renderer engine is a half-year-long personal project following [ChiliTomato
 
 ## Commit 1 - a win32 window with customized IO and Exception system
 
+![Alt text](./Notes/1.jpg "Window and message system")
+
+![Alt text](./Notes/2.jpg "Component object model")
+
+![Alt text](./Notes/3.jpg "DirectX 11 Interface and graphics pipeline")
+
 ![Alt text](./Screenshots/2021-8-26.png "The hello world window")
 
 ### New files
@@ -22,6 +28,7 @@ This renderer engine is a half-year-long personal project following [ChiliTomato
 	    <td align="left">
 	    	<ul>
 	    		<li>The main loop of the program. Invokes App::Go().</li>
+	    		<li>Do the outmost exception handling.</li>
 	    	</ul>
 	    </td>
 	</tr>
@@ -45,7 +52,7 @@ This renderer engine is a half-year-long personal project following [ChiliTomato
       <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/a0dc6d71be91d79cad91605654188ed17470a14b/DX11%203D%20Game%20Engine/SYS_CLASS_MFException.h">SYS_CLASS_MFException.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/a0dc6d71be91d79cad91605654188ed17470a14b/DX11%203D%20Game%20Engine/SYS_CLASS_MFException.cpp">cpp</a></td>
 	    <td align="left">
 	    	<ul>
-	    		<li>Inherit from std::exception, the MFException is the base class for all exception handlers in this program (Window, Graphics, Tools, etc.)</li>
+	    		<li>Inherit from std::exception, the MFException is the base class for all exception handlers in this engine (Window, Graphics, Tools, etc.)</li>
 	    	</ul>
 	    </td>
     </tr>
@@ -53,16 +60,17 @@ This renderer engine is a half-year-long personal project following [ChiliTomato
       <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/a0dc6d71be91d79cad91605654188ed17470a14b/DX11%203D%20Game%20Engine/SYS_CLASS_Window.h">SYS_CLASS_Window.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/a0dc6d71be91d79cad91605654188ed17470a14b/DX11%203D%20Game%20Engine/SYS_CLASS_Window.cpp">cpp</a></td>
 	    <td align="left">
 	    	<ul>
-	    		<li>A singleton win32 window class that configures win32 settings and provides message communication between our app and the windows system.z</li>
+	    		<li>A singleton win32 window class that configures win32 settings.</li>
+	    		<li>Provides message communication between our app and the windows system.</li>
 	    	</ul>
 	    </td>
 	</tr>
     <tr>
-    <tr>
-      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/a0dc6d71be91d79cad91605654188ed17470a14b/DX11%203D%20Game%20Engine/SYS_CLASS_IO_Mouse.h">SYS_CLASS_IO_Mouse.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/a0dc6d71be91d79cad91605654188ed17470a14b/DX11%203D%20Game%20Engine/SYS_CLASS_IO_Mouse.cpp">cpp</a></td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/a0dc6d71be91d79cad91605654188ed17470a14b/DX11%203D%20Game%20Engine/SYS_CLASS_IO_Keyboard.h"> | Keyboard.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/a0dc6d71be91d79cad91605654188ed17470a14b/DX11%203D%20Game%20Engine/SYS_CLASS_IO_Keyboard.cpp">cpp</a></td>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/a0dc6d71be91d79cad91605654188ed17470a14b/DX11%203D%20Game%20Engine/SYS_CLASS_IO_Mouse.h">SYS_CLASS_IO_Mouse.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/a0dc6d71be91d79cad91605654188ed17470a14b/DX11%203D%20Game%20Engine/SYS_CLASS_IO_Mouse.cpp">cpp</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/a0dc6d71be91d79cad91605654188ed17470a14b/DX11%203D%20Game%20Engine/SYS_CLASS_IO_Keyboard.h">Keyboard.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/a0dc6d71be91d79cad91605654188ed17470a14b/DX11%203D%20Game%20Engine/SYS_CLASS_IO_Keyboard.cpp">cpp</a></td>
 	    <td align="left">
 	    	<ul>
-	    		<li>The IO event handler that are envoked by Window::ProcessMessages. Translate and process the raw data from the OS such that our app can use them intuitively.</li>
+	    		<li>The IO event handlers that are envoked by Window::ProcessMessages. </li>
+	    		<li>Translate and process the raw data from the OS such that our app can use them more intuitively.</li>
 	    	</ul>
 	    </td>
 	</tr>
@@ -71,11 +79,15 @@ This renderer engine is a half-year-long personal project following [ChiliTomato
 
 ### Major updates to existing files
 
+None.
+
 ## Commit 2 - The first triangle with shaders
 
 ![Alt text](./Screenshots/2021-8-28.png "The first shape")
 
 ### New files
+
+None.
 
 ### Major updates to existing files
 <table>
@@ -88,7 +100,140 @@ This renderer engine is a half-year-long personal project following [ChiliTomato
       <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/f1642d0470232aeb334f447a8bd99ef40d53cfdc/DX11%203D%20Game%20Engine/SYS_CLASS_Graphics.h">SYS_CLASS_Graphics.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/f1642d0470232aeb334f447a8bd99ef40d53cfdc/DX11%203D%20Game%20Engine/SYS_CLASS_Graphics.cpp">cpp</a></td>
 	    <td align="left">
 	    	<ul>
-	    		<li>Added test triangle drawer. Tested the procedure of configuring and feeding the rendering pipeline. This process will be modulared and generalized into different classes in the future. </li>
+	    		<li>Added test triangle drawer. Tested the procedure of configuring and feeding the rendering pipeline. </li>
+	    		<li>This process will be constantly modulared, generalized and optimized in the future commits. </li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+## Commit 3 - The bindable system - Reusability, Flexibility and Persistence
+
+![Alt text](./Notes/4.jpg "System layout")
+
+![Alt text](./Screenshots/2021-8-30.png "Duplicate geometries with shared data")
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Drawable.h">GRAPHICS_OBJ_Drawable.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Drawable.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Represents a drawble entity such as a box.</li>
+	    		<li>Manages a collection of "bindables" objects that could be binded abd shipped to rendering pipeline, such as vertex buffer, index buffer, transforms, shader constants and other topology settings.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Bindable.h">GRAPHICS_OBJ_Bindable.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Bindable.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>The base class (interface) for all bindable objects.</li>
+	    		<li>The pure virtual function Bind(Graphics& gfx) expects different implementations from its children (how vertex buffer and shader objects bind themselves respectively).</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_BUF_VertexBuffer.h">GRAPHICS_BUF_VertexBuffer.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_BUF_VertexBuffer.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Inherit from Bindable.</li>
+	    		<li>Takes in a vector of vertecies, store it as a member, and create buffer for D3D11_SUBRESOURCE_DATA as D3D11_BIND_VERTEX_BUFFERin the gfx device.</li>
+	    		<li>Bind the vertex using IASetVertexBuffers()</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_BUF_IndexBuffer.h">GRAPHICS_BUF_IndexBuffer.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_BUF_IndexBuffer.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Inherit from Bindable.</li>
+	    		<li>Take in a vector of indecies, store it as a member, and create buffer for D3D11_SUBRESOURCE_DATA as D3D11_BIND_INDEX_BUFFER in the gfx device.</li>
+	    		<li>Bind the index using IASetIndexBuffer()</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_PixelShader.h">GRAPHICS_OBJ_PixelShader.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_PixelShader.cpp">cpp</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_VertexShader.h">VertexShader.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_VertexShader.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Inherit from Bindable.</li>
+	    		<li>Take in the compiled-shader-file paths and register the corresponding shader objects.</li>
+	    		<li>Bind the shaders using VS | PSSetShader().</li>
+	    		<li>The vertex shader stores the input vertecies bytecode for InputLayout registration.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_InputLayout.h">GRAPHICS_OBJ_InputLayout.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_InputLayour.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Inherit from Bindable.</li>
+	    		<li>Take in the bytecode that will be sent to the Input Assembly stage, register the input layout by CreateInputLayout().</li>
+	    		<li>Bind the input layout using IASetInputLayout()</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_BUF_ConstantBuffers.h">GRAPHICS_BUF_ConstantBuffers.h</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Inherit from Bindable. Contains ConstantBuffer, VertexConstBuffer and PixelConstBuffer classes.</li>
+	    		<li>Take in the raw constants data, like struct with rgba floats, and register them to respective shader constants.</li>
+	    		<li>Bind the input layout using VS | PSSetConstantBuffers()</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_BUF_TransformCBuffer.h">GRAPHICS_BUF_TransformCBuffer.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_BUF_TransformCBuffer.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Inherit from Bindable.</li>
+	    		<li>Take in the current view-space-transform of the draw target, apply the projection to it.</li>
+	    		<li>Bind the final transform matrix as VertexConstant to the shader.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Topology.h">GRAPHICS_OBJ_Topology.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Topology.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Inherit from Bindable.</li>
+	    		<li>Bind the Topology setting using IASetPrimitiveTopology, almost always D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_StaticDrawInfo.h">GRAPHICS_OBJ_StaticDrawInfo.h</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Inherit from Drawable. Sit between the Drawable base and the actual drawable geometry object.</li>
+	    		<li>Ultilizaing the feature of the template programming. By using AddStaticBind() instead of the AddBind(), making sure that all Drawable(Box)s share the data including Vertex/Index data, Shaders, Constants, etc.</li>
+	    		<li>The hierarchy graph in the note above shows how the system eventually looklike. The Box code below also provides the example in practice.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Box.h">GRAPHICS_OBJ_Box.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Box.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Inherit from Drawable.</li>
+	    		<li>Instanciate a painted box and bind all data/settings using the bindable system.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/SYS_SET_GraphicsThrowMacros.h">SYS_SET_GraphicsThrowMacros.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/SYS_SET_WindowsThrowMacros.h">SYS_SET_WindowsThrowMacros.h</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Holds respective exception detection MACROS.</li>
 	    	</ul>
 	    </td>
 	</tr>
@@ -96,3 +241,20 @@ This renderer engine is a half-year-long personal project following [ChiliTomato
 </table>
 
 ### Major updates to existing files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/60004ef793a5d01cc0c3e2567d7f2e17575bc6ad">Commit detail</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Reorganized the exception detection MACROS.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
