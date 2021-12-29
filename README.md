@@ -423,7 +423,9 @@ None.
 
 ![Alt text](./Notes/6.jpg "Phong shading")
 
-[![Alt text](./Screenshots/2021-9-12.png)](https://github.com/CottageLord/DX11-3D-Game-Engine/blob/main/Screenshots/2021-9-12%20Phong%20shading.mp4 "Point light and phong shading")
+![Alt text](./Screenshots/2021-9-12.png "Point light and phong shading")
+
+![Alt text](./Screenshots/2021-9-12.gif "Point light and phong shading")
 
 ### New files
 
