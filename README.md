@@ -497,7 +497,7 @@ None.
       <th align="center">Description</th>
     </tr>
 	<tr>
-      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/IndexedPhongVS.hlsl">IndexedPhongVS.hlsl</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/IndexedPhongPS.hlsl">IndexedPhongPS.hlsl</a></td>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/aac77b66377e3960c008439b3bdbf4d282269830/DX11%203D%20Game%20Engine/IndexedPhongVS.hlsl">IndexedPhongVS.hlsl</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/aac77b66377e3960c008439b3bdbf4d282269830/DX11%203D%20Game%20Engine/IndexedPhongPS.hlsl">IndexedPhongPS.hlsl</a></td>
 	    <td align="left">
 	    	<ul>
 	    		<li>Shaders responding to the new lighting settings and paint geometry faces with their respective face IDs.</li>
@@ -530,6 +530,120 @@ None.
 	    		<li>Transform buffer now stores model, model-view, model-view-proj matricies respectively for different shader calculations. For example, the normal calculation cannot be done after geometry being projected.</li>
 	    		<li>Added slot parameter to transform and constant buffers for flexible registration.</li>
 	    		<li>The pointlight now have various lighting attribute constants.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+
+## Commit 9 - DynamicVertex system
+
+![Alt text](./Notes/7.jpg "DynamicVertex system")
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/2bf0fe58981f9e4eb718897abf1902580f0e95b2/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_DynamicVertex.h">GRAPHICS_OBJ_DynamicVertex.h</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Provides an automatic layout/data manager. Previously the vertex data is defined manually in separate places (see duplicate codes in <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Box.cpp">GRAPHICS_OBJ_Box.cpp</a>).</li>
+	    		<li>Now we only need to do VertexLayout.Append() definition ahead, and the layout object will be capable of reading vertex data, validating data and generating D3D layout to shader automatically.</li>
+	    		<li>Template programming and parameter pack are used to load vertex data flexibly (DynamicVertex::VertexBuffer::EmplaceBack()).</li>
+	    		<li>This will be the code base for future improvements, including shader reflection.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/2bf0fe58981f9e4eb718897abf1902580f0e95b2/DX11%203D%20Game%20Engine/TexturedPhongVS.hlsl">TexturedPhongVS.hlsl</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2bf0fe58981f9e4eb718897abf1902580f0e95b2/DX11%203D%20Game%20Engine/TexturedPhongPS.hlsl">TexturedPhongPS.hlsl</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>The phong shader capable of sampling texture.</li>
+	    	</ul>
+	    </td>
+	</tr>
+    <tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/2bf0fe58981f9e4eb718897abf1902580f0e95b2/DX11%203D%20Game%20Engine/AssTest.cpp.h">AssTest.cpp.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/2bf0fe58981f9e4eb718897abf1902580f0e95b2/DX11%203D%20Game%20Engine/AssTest.cpp.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Some test objects.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates to existing files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/2bf0fe58981f9e4eb718897abf1902580f0e95b2/DX11%203D%20Game%20Engine/GRAPHICS_BUF_VertexBuffer.h">GRAPHICS_BUF_VertexBuffer.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2bf0fe58981f9e4eb718897abf1902580f0e95b2/DX11%203D%20Game%20Engine/GRAPHICS_BUF_VertexBuffer.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Now capable of transporting a DynamicVertex object into the pipeline configurations.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+## Commit 10 - Model loading
+
+![Alt text](./Screenshots/2021-9-13.png "Basic model loading")
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/84ccba0d0e8c391d32f1b71297c0d3a094ebab9e/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Mesh.h">GRAPHICS_OBJ_Mesh.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/84ccba0d0e8c391d32f1b71297c0d3a094ebab9e/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Mesh.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Consists of Model, Mesh and Node classes.</li>
+	    		<li>Capable of reading model with filepath, parsing meshe/node-hierarchies and generating respective control window automatically (i.e. moving model's leg).</li>
+	    		<li>Ultilized the dynamic vertex system, but haven't do flexible data reflection - detecting whether normal, diffuse, specular, alpha mask, etc. files exists and generate different dynamic vertex layouts accordingly.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/84ccba0d0e8c391d32f1b71297c0d3a094ebab9e/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_DynamicVertex.cpp">GRAPHICS_OBJ_DynamicVertex.cpp</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/84ccba0d0e8c391d32f1b71297c0d3a094ebab9e/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_InputLayout.cpp">GRAPHICS_OBJ_InputLayout.cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Seperated definition and declaration.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates to existing files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/84ccba0d0e8c391d32f1b71297c0d3a094ebab9e">Commit details</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Moved all rendering pipeline related objects into the GPipeline namespace.</li>
 	    	</ul>
 	    </td>
 	</tr>
