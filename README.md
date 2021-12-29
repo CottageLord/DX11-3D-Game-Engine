@@ -306,7 +306,7 @@ None.
 
 None.
 
-## Commit 5 - The first triangle with shaders
+## Commit 5 - Texture mapping
 
 ![Alt text](./Notes/5.jpg "Texture mapping and normal mapping")
 
@@ -362,3 +362,120 @@ None.
 ### Major updates to existing files
 
 None.
+
+## Commit 6 - Imgui and camara system
+
+![Alt text](./Screenshots/2021-9-7.png "Imgui and camara system")
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_ImguiManager.h">SYS_CLASS_ImguiManager.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_ImguiManager.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Initialize Imgui system.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Camera.h">GRAPHICS_OBJ_Camera.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Camera.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Initialize camera positions, generate camera matrix using XMMatrixLookAtLH().</li>
+	    		<li>Spawns Imgui control window that updates camera parameters.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates to existing files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_Graphics.h">SYS_CLASS_Graphics.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_Graphics.cpp">cpp</a> | <a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_App.h">SYS_CLASS_App.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_App.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Integrated Imgui frame into the current graphics frame system.</li>
+	    		<li>Calls camera update.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates to existing files
+
+None.
+
+## Commit 7 - Point light and phong shading
+
+![Alt text](./Notes/6.jpg "Phong shading")
+
+![Alt text](./Screenshots/2021-9-12.png "Point light and phong shading")
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+    <tr>
+      <td><a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_LGT_PointLight.h">GRAPHICS_LGT_PointLight.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_LGT_PointLight.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Manages the light data attributes, control window and the Solidsphere object as visual representation.</li>
+	    		<li>Updates the PixelConstantBuffer for shader's light computation.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_SolidSphere.h">GRAPHICS_OBJ_SolidSphere.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_SolidSphere.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Visualize the light source.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/PhongVS.hlsl">PhongVS.hlsl</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/PhongPS.hlsl">PhongPS.hlsl</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>The Phong shaders.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates to existing files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_IndexedTriangleList.h">GRAPHICS_OBJ_IndexedTriangleList.h</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Added normal generator for cubes.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
