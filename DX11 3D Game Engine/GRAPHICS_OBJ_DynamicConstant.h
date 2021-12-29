@@ -1,6 +1,6 @@
 /**
  * @file GRAPHICS_OBJ_DynamicConstant.h
- * @brief Flexibly configures shader constants for various resources composition in different models
+ * @brief Flexibly configures pixel shader constants for various resources composition in different models
  */
 
 #pragma once
@@ -20,7 +20,7 @@
 	X( Float3 ) \
 	X( Float4 ) \
 	X( Matrix ) \
-	X( Bool )
+	X( Bool ) 
 
 namespace Dcb
 {
@@ -90,8 +90,8 @@ namespace Dcb
 	LEAF_ELEMENT_TYPES
 #undef X
 
-		// enables reverse lookup from SysType to leaf type
-		template<typename T>
+	// enables reverse lookup from SysType to leaf type
+	template<typename T>
 	struct ReverseMap
 	{
 		static constexpr bool valid = false;
@@ -105,10 +105,9 @@ namespace Dcb
 	LEAF_ELEMENT_TYPES
 #undef X
 
-
-		// LayoutElements instances form a tree that describes the layout of the data buffer
-		// supporting nested aggregates of structs and arrays
-		class LayoutElement
+	// LayoutElements instances form a tree that describes the layout of the data buffer
+	// supporting nested aggregates of structs and arrays
+	class LayoutElement
 	{
 	private:
 		// this forms the polymorpic base for extra data that Struct and Array have

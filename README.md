@@ -17,6 +17,7 @@ This renderer engine is a half-year-long personal project following [ChiliTomato
 ![Alt text](./Screenshots/2021-8-26.png "The hello world window")
 
 ### New files
+
 <table>
   <tbody>
     <tr>
@@ -90,6 +91,7 @@ None.
 None.
 
 ### Major updates to existing files
+
 <table>
   <tbody>
     <tr>
@@ -145,7 +147,7 @@ None.
 	    <td align="left">
 	    	<ul>
 	    		<li>Inherit from Bindable.</li>
-	    		<li>Takes in a vector of vertecies, store it as a member, and create buffer for D3D11_SUBRESOURCE_DATA as D3D11_BIND_VERTEX_BUFFERin the gfx device.</li>
+	    		<li>Takes in a vector of vertecies, store it as a member, and create buffer for D3D11_SUBRESOURCE_DATA as D3D11_BIND_VERTEX_BUFFER in the gfx device.</li>
 	    		<li>Bind the vertex using IASetVertexBuffers()</li>
 	    	</ul>
 	    </td>
@@ -258,3 +260,105 @@ None.
 	</tr>
   </tbody>
 </table>
+
+
+## Commit 4 - Play with various geometries
+
+![Alt text](./Screenshots/2021-9-2.png "Different geometries")
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/9b67f91b49b388257430ce1c24f85058d083a592/DX11%203D%20Game%20Engine/SYS_SET_Math.h">SYS_SET_Math.h</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Some math helpers that performs angle warp around, angle to radient and basic linear interpolation.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/9b67f91b49b388257430ce1c24f85058d083a592/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_IndexedTriangleList.h">GRAPHICS_OBJ_IndexedTriangleList.h</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>An encapsulation of paired index and vertex buffers.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/9b67f91b49b388257430ce1c24f85058d083a592/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Cube.h">GRAPHICS_OBJ_Cube.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/9b67f91b49b388257430ce1c24f85058d083a592/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Cone.h">GRAPHICS_OBJ_Cone.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/9b67f91b49b388257430ce1c24f85058d083a592/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Prism.h">GRAPHICS_OBJ_Prism.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/9b67f91b49b388257430ce1c24f85058d083a592/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Plane.h">GRAPHICS_OBJ_Plane.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/9b67f91b49b388257430ce1c24f85058d083a592/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Sphere.h">GRAPHICS_OBJ_Sphere.h</a>
+      	</td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Play with various drawables.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates to existing files
+
+None.
+
+## Commit 5 - The first triangle with shaders
+
+![Alt text](./Notes/5.jpg "Texture mapping and normal mapping")
+
+![Alt text](./Screenshots/2021-9-4.png "Texture mapping")
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/591c72dabee734b9c9317fa12990800ad4baf264/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Surface.h">GRAPHICS_OBJ_Surface.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/591c72dabee734b9c9317fa12990800ad4baf264/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Surface.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A surface loader/modifier using Gdiplus. Convert image file into color buffer.</li>
+	    		<li>Contains Exception handler and a Color class as a handler into the bit data.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/591c72dabee734b9c9317fa12990800ad4baf264/DX11%203D%20Game%20Engine/GRAPHICS_SET_GDIPlusManager.h">GRAPHICS_SET_GDIPlusManager.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/591c72dabee734b9c9317fa12990800ad4baf264/DX11%203D%20Game%20Engine/GRAPHICS_SET_GDIPlusManager.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Configures the Gdiplus.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/591c72dabee734b9c9317fa12990800ad4baf264/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Texture.h">GRAPHICS_OBJ_Texture.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/591c72dabee734b9c9317fa12990800ad4baf264/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Texture.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Take in the loaded Surface, register the D3D11_TEXTURE2D_DESC as D3D11_SHADER_RESOURCE_VIEW_DESC.</li>
+	    		<li>Configures texture settings like mipmap levels.</li>
+	    		<li>Bind to shader constant by PSSetShaderResources().</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/591c72dabee734b9c9317fa12990800ad4baf264/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Sampler.h">GRAPHICS_OBJ_Sampler.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/591c72dabee734b9c9317fa12990800ad4baf264/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Sampler.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Configures the sampler settings like filter mode and wrapping mode.</li>
+	    		<li>Bind to shader constant by PSSetSamplers().</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates to existing files
+
+None.

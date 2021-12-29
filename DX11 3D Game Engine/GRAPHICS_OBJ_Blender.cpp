@@ -39,6 +39,7 @@ namespace GPipeline
 	void Blender::Bind(Graphics& gfx) noexcept
 	{
 		const float* data = factors ? factors->data() : nullptr;
+		// bind to output merger
 		GetContext(gfx)->OMSetBlendState(pBlender.Get(), data, 0xFFFFFFFFu);
 	}
 

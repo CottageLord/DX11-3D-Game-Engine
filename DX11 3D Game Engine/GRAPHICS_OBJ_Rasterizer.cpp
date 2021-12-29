@@ -9,7 +9,7 @@ namespace GPipeline
 		twoSided(twoSided)
 	{
 		GET_INFO_MAN(gfx);
-
+		// CD3D is the class version instead of a struct version
 		D3D11_RASTERIZER_DESC rasterDesc = CD3D11_RASTERIZER_DESC(CD3D11_DEFAULT{}); // set everything else to default
 		rasterDesc.CullMode = twoSided ? D3D11_CULL_NONE : D3D11_CULL_BACK;
 

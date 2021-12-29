@@ -46,7 +46,7 @@ namespace Dcb
 	{
 		assert("Indexing into non-array" && type == Array);
 		const auto& data = static_cast<ExtraData::Array&>(*pExtraData);
-		assert(index < data.size);
+		assert("Indexing out of range" && index < data.size);
 		return { offset + data.layoutElement->GetSizeInBytes() * index,&*data.layoutElement };
 	}
 	LayoutElement& LayoutElement::operator[](const std::string& key) noxnd

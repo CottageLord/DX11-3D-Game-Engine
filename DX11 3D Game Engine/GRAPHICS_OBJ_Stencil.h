@@ -56,8 +56,8 @@ namespace GPipeline
 		/*
 		To draw geometry outlines:
 			1. draw geometries normally
-			2. generate mask in stencil buffer ("draw again")
-			3. scaling up the mask a bit and mask the new shape with the stencil data
+			2. generate mask in stencil buffer ("at drew positions")
+			3. scaling up the geometry, draw in filled color, and mask the new shape with the stencil data
 		*/
 		Stencil(Graphics& gfx, Mode mode)
 		{
