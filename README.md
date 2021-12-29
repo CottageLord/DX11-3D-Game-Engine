@@ -376,7 +376,7 @@ None.
       <th align="center">Description</th>
     </tr>
 	<tr>
-      <td><a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_ImguiManager.h">SYS_CLASS_ImguiManager.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_ImguiManager.cpp">cpp</a></td>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_ImguiManager.h">SYS_CLASS_ImguiManager.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_ImguiManager.cpp">cpp</a></td>
 	    <td align="left">
 	    	<ul>
 	    		<li>Initialize Imgui system.</li>
@@ -384,7 +384,7 @@ None.
 	    </td>
 	</tr>
 	<tr>
-      <td><a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Camera.h">GRAPHICS_OBJ_Camera.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Camera.cpp">cpp</a></td>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Camera.h">GRAPHICS_OBJ_Camera.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Camera.cpp">cpp</a></td>
 	    <td align="left">
 	    	<ul>
 	    		<li>Initialize camera positions, generate camera matrix using XMMatrixLookAtLH().</li>
@@ -404,7 +404,7 @@ None.
       <th align="center">Description</th>
     </tr>
 	<tr>
-      <td><a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_Graphics.h">SYS_CLASS_Graphics.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_Graphics.cpp">cpp</a> | <a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_App.h">SYS_CLASS_App.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_App.cpp">cpp</a></td>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_Graphics.h">SYS_CLASS_Graphics.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_Graphics.cpp">cpp</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_App.h">SYS_CLASS_App.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/SYS_CLASS_App.cpp">cpp</a></td>
 	    <td align="left">
 	    	<ul>
 	    		<li>Integrated Imgui frame into the current graphics frame system.</li>
@@ -436,7 +436,7 @@ None.
       <th align="center">Description</th>
     </tr>
     <tr>
-      <td><a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_LGT_PointLight.h">GRAPHICS_LGT_PointLight.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_LGT_PointLight.cpp">cpp</a></td>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_LGT_PointLight.h">GRAPHICS_LGT_PointLight.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_LGT_PointLight.cpp">cpp</a></td>
 	    <td align="left">
 	    	<ul>
 	    		<li>Manages the light data attributes, control window and the Solidsphere object as visual representation.</li>
@@ -445,7 +445,7 @@ None.
 	    </td>
 	</tr>
 	<tr>
-      <td><a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_SolidSphere.h">GRAPHICS_OBJ_SolidSphere.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_SolidSphere.cpp">cpp</a></td>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_SolidSphere.h">GRAPHICS_OBJ_SolidSphere.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_SolidSphere.cpp">cpp</a></td>
 	    <td align="left">
 	    	<ul>
 	    		<li>Visualize the light source.</li>
@@ -453,7 +453,7 @@ None.
 	    </td>
 	</tr>
 	<tr>
-      <td><a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/PhongVS.hlsl">PhongVS.hlsl</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/PhongPS.hlsl">PhongPS.hlsl</a></td>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/PhongVS.hlsl">PhongVS.hlsl</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/PhongPS.hlsl">PhongPS.hlsl</a></td>
 	    <td align="left">
 	    	<ul>
 	    		<li>The Phong shaders.</li>
@@ -472,10 +472,64 @@ None.
       <th align="center">Description</th>
     </tr>
 	<tr>
-      <td><a href="hhttps://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_IndexedTriangleList.h">GRAPHICS_OBJ_IndexedTriangleList.h</a></td>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_IndexedTriangleList.h">GRAPHICS_OBJ_IndexedTriangleList.h</a></td>
 	    <td align="left">
 	    	<ul>
 	    		<li>Added normal generator for cubes.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+## Commit 8 - Point light and phong shading
+
+![Alt text](./Screenshots/2021-9-13.png "Specular")
+
+![Alt text](./Screenshots/2021-9-13.gif "Specular")
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/IndexedPhongVS.hlsl">IndexedPhongVS.hlsl</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/2d5b21530f2a1b29b27d918d19e10fa7531be5dc/DX11%203D%20Game%20Engine/IndexedPhongPS.hlsl">IndexedPhongPS.hlsl</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Shaders responding to the new lighting settings and paint geometry faces with their respective face IDs.</li>
+	    	</ul>
+	    </td>
+	</tr>
+    <tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/aac77b66377e3960c008439b3bdbf4d282269830/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_TestObject.h">GRAPHICS_OBJ_TestObject.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/aac77b66377e3960c008439b3bdbf4d282269830/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Cylinder.h">GRAPHICS_OBJ_Cylinder.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/aac77b66377e3960c008439b3bdbf4d282269830/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Cylinder.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Some test objects.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates to existing files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/aac77b66377e3960c008439b3bdbf4d282269830">Commit details</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Transform buffer now stores model, model-view, model-view-proj matricies respectively for different shader calculations. For example, the normal calculation cannot be done after geometry being projected.</li>
+	    		<li>Added slot parameter to transform and constant buffers for flexible registration.</li>
+	    		<li>The pointlight now have various lighting attribute constants.</li>
 	    	</ul>
 	    </td>
 	</tr>
