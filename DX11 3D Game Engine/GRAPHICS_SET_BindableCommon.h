@@ -12,3 +12,5 @@
 #include "GRAPHICS_OBJ_Blender.h" 
 #include "GRAPHICS_OBJ_Sampler.h" 
 #include "GRAPHICS_OBJ_Rasterizer.h" 
+#include "GRAPHICS_OBJ_Stencil.h"
+#include "GRAPHICS_OBJ_NullPixelShader.h" 

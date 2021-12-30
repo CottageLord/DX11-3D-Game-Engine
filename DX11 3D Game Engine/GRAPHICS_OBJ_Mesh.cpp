@@ -41,6 +41,7 @@ const std::string& ModelException::GetNote() const noexcept
 }
 
 // Mesh
+/*
 Mesh::Mesh(Graphics & gfx, std::vector<std::shared_ptr<GPipeline::Bindable>> bindPtrs)
 {
 	// make sure to share the topology
@@ -52,12 +53,14 @@ Mesh::Mesh(Graphics & gfx, std::vector<std::shared_ptr<GPipeline::Bindable>> bin
 	}
 
 	AddBind(std::make_shared<GPipeline::TransformCbuffer>(gfx, *this));
-}
-void Mesh::Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const noxnd
+}*/
+
+void Mesh::Submit(FrameCommander& frame, dx::FXMMATRIX accumulatedTranform) const noxnd
 {
-	DirectX::XMStoreFloat4x4(&transform, accumulatedTransform);
-	Drawable::Draw(gfx); // call parent's draw func
+	dx::XMStoreFloat4x4(&transform, accumulatedTranform);
+	Drawable::Submit(frame);
 }
+
 DirectX::XMMATRIX Mesh::GetTransformXM() const noexcept
 {
 	return DirectX::XMLoadFloat4x4(&transform);
@@ -75,15 +78,15 @@ Node::Node(int id, const std::string& name, std::vector<Mesh*> meshPtrs, const D
 	dx::XMStoreFloat4x4(&appliedTransform, dx::XMMatrixIdentity());
 }
 
-void Node::Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const noxnd
+	void Node::Submit(FrameCommander& frame, DirectX::FXMMATRIX accumulatedTransform) const noxnd
 {
 	const auto built =
 		dx::XMLoadFloat4x4(&appliedTransform) *
 		dx::XMLoadFloat4x4(&localTransform) *
 		accumulatedTransform;
 	// draw recursively
-	for (const auto pm : meshPtrs) { pm->Draw(gfx, built); }
-	for (const auto& pc : childPtrs) { pc->Draw(gfx, built); }
+	for (const auto pm : meshPtrs) { pm->Submit(frame, accumulatedTransform); }
+	for (const auto& pc : childPtrs) { pc->Submit(frame, accumulatedTransform); }
 }
 void Node::AddChild(std::unique_ptr<Node> pChild) noxnd
 {
@@ -121,7 +124,7 @@ void Node::ShowTree(Node*& pSelectedNode) const noexcept
 		ImGui::TreePop();
 	}
 }
-
+/*
 const Dcb::Buffer* Node::GetMaterialConstants() const noxnd
 {
 	if (meshPtrs.size() == 0)
@@ -137,7 +140,7 @@ void Node::SetMaterialConstants(const Dcb::Buffer& buf_in) noxnd
 	auto pcb = meshPtrs.front()->QueryBindable<GPipeline::CachingPixelConstantBufferEX>();
 	assert(pcb != nullptr);
 	pcb->SetBuffer(buf_in);
-}
+}*/
 
 void Node::SetAppliedTransform(DirectX::FXMMATRIX transform) noexcept
 {
@@ -157,6 +160,7 @@ class ModelWindow // pImpl idiom, only defined in this .cpp
 public:
 	void Show(Graphics& gfx, const char* windowName, const Node& root) noexcept
 	{
+		/*
 		// window name defaults to "Model"
 		windowName = windowName ? windowName : "Model";
 		// need an ints to track node indices and selected node
@@ -184,10 +188,10 @@ public:
 					tp.x = translation.x;
 					tp.y = translation.y;
 					tp.z = translation.z;
-					/*
-						insert() returns pair<iterator (to the newly inseted info if insertion success), bool (whether success or not)>
-						std::tie destruct the returned pair, ignore the second bool
-					*/
+					
+					//insert() returns pair<iterator (to the newly inseted info if insertion success), bool (whether success or not)>
+					//std::tie destruct the returned pair, ignore the second bool
+					
 					//std::tie(i, std::ignore) = transforms.insert({ id,tp });
 					auto pMatConst = pSelectedNode->GetMaterialConstants();
 					auto buf = pMatConst != nullptr ? std::optional<Dcb::Buffer>{ *pMatConst } : std::optional<Dcb::Buffer>{};
@@ -254,9 +258,11 @@ public:
 			}
 		}
 		ImGui::End();
+		*/
 	}
 	void ApplyParameters() noxnd
 	{
+		/*
 		if (TransformDirty())
 		{
 			pSelectedNode->SetAppliedTransform(GetTransform());
@@ -266,7 +272,7 @@ public:
 		{
 			pSelectedNode->SetMaterialConstants(GetMaterial());
 			ResetMaterialDirty();
-		}
+		}*/
 	}
 private:
 	dx::XMMATRIX GetTransform() const noxnd
@@ -360,13 +366,13 @@ Model::Model(Graphics& gfx, const std::string& pathString, const float scale)
 Model::~Model() noexcept
 {}
 
-void Model::Draw(Graphics& gfx) const noxnd
+void Model::Submit(FrameCommander& frame) const noxnd
 {
 	// I'm still not happy about updating parameters (i.e. mutating a bindable GPU state
 	// which is part of a mesh which is part of a node which is part of the model that is
 	// const in this call) Can probably do this elsewhere
 	pWindow->ApplyParameters();
-	pRoot->Draw(gfx, dx::XMMatrixIdentity());
+	pRoot->Submit(frame, dx::XMMatrixIdentity());
 }
 
 void Model::ShowWindow(Graphics& gfx, const char* windowName) noexcept
@@ -382,6 +388,7 @@ void Model::SetRootTransform(DirectX::FXMMATRIX tf) noexcept
 
 std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials, const std::filesystem::path& path, float scale)
 {
+	/*
 	using namespace std::string_literals;
 	using DynamicVertex::VertexLayout;
 	using namespace GPipeline;
@@ -451,7 +458,7 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 		{
 			auto tex = Texture::Resolve(gfx, "Images\\toon2.jpg", 3);
 			bindablePtrs.push_back(std::move(tex));
-		}*/
+		}
 		
 		if (hasDiffuseMap || hasSpecularMap || hasNormalMap)
 		{
@@ -646,7 +653,7 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 			auto tex = Texture::Resolve(gfx, "Images\\toon2.jpg", 1);
 			bindablePtrs.push_back(std::move(tex));
 		}
-		*/
+		
 		DynamicVertex::VertexBuffer vbuf(std::move(
 			VertexLayout{}
 			.Append(VertexLayout::Position3D)
@@ -682,7 +689,7 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 		auto pvsbc = pvs->GetBytecode();
 		bindablePtrs.push_back(std::move(pvs));
 
-		bindablePtrs.push_back(PixelShader::Resolve(gfx, /*celShading ? "PhongPSCel.cso" : */"PhongPS.cso"));
+		bindablePtrs.push_back(PixelShader::Resolve(gfx, "PhongPS.cso"));
 
 		bindablePtrs.push_back(InputLayout::Resolve(gfx, vbuf.GetLayout(), pvsbc));
 
@@ -765,6 +772,8 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 	bindablePtrs.push_back(std::make_shared<Stencil>(gfx, Stencil::Mode::Off));
 	// create the mesh drawable
 	return std::make_unique<Mesh>(gfx, std::move(bindablePtrs));
+	*/
+	return {};
 }
 std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node) noexcept
 {

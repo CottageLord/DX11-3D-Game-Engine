@@ -36,17 +36,19 @@ private:
 class Mesh : public Drawable
 {
 public:
+	using Drawable::Drawable;
 	/**
 	 * @brief Take in the drawable data for flexibility concern (Dependency Injection)
 	 * @param std::vector<std::unique_ptr<Bindable>> bindPtrs all bindable info
-	 */
-	Mesh( Graphics& gfx,std::vector<std::shared_ptr<GPipeline::Bindable>> bindPtrs );
+	 
+	Mesh( Graphics& gfx,std::vector<std::shared_ptr<GPipeline::Bindable>> bindPtrs );*/
 	/**
 	 * @brief Store the parents' transforms and excute the parent's draw()
 	 * @param DirectX::FXMMATRIX accumulatedTransform The combined transform from the parent nodes
-	 */
-	void Draw( Graphics& gfx,DirectX::FXMMATRIX accumulatedTransform ) const noxnd;
+	 
+	void Draw( Graphics& gfx,DirectX::FXMMATRIX accumulatedTransform ) const noxnd;*/
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
+	void Submit(FrameCommander& frame, DirectX::FXMMATRIX accumulatedTranform) const noxnd;
 private:
 	mutable DirectX::XMFLOAT4X4 transform;
 };
@@ -64,8 +66,9 @@ public:
 	/**
 	 * @brief Draw a node with given accumulatedTransform
 	 * @param DirectX::FXMMATRIX accumulatedTransform we need to mutiply the node's trans with this one
-	 */
-	void Draw( Graphics& gfx,DirectX::FXMMATRIX accumulatedTransform ) const noxnd;
+	 
+	void Draw( Graphics& gfx,DirectX::FXMMATRIX accumulatedTransform ) const noxnd;*/
+	void Submit(FrameCommander& frame, DirectX::FXMMATRIX accumulatedTransform) const noxnd;
 	/**
 	 * @brief stores the new position of this node
 	 */
@@ -85,8 +88,8 @@ public:
 	 * @brief return the permanant ID of the current node
 	 */
 	int GetId() const noexcept;
-	const Dcb::Buffer* GetMaterialConstants() const noxnd;
-	void SetMaterialConstants(const Dcb::Buffer&) noxnd;
+	//const Dcb::Buffer* GetMaterialConstants() const noxnd;
+	//void SetMaterialConstants(const Dcb::Buffer&) noxnd;
 private:
 	/**
 	 * @brief An addChild() that could only be accessed by friend Model class
@@ -120,7 +123,8 @@ public:
 	Model(Graphics& gfx, const std::string& pathString, float scale = 1.0f);
 	~Model() noexcept;
 	void SetRootTransform(DirectX::FXMMATRIX tf) noexcept;
-	void Draw(Graphics& gfx) const noxnd;
+	//void Draw(Graphics& gfx) const noxnd;
+	void Submit(FrameCommander& frame) const noxnd;
 	void ShowWindow(Graphics& gfx, const char* windowName = nullptr) noexcept;
 private:
 	/**

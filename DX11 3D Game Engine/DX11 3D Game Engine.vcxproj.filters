@@ -58,6 +58,18 @@
     <Filter Include="Header Files\Json">
       <UniqueIdentifier>{67bd6d2f-247e-4cab-9e8c-904403edc076}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Graphics\JobSystem">
+      <UniqueIdentifier>{4be5f345-231f-406f-9722-43a530c0b07e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\DynamicDataSystem">
+      <UniqueIdentifier>{bae83135-aa90-49b0-9e9a-ef4e3c294193}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\DynamicDataSystem">
+      <UniqueIdentifier>{63474778-4244-4c2a-a289-551e6f618dba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\JobSystem">
+      <UniqueIdentifier>{333d7962-ab0d-4acc-87b4-35434c225a86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SYS_CLASS_App.cpp">
@@ -168,9 +180,6 @@
     <ClCompile Include="GRAPHICS_OBJ_Camera.cpp">
       <Filter>Source Files\Graphics\Object</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_DynamicVertex.cpp">
-      <Filter>Source Files\Graphics\Object</Filter>
-    </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_Surface.cpp">
       <Filter>Source Files\Graphics\Object</Filter>
     </ClCompile>
@@ -186,14 +195,32 @@
     <ClCompile Include="SYS_CLASS_ScriptCommander.cpp">
       <Filter>Source Files\Application</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_DynamicConstant.cpp">
-      <Filter>Source Files\Graphics\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_LayoutPool.cpp">
-      <Filter>Source Files\Graphics\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Testing.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="TestCube.cpp">
+      <Filter>Source Files\Graphics\Drawabble</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_DynamicConstant.cpp">
+      <Filter>Source Files\Graphics\DynamicDataSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_DynamicVertex.cpp">
+      <Filter>Source Files\Graphics\DynamicDataSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_LayoutPool.cpp">
+      <Filter>Source Files\Graphics\DynamicDataSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_JOB_Technique.cpp">
+      <Filter>Source Files\Graphics\JobSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_JOB_Step.cpp">
+      <Filter>Source Files\Graphics\JobSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_NullPixelShader.cpp">
+      <Filter>Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_JOB_Job.cpp">
+      <Filter>Source Files\Graphics\JobSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -275,9 +302,6 @@
     <ClInclude Include="SYS_SET_Math.h">
       <Filter>Header Files\Application</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_IndexedTriangleList.h">
-      <Filter>Header Files\Graphics\Drawable</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Texture.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
     </ClInclude>
@@ -338,9 +362,6 @@
     <ClInclude Include="GRAPHICS_BUF_TransformCBufferPS.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_Cube.h">
-      <Filter>Header Files\Graphics\Drawable</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_HELP_NormalMapTwerker.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
@@ -354,9 +375,6 @@
       <Filter>Header Files\Graphics\Object</Filter>
     </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Camera.h">
-      <Filter>Header Files\Graphics\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_DynamicVertex.h">
       <Filter>Header Files\Graphics\Object</Filter>
     </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Surface.h">
@@ -377,17 +395,50 @@
     <ClInclude Include="SYS_CLASS_ScriptCommander.h">
       <Filter>Header Files\Application</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_DynamicConstant.h">
-      <Filter>Header Files\Graphics\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_LayoutPool.h">
-      <Filter>Header Files\Graphics\Object</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_BUF_ConstantBuffersEx.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
     </ClInclude>
     <ClInclude Include="Testing.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="TestCube.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_IndexedTriangleList.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Cube.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Stencil.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_DynamicConstant.h">
+      <Filter>Header Files\Graphics\DynamicDataSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_DynamicVertex.h">
+      <Filter>Header Files\Graphics\DynamicDataSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_LayoutPool.h">
+      <Filter>Header Files\Graphics\DynamicDataSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_JOB_Technique.h">
+      <Filter>Header Files\Graphics\JobSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_JOB_Step.h">
+      <Filter>Header Files\Graphics\JobSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_JOB_Pass.h">
+      <Filter>Header Files\Graphics\JobSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_JOB_Job.h">
+      <Filter>Header Files\Graphics\JobSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_NullPixelShader.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_JOB_FrameCommander.h">
+      <Filter>Header Files\Graphics\JobSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

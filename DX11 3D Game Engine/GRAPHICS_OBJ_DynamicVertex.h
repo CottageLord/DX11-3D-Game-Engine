@@ -1,5 +1,5 @@
 /**
-	* @file GRAPHICS_OBJ_VertexLayout.h
+	* @file GRAPHICS_OBJ_DynamicVertex.h
 	* @brief 
 	*/
 #pragma once
@@ -129,7 +129,8 @@ namespace DynamicVertex
 			}
 		private:
 			VertexLayout::ElementType type;
-			size_t offset; // position in the vertex info
+			// the byte length of the elements[] before the current Element is inserted
+			size_t offset;
 		};
 	public:
 		/**
@@ -155,8 +156,8 @@ namespace DynamicVertex
 		const Element& ResolveByIndex(size_t i) const noxnd;
 		VertexLayout& Append(ElementType type) noxnd;
 		/**
-		 * @brief returns the size of the vertex info in bytes
-		 * @return size_t the offset of the very last element in the info std::vector<Element>
+		 * @brief returns the size of a single vertex data in bytes
+		 * @return size_t the offset attribute + size attribute of the very last element in the std::vector<Element>
 		 */
 		size_t Size() const noxnd;
 		/**
@@ -297,7 +298,7 @@ namespace DynamicVertex
 		size_t Size() const noxnd;
 		size_t SizeBytes() const noxnd;
 		/**
-		 * @brief adding info at the end of the buffer
+		 * @brief adding info at the end of the buffer (make a empty vertex at the end and modify that vertex)
 		 */
 		template<typename ...Params>
 		void EmplaceBack(Params&&... params) noxnd
@@ -316,9 +317,9 @@ namespace DynamicVertex
 		Vertex operator[](size_t i) noxnd;
 		ConstVertex operator[](size_t i) const noxnd;
 	private:
-		/// All info in the vertex
+		/// All data in the vertex
 		std::vector<char> buffer;
-		/// Layout if the info items
+		/// Layout of the in items
 		VertexLayout layout;
 	};
 }

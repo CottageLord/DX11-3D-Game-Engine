@@ -9,6 +9,7 @@ namespace DynamicVertex
 	}
 	VertexLayout& VertexLayout::Append(ElementType type) noxnd
 	{
+		// Instaciate Element(type, Size()) into the vector
 		elements.emplace_back(type, Size());
 		return *this;
 	}

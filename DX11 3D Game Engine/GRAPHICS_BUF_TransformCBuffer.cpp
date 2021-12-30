@@ -1,9 +1,7 @@
 #include "GRAPHICS_BUF_TransformCbuffer.h"
 namespace GPipeline
 {
-	TransformCbuffer::TransformCbuffer(Graphics& gfx, const Drawable& target, UINT slot)
-		:
-		drawTarget(target)
+	TransformCbuffer::TransformCbuffer(Graphics& gfx, UINT slot)
 	{
 		// if the shared temp space haven't been assigned
 		if (!pVcbFinalMatrix)
@@ -17,15 +15,22 @@ namespace GPipeline
 		UpdateBindImpl(gfx, GetTransforms(gfx));
 	}
 
+	void TransformCbuffer::InitializeParentReference(const Drawable& drawTarget) noexcept
+	{
+		pDrawTarget = &drawTarget;
+	}
+
 	void TransformCbuffer::UpdateBindImpl(Graphics & gfx, const Transforms & tf) noexcept
 	{
+		assert(pDrawTarget != nullptr);
 		pVcbFinalMatrix->Update(gfx, tf);
 		pVcbFinalMatrix->Bind(gfx);
 	}
 
 	TransformCbuffer::Transforms TransformCbuffer::GetTransforms(Graphics & gfx) noexcept
 	{
-		const auto modelView = drawTarget.GetTransformXM() * gfx.GetCamera();
+		assert(pDrawTarget != nullptr);
+		const auto modelView = pDrawTarget->GetTransformXM() * gfx.GetCamera();
 		return {
 			DirectX::XMMatrixTranspose(modelView),
 			DirectX::XMMatrixTranspose(

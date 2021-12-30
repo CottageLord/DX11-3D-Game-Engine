@@ -1,5 +1,6 @@
 #include "GRAPHICS_LGT_PointLight.h"
 #include "imgui/imgui.h"
+#include "GRAPHICS_JOB_FrameCommander.h"
 
 PointLight::PointLight(Graphics & gfx, float radius)
 	:
@@ -39,7 +40,7 @@ void PointLight::SpawnControlWindow() noexcept
 void PointLight::Reset() noexcept
 {
 	cbData = {
-		{ 7.0f, 0.0f, 0.0f },	// float3 lightPos;
+		{ 10.0f, 9.0f, 2.5f },	// float3 lightPos;
 		{ 0.05f,0.05f,0.05f },	// float3 ambient;
 		{ 1.0f,1.0f,1.0f },		// float3 diffuseColor;
 		1.0f,					// float diffuseIntensity;
@@ -49,10 +50,10 @@ void PointLight::Reset() noexcept
 	};	
 }
 
-void PointLight::Draw(Graphics& gfx) const noxnd
+void PointLight::Submit(FrameCommander& frame) const noxnd
 {
 	mesh.SetPos(cbData.pos);
-	mesh.Draw(gfx);
+	mesh.Submit(frame);
 }
 
 void PointLight::Bind(Graphics& gfx, DirectX::FXMMATRIX view) const noexcept

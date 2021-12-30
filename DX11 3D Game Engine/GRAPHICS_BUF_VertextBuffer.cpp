@@ -14,7 +14,8 @@ namespace GPipeline
 	VertexBuffer::VertexBuffer(Graphics& gfx, const std::string& tag, const DynamicVertex::VertexBuffer& vbuf)
 		:
 		stride((UINT)vbuf.GetLayout().Size()),
-		tag(tag)
+		tag(tag),
+		layout(vbuf.GetLayout())
 	{
 		GET_INFO_MAN(gfx);
 
@@ -34,6 +35,11 @@ namespace GPipeline
 	{
 		const UINT offset = 0u;
 		GetContext(gfx)->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
+	}
+
+	const DynamicVertex::VertexLayout& VertexBuffer::GetLayout() const noexcept
+	{
+		return layout;
 	}
 
 	std::shared_ptr<VertexBuffer> VertexBuffer::Resolve(Graphics& gfx, const std::string& tag,

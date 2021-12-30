@@ -12,6 +12,7 @@ namespace GPipeline
 		VertexBuffer(Graphics& gfx, const std::string& tag, const DynamicVertex::VertexBuffer& vbuf);
 		VertexBuffer(Graphics& gfx, const DynamicVertex::VertexBuffer& vbuf);
 		void Bind(Graphics& gfx) noexcept override;
+		const DynamicVertex::VertexLayout& GetLayout() const noexcept;
 		static std::shared_ptr<VertexBuffer> Resolve(Graphics& gfx, const std::string& tag,
 			const DynamicVertex::VertexBuffer& vbuf);
 		/**
@@ -53,5 +54,6 @@ namespace GPipeline
 		std::string tag;
 		UINT stride;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> pVertexBuffer;
+		DynamicVertex::VertexLayout layout;
 	};
 }

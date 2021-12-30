@@ -1,5 +1,5 @@
 #include "GRAPHICS_BUF_TransformCbufferPS.h"
-
+/*
 namespace GPipeline
 {
 	TransformCbufferPS::TransformCbufferPS(Graphics& gfx, const Drawable& parent, UINT slotV, UINT slotP)
@@ -26,4 +26,4 @@ namespace GPipeline
 	}
 
 	std::unique_ptr<PixelConstantBuffer<TransformCbuffer::Transforms>> TransformCbufferPS::pPcbFinalMatrix;
-}
+}*/

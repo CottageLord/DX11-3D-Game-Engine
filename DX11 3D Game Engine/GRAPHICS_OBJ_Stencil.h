@@ -60,11 +60,15 @@ namespace GPipeline
 			3. scaling up the geometry, draw in filled color, and mask the new shape with the stencil data
 		*/
 		Stencil(Graphics& gfx, Mode mode)
+			:
+			mode( mode )
 		{
 			D3D11_DEPTH_STENCIL_DESC dsDesc = CD3D11_DEPTH_STENCIL_DESC{ CD3D11_DEFAULT{} };
 
 			if (mode == Mode::Write)
 			{
+				dsDesc.DepthEnable = FALSE;
+				dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
 				dsDesc.StencilEnable = TRUE;
 				dsDesc.StencilWriteMask = 0xFF;	// use all the bits
 				dsDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;	// always set pixels on render target
@@ -73,6 +77,7 @@ namespace GPipeline
 			else if (mode == Mode::Mask)
 			{
 				dsDesc.DepthEnable = FALSE;	// the outline is not the normal thing, therefore shouldn't been involved in the depth test
+				dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
 				dsDesc.StencilEnable = TRUE;
 				dsDesc.StencilReadMask = 0xFF;
 				dsDesc.FrontFace.StencilFunc = D3D11_COMPARISON_NOT_EQUAL; // exclude the overlapping area
@@ -86,10 +91,32 @@ namespace GPipeline
 		{
 			GetContext(gfx)->OMSetDepthStencilState(pStencil.Get(), 0xFF); // value written in buffer ans used for comparision
 		}
-		//static std::shared_ptr<Stencil> Resolve( Graphics& gfx,bool blending,std::optional<float> factor = {} );
-		//static std::string GenerateUID( bool blending,std::optional<float> factor );
-		//std::string GetUID() const noexcept override;
+		static std::shared_ptr<Stencil> Resolve(Graphics& gfx, Mode mode)
+		{
+			return BindablePool::Resolve<Stencil>(gfx, mode);
+		}
+		static std::string GenerateUID(Mode mode)
+		{
+			using namespace std::string_literals;
+			const auto modeName = [mode]() {
+				switch (mode) {
+				case Mode::Off:
+					return "off"s;
+				case Mode::Write:
+					return "write"s;
+				case Mode::Mask:
+					return "mask"s;
+				}
+				return "ERROR"s;
+			};
+			return typeid(Stencil).name() + "#"s + modeName();
+		}
+		std::string GetUID() const noexcept override
+		{
+			return GenerateUID(mode);
+		}
 	private:
+		Mode mode;
 		// same state obj controlling both depth and stencil
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> pStencil;
 	};

@@ -182,6 +182,9 @@
     <ClCompile Include="GRAPHICS_BUF_VertextBuffer.cpp" />
     <ClCompile Include="GRAPHICS_HELP_MatrixTranslator.cpp" />
     <ClCompile Include="GRAPHICS_HELP_TexturePreprocessor.cpp" />
+    <ClCompile Include="GRAPHICS_JOB_Job.cpp" />
+    <ClCompile Include="GRAPHICS_JOB_Step.cpp" />
+    <ClCompile Include="GRAPHICS_JOB_Technique.cpp" />
     <ClCompile Include="GRAPHICS_LGT_PointLight.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Bindable.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Blender.cpp" />
@@ -191,6 +194,7 @@
     <ClCompile Include="GRAPHICS_OBJ_DynamicVertex.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_LayoutPool.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Mesh.cpp" />
+    <ClCompile Include="GRAPHICS_OBJ_NullPixelShader.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Sampler.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_SolidSphere.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Surface.cpp" />
@@ -219,11 +223,18 @@
     <ClCompile Include="SYS_MAIN_Loop.cpp" />
     <ClCompile Include="SYS_CLASS_Window.cpp" />
     <ClCompile Include="SYS_SET_Dxerr.cpp" />
+    <ClCompile Include="TestCube.cpp" />
     <ClCompile Include="Testing.cpp" />
     <ClCompile Include="TestPlane.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GRAPHICS_BUF_ConstantBuffersEx.h" />
+    <ClInclude Include="GRAPHICS_JOB_FrameCommander.h" />
+    <ClInclude Include="GRAPHICS_JOB_Job.h" />
+    <ClInclude Include="GRAPHICS_JOB_Pass.h" />
+    <ClInclude Include="GRAPHICS_JOB_Step.h" />
+    <ClInclude Include="GRAPHICS_JOB_Technique.h" />
+    <ClInclude Include="GRAPHICS_OBJ_Cube.h" />
     <ClInclude Include="GRAPHICS_OBJ_DynamicConstant.h" />
     <ClInclude Include="GRAPHICS_BUF_ConstantBuffers.h" />
     <ClInclude Include="GRAPHICS_BUF_IndexBuffer.h" />
@@ -238,17 +249,18 @@
     <ClInclude Include="GRAPHICS_OBJ_Bindable.h" />
     <ClInclude Include="GRAPHICS_OBJ_Blender.h" />
     <ClInclude Include="GRAPHICS_OBJ_Camera.h" />
-    <ClInclude Include="GRAPHICS_OBJ_Cube.h" />
     <ClInclude Include="GRAPHICS_OBJ_Drawable.h" />
     <ClInclude Include="GRAPHICS_OBJ_DynamicVertex.h" />
     <ClInclude Include="GRAPHICS_OBJ_IndexedTriangleList.h" />
     <ClInclude Include="GRAPHICS_OBJ_InputLayout.h" />
     <ClInclude Include="GRAPHICS_OBJ_LayoutPool.h" />
     <ClInclude Include="GRAPHICS_OBJ_Mesh.h" />
+    <ClInclude Include="GRAPHICS_OBJ_NullPixelShader.h" />
     <ClInclude Include="GRAPHICS_OBJ_PixelShader.h" />
     <ClInclude Include="GRAPHICS_OBJ_Sampler.h" />
     <ClInclude Include="GRAPHICS_OBJ_SolidSphere.h" />
     <ClInclude Include="GRAPHICS_OBJ_Sphere.h" />
+    <ClInclude Include="GRAPHICS_OBJ_Stencil.h" />
     <ClInclude Include="GRAPHICS_OBJ_Surface.h" />
     <ClInclude Include="GRAPHICS_OBJ_Texture.h" />
     <ClInclude Include="GRAPHICS_OBJ_Topology.h" />
@@ -285,6 +297,7 @@
     <ClInclude Include="SYS_SET_Dxerr.h" />
     <ClInclude Include="SYS_SET_FilterWinH.h" />
     <ClInclude Include="SYS_SET_WindowsThrowMacros.h" />
+    <ClInclude Include="TestCube.h" />
     <ClInclude Include="Testing.h" />
     <ClInclude Include="TestPlane.h" />
   </ItemGroup>

@@ -600,7 +600,7 @@ None.
 
 ## Commit 10 - Model loading
 
-![Alt text](./Screenshots/2021-9-13.png "Basic model loading")
+![Alt text](./Screenshots/2021-9-16.png "Basic model loading")
 
 ### New files
 
@@ -644,6 +644,7 @@ None.
 	    <td align="left">
 	    	<ul>
 	    		<li>Moved all rendering pipeline related objects into the GPipeline namespace.</li>
+	    		<li>Imported assimp library.</li>
 	    	</ul>
 	    </td>
 	</tr>

@@ -8,6 +8,7 @@ TestPlane::TestPlane(Graphics& gfx, float size, DirectX::XMFLOAT4 color)
 	:
 	pmc({ color })
 {
+	/*
 	using namespace GPipeline;
 	namespace dx = DirectX;
 
@@ -35,6 +36,7 @@ TestPlane::TestPlane(Graphics& gfx, float size, DirectX::XMFLOAT4 color)
 	AddBind(Blender::Resolve(gfx, true, 0.5f));
 
 	AddBind(Rasterizer::Resolve(gfx, true));
+	*/
 }
 
 void TestPlane::SetPos(DirectX::XMFLOAT3 pos) noexcept
@@ -57,6 +59,7 @@ DirectX::XMMATRIX TestPlane::GetTransformXM() const noexcept
 
 void TestPlane::SpawnControlWindow(Graphics& gfx, const std::string& name) noexcept
 {
+	/*
 	if (ImGui::Begin(name.c_str()))
 	{
 		ImGui::Text("Position");
@@ -75,5 +78,5 @@ void TestPlane::SpawnControlWindow(Graphics& gfx, const std::string& name) noexc
 		ImGui::SliderFloat("Translucency", &factor, 0.0f, 1.0f);
 		pBlender->SetFactor(factor);
 	}
-	ImGui::End();
+	ImGui::End();*/
 }

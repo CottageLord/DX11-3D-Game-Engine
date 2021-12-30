@@ -13,11 +13,12 @@ namespace GPipeline
 			DirectX::XMMATRIX modelViewProj;
 		};
 	public:
-		TransformCbuffer(Graphics& gfx, const Drawable& target, UINT slot = 0u);
+		TransformCbuffer(Graphics& gfx, UINT slot = 0u);
 		/**
 		* @brief update vs shader with the new transform matrix
 		*/
 		void Bind(Graphics& gfx) noexcept override;
+		void InitializeParentReference(const Drawable& drawTarget) noexcept override;
 	protected:
 		void UpdateBindImpl(Graphics& gfx, const Transforms& tf) noexcept;
 		Transforms GetTransforms(Graphics& gfx) noexcept;
@@ -27,6 +28,7 @@ namespace GPipeline
 		/// their moving result (matrix) during each's binding stage
 		/// </summary>
 		static std::unique_ptr<VertexConstantBuffer<Transforms>> pVcbFinalMatrix;
-		const Drawable& drawTarget;
+		//const Drawable& drawTarget;
+		const Drawable* pDrawTarget = nullptr;
 	};
 }
