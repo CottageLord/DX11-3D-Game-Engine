@@ -1,6 +1,11 @@
 #include "GRAPHICS_HELP_TexturePreprocessor.h"
-#include "GRAPHICS_OBJ_Mesh.h"
+#include "GRAPHICS_CLASS_ModelException.h"
 #include "SYS_SET_Math.h"
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 #include <filesystem>
 #include <sstream>
 

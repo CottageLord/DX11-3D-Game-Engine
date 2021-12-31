@@ -2,7 +2,7 @@
 #include <vector>
 #include <DirectXMath.h>
 #include <type_traits>
-
+/*
 struct BGRAColor
 {
 	unsigned char a;
@@ -10,7 +10,7 @@ struct BGRAColor
 	unsigned char g;
 	unsigned char b;
 };
-
+*/
 class VertexLayout
 {
 public:

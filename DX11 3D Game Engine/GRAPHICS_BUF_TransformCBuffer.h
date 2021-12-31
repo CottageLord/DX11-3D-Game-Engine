@@ -4,7 +4,7 @@
 #include <DirectXMath.h>
 namespace GPipeline
 {
-	class TransformCbuffer : public Bindable
+	class TransformCbuffer : public CloningBindable
 	{
 	protected:
 		struct Transforms
@@ -19,6 +19,7 @@ namespace GPipeline
 		*/
 		void Bind(Graphics& gfx) noexcept override;
 		void InitializeParentReference(const Drawable& drawTarget) noexcept override;
+		std::unique_ptr<CloningBindable> Clone() const noexcept override;
 	protected:
 		void UpdateBindImpl(Graphics& gfx, const Transforms& tf) noexcept;
 		Transforms GetTransforms(Graphics& gfx) noexcept;

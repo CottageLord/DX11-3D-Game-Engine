@@ -20,6 +20,12 @@ namespace GPipeline
 		pDrawTarget = &drawTarget;
 	}
 
+	std::unique_ptr<CloningBindable> TransformCbuffer::Clone() const noexcept
+	{
+		return std::make_unique<TransformCbuffer>(*this);
+	}
+
+
 	void TransformCbuffer::UpdateBindImpl(Graphics & gfx, const Transforms & tf) noexcept
 	{
 		assert(pDrawTarget != nullptr);

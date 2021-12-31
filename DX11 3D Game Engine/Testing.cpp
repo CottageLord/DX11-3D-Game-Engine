@@ -1,7 +1,59 @@
 #include "GRAPHICS_OBJ_DynamicConstant.h"
+#include "GRAPHICS_OBJ_Material.h"
+#include "GRAPHICS_OBJ_Mesh.h"
 #include "GRAPHICS_OBJ_LayoutPool.h"
+#include "GRAPHICS_OBJ_VertexLayout.h"
 #include <cstring>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 namespace dx = DirectX;
+
+void TestDynamicMeshLoading()
+{
+	//using namespace DynamicVertex;
+
+	Assimp::Importer imp;
+	const auto pScene = imp.ReadFile("Models\\brick_wall\\brick_wall.obj",
+		aiProcess_Triangulate |
+		aiProcess_JoinIdenticalVertices |
+		aiProcess_ConvertToLeftHanded |
+		aiProcess_GenNormals |
+		aiProcess_CalcTangentSpace
+	);
+	auto layout = DynamicVertex::VertexLayout{}
+		.Append(DynamicVertex::VertexLayout::Position3D)
+		.Append(DynamicVertex::VertexLayout::Normal)
+		.Append(DynamicVertex::VertexLayout::Tangent)
+		.Append(DynamicVertex::VertexLayout::Bitangent)
+		.Append(DynamicVertex::VertexLayout::Texture2D);
+	DynamicVertex::VertexBuffer buf { std::move(layout),*pScene->mMeshes[0] };
+
+	for (auto i = 0u, end = buf.Size(); i < end; i++)
+	{
+		const auto a = buf[i].Attr<DynamicVertex::VertexLayout::Position3D>();
+		const auto b = buf[i].Attr<DynamicVertex::VertexLayout::Normal>();
+		const auto c = buf[i].Attr<DynamicVertex::VertexLayout::Tangent>();
+		const auto d = buf[i].Attr<DynamicVertex::VertexLayout::Bitangent>();
+		const auto e = buf[i].Attr<DynamicVertex::VertexLayout::Texture2D>();
+	}
+}
+
+void TestMaterialSystemLoading(Graphics& gfx)
+{
+	std::string path = "Models\\brick_wall\\brick_wall.obj";
+	Assimp::Importer imp;
+	const auto pScene = imp.ReadFile(path,
+		aiProcess_Triangulate |
+		aiProcess_JoinIdenticalVertices |
+		aiProcess_ConvertToLeftHanded |
+		aiProcess_GenNormals |
+		aiProcess_CalcTangentSpace
+	);
+	Material mat{ gfx,*pScene->mMaterials[1],path };
+	Mesh mesh{ gfx,mat,*pScene->mMeshes[0] };
+}
 
 void TestDynamicConstant()
 {

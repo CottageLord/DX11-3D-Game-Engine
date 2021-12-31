@@ -70,6 +70,15 @@
     <Filter Include="Source Files\Graphics\JobSystem">
       <UniqueIdentifier>{333d7962-ab0d-4acc-87b4-35434c225a86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Graphics\UI">
+      <UniqueIdentifier>{df15c7a0-bc00-4c92-9980-a36fd34aa5c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\UI">
+      <UniqueIdentifier>{f88aa1c3-2708-4629-88ac-867b06a40452}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Helpers">
+      <UniqueIdentifier>{c95b7c8a-b68d-43cd-8517-3a991469eb04}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SYS_CLASS_App.cpp">
@@ -222,6 +231,21 @@
     <ClCompile Include="GRAPHICS_JOB_Job.cpp">
       <Filter>Source Files\Graphics\JobSystem</Filter>
     </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Material.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Model.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_CLASS_ModelException.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_UI_ModelWindow.cpp">
+      <Filter>Source Files\Graphics\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Node.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SYS_SET_Dxerr.h">
@@ -338,9 +362,6 @@
     <ClInclude Include="GRAPHICS_OBJ_SolidSphere.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_SET_Color.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="SYS_SET_ConditionalNoexcept.h">
       <Filter>Header Files\Application</Filter>
     </ClInclude>
@@ -348,9 +369,6 @@
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="GRAPHICS_SET_BindableCommon.h">
-      <Filter>Header Files\Graphics\Bindable</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_BindablePool.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
     </ClInclude>
     <ClInclude Include="Plane.h">
@@ -361,15 +379,6 @@
     </ClInclude>
     <ClInclude Include="GRAPHICS_BUF_TransformCBufferPS.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_HELP_NormalMapTwerker.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_HELP_MatrixTranslator.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_HELP_TexturePreprocessor.h">
-      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="GRAPHICS_LGT_PointLight.h">
       <Filter>Header Files\Graphics\Object</Filter>
@@ -440,6 +449,45 @@
     <ClInclude Include="GRAPHICS_JOB_FrameCommander.h">
       <Filter>Header Files\Graphics\JobSystem</Filter>
     </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Material.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Model.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_BindablePool.h">
+      <Filter>Header Files\Graphics\DynamicDataSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_UI_ModelWindow.h">
+      <Filter>Header Files\Graphics\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Node.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_CLASS_ModelException.h">
+      <Filter>Header Files\Graphics\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_HELP_MatrixTranslator.h">
+      <Filter>Header Files\Graphics\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_HELP_NormalMapTwerker.h">
+      <Filter>Header Files\Graphics\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_HELP_TexturePreprocessor.h">
+      <Filter>Header Files\Graphics\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_SET_Color.h">
+      <Filter>Header Files\Graphics\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_JOB_TechniqueProbe.h">
+      <Filter>Header Files\Graphics\JobSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_HELP_PerfLog.h">
+      <Filter>Header Files\Graphics\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_JOB_ModelProbe.h">
+      <Filter>Header Files\Graphics\JobSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc">
@@ -482,37 +530,10 @@
     <FxCompile Include="TexturePS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongPS.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="PhongVS.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="SolidPS.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="SolidVS.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
     <FxCompile Include="PhongPSSpecMap.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongPSNormalMap.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="PhongVSNormalMap.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="PhongPSSpecNormalMap.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
     <FxCompile Include="PhongPSNormalMapObjSpace.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="PhongPSNotex.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="PhongVSNotex.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="ShaderOps.hlsl">
@@ -527,13 +548,49 @@
     <FxCompile Include="Transform.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongPSSpec.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="PhongPSSpecNormMask.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
     <FxCompile Include="PhongPSCel.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDifMskSpcNrm_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDifMskSpcNrm_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDifNrm_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDifSpcNrm_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDifSpcNrm_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDifSpc_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDifSpc_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDif_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDif_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Phong_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Phong_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Solid_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Solid_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDifNrm_PS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
