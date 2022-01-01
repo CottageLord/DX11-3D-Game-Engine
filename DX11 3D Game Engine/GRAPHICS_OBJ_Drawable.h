@@ -9,6 +9,10 @@
 #include <DirectXMath.h>
 #include <memory>
 
+class TechniqueProbe;
+class Material;
+struct aiMesh;
+
 namespace GPipeline
 {
 	class IndexBuffer;
@@ -24,11 +28,13 @@ class Drawable
 {
 public:
 	Drawable() = default;
+	Drawable(Graphics& gfx, const Material& mat, const aiMesh& mesh, float scale = 1.0f) noexcept;
 	Drawable(const Drawable&) = delete;
 	void AddTechnique(Technique tech_in) noexcept;
 	virtual DirectX::XMMATRIX GetTransformXM() const noexcept = 0;
 	void Submit(class FrameCommander& frame) const noexcept;
 	void Bind(Graphics& gfx) const noexcept;
+	void Accept(TechniqueProbe& probe);
 	UINT GetIndexCount() const noxnd;
 	virtual ~Drawable();
 protected:

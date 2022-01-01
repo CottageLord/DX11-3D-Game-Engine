@@ -1,8 +1,10 @@
 #include "GRAPHICS_OBJ_DynamicConstant.h"
+#include "GRAPHICS_HELP_MatrixTranslator.h"
 #include "GRAPHICS_OBJ_Material.h"
 #include "GRAPHICS_OBJ_Mesh.h"
 #include "GRAPHICS_OBJ_LayoutPool.h"
 #include "GRAPHICS_OBJ_VertexLayout.h"
+#include "Testing.h"
 #include <cstring>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -53,6 +55,16 @@ void TestMaterialSystemLoading(Graphics& gfx)
 	);
 	Material mat{ gfx,*pScene->mMaterials[1],path };
 	Mesh mesh{ gfx,mat,*pScene->mMeshes[0] };
+}
+
+void TestScaleMatrixTranslation()
+{
+	auto tlMat = DirectX::XMMatrixTranslation(20.f, 30.f, 40.f);
+	tlMat = ScaleTranslation(tlMat, 0.1f);
+	dx::XMFLOAT4X4 f4;
+	dx::XMStoreFloat4x4(&f4, tlMat);
+	auto etl = ExtractTranslation(f4);
+	assert(etl.x == 2.f && etl.y == 3.f && etl.z == 4.f);
 }
 
 void TestDynamicConstant()

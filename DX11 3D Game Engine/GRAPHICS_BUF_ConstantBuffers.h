@@ -1,6 +1,6 @@
 /**
  * @GRAPHICS_BUF_ConstantBuffer.h
- * @brief A constant buffer obj that manages vertex/pixel buffers
+ * @brief A constant buffer obj that provides helpers to vertex/pixel constant data
  */
 #pragma once
 #include "GRAPHICS_OBJ_Bindable.h"

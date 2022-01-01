@@ -126,7 +126,7 @@ namespace DynamicVertex
 			DVTX_ELEMENT_AI_EXTRACTOR( mFaces )
 		};
 		/**
-		 * @brief 
+		 * @brief Given a functor F, type template and parameter list, calls correct F<type>(args)
 		 */
 		template<template<VertexLayout::ElementType> class F, typename... Args>
 		static constexpr auto Bridge(VertexLayout::ElementType type, Args&&... args) noxnd
@@ -223,19 +223,22 @@ namespace DynamicVertex
 	{
 		friend class VertexBuffer;
 	private:
-		// necessary for Bridge to SetAttribute
+		/**
+		 * @brief The functor for VertexLayout::Bridge<functor>(type, args...);
+		 */
 		template<VertexLayout::ElementType type>
 		struct AttributeSetting
 		{
 			template<typename T>
 			static constexpr auto Exec(Vertex* pVertex, char* pAttribute, T&& val) noxnd
 			{
+				;
 				return pVertex->SetAttribute<type>(pAttribute, std::forward<T>(val));
 			}
 		};
 	public:
 		/**
-		 * @brief 
+		 * @brief returns the 
 		 */
 		template<VertexLayout::ElementType Type>
 		auto& Attr() noxnd
@@ -342,7 +345,7 @@ namespace DynamicVertex
 		Vertex operator[](size_t i) noxnd;
 		ConstVertex operator[](size_t i) const noxnd;
 	private:
-		/// All data in the vertex
+		/// All packed vertex data from the model
 		std::vector<char> buffer;
 		/// Layout of the in items
 		VertexLayout layout;

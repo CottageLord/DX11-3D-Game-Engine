@@ -208,7 +208,6 @@
     <ClCompile Include="GRAPHICS_OBJ_Topology.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_VertexShader.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Rasterizer.cpp" />
-    <ClCompile Include="GRAPHICS_UI_ModelWindow.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -280,7 +279,6 @@
     <ClInclude Include="GRAPHICS_SET_BindableCommon.h" />
     <ClInclude Include="GRAPHICS_SET_Color.h" />
     <ClInclude Include="GRAPHICS_OBJ_Rasterizer.h" />
-    <ClInclude Include="GRAPHICS_UI_ModelWindow.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="SYS_CLASS_ScriptCommander.h" />
@@ -390,6 +388,14 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Offset_VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
     </FxCompile>

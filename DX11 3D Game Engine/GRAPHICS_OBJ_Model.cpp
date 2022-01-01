@@ -1,12 +1,12 @@
 #include "GRAPHICS_OBJ_Model.h"
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include "GRAPHICS_HELP_MatrixTranslator.h"
 #include "GRAPHICS_CLASS_ModelException.h"
-#include "GRAPHICS_UI_ModelWindow.h"
 #include "GRAPHICS_OBJ_Node.h"
 #include "GRAPHICS_OBJ_Mesh.h"
 #include "GRAPHICS_OBJ_Material.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 namespace dx = DirectX;
 
@@ -39,11 +39,11 @@ Model::Model(Graphics& gfx, const std::string& pathString, const float scale)
 	for (size_t i = 0; i < pScene->mNumMeshes; i++)
 	{
 		const auto& mesh = *pScene->mMeshes[i];
-		meshPtrs.push_back(std::make_unique<Mesh>(gfx, materials[mesh.mMaterialIndex], mesh));
+		meshPtrs.push_back(std::make_unique<Mesh>(gfx, materials[mesh.mMaterialIndex], mesh, scale));
 	}
 
 	int nextId = 0;
-	pRoot = ParseNode(nextId, *pScene->mRootNode, dx::XMMatrixScaling(scale, scale, scale));
+	pRoot = ParseNode(nextId, *pScene->mRootNode, scale);
 }
 
 void Model::Submit(FrameCommander& frame) const noxnd
@@ -73,12 +73,12 @@ void Model::Accept(ModelProbe& probe)
 Model::~Model() noexcept
 {}
 
-std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node, dx::FXMMATRIX additionalTransform) noexcept
+std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node, float scale) noexcept
 {
 	namespace dx = DirectX;
-	const auto transform = additionalTransform * dx::XMMatrixTranspose(dx::XMLoadFloat4x4(
+	const auto transform = ScaleTranslation(dx::XMMatrixTranspose(dx::XMLoadFloat4x4(
 		reinterpret_cast<const dx::XMFLOAT4X4*>(&node.mTransformation)
-	));
+	)), scale);
 
 	std::vector<Mesh*> curMeshPtrs;
 	curMeshPtrs.reserve(node.mNumMeshes);
@@ -91,7 +91,7 @@ std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node, dx::FXMM
 	auto pNode = std::make_unique<Node>(nextId++, node.mName.C_Str(), std::move(curMeshPtrs), transform);
 	for (size_t i = 0; i < node.mNumChildren; i++)
 	{
-		pNode->AddChild(ParseNode(nextId, *node.mChildren[i], dx::XMMatrixIdentity()));
+		pNode->AddChild(ParseNode(nextId, *node.mChildren[i], scale));
 	}
 
 	return pNode;

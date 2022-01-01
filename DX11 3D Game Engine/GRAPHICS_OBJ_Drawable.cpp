@@ -17,9 +17,9 @@ void Drawable::Submit(FrameCommander& frame) const noexcept
 	}
 }
 
-Drawable::Drawable(Graphics& gfx, const Material& mat, const aiMesh& mesh) noexcept
+Drawable::Drawable(Graphics& gfx, const Material& mat, const aiMesh& mesh, float scale) noexcept
 {
-	pVertices = mat.MakeVertexBindable(gfx, mesh);
+	pVertices = mat.MakeVertexBindable(gfx, mesh, scale);
 	pIndices = mat.MakeIndexBindable(gfx, mesh);
 	pTopology = GPipeline::Topology::Resolve(gfx);
 

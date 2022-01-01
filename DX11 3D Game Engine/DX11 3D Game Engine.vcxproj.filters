@@ -240,9 +240,6 @@
     <ClCompile Include="GRAPHICS_CLASS_ModelException.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_UI_ModelWindow.cpp">
-      <Filter>Source Files\Graphics\UI</Filter>
-    </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_Node.cpp">
       <Filter>Source Files\Graphics\Object</Filter>
     </ClCompile>
@@ -458,9 +455,6 @@
     <ClInclude Include="GRAPHICS_OBJ_BindablePool.h">
       <Filter>Header Files\Graphics\DynamicDataSystem</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_UI_ModelWindow.h">
-      <Filter>Header Files\Graphics\UI</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Node.h">
       <Filter>Header Files\Graphics\Object</Filter>
     </ClInclude>
@@ -591,6 +585,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="PhongDifNrm_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Offset_VS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
