@@ -78,7 +78,7 @@ This renderer engine is a half-year-long personal project following [ChiliTomato
   </tbody>
 </table>
 
-### Major updates to existing files
+### Major updates
 
 None.
 
@@ -90,7 +90,7 @@ None.
 
 None.
 
-### Major updates to existing files
+### Major updates
 
 <table>
   <tbody>
@@ -104,6 +104,22 @@ None.
 	    	<ul>
 	    		<li>Added test triangle drawer. Tested the procedure of configuring and feeding the rendering pipeline. </li>
 	    		<li>This process will be constantly modulared, generalized and optimized in the future commits. </li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/f1642d0470232aeb334f447a8bd99ef40d53cfdc/DX11%203D%20Game%20Engine/SYS_CLASS_IO_Mouse.h">SYS_CLASS_IO_Mouse.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/f1642d0470232aeb334f447a8bd99ef40d53cfdc/DX11%203D%20Game%20Engine/SYS_CLASS_IO_Mouse.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Improved mouse moving-out-of-window behavior. The mouse tracker now stops when mouse is outside the window, like most modern games do.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/f1642d0470232aeb334f447a8bd99ef40d53cfdc/DX11%203D%20Game%20Engine/SYS_CLASS_IO_Keyboard.h">SYS_CLASS_IO_Keyboard.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/f1642d0470232aeb334f447a8bd99ef40d53cfdc/DX11%203D%20Game%20Engine/SYS_CLASS_IO_Keyboard.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Distinguishes between text input and key pressing.</li>
 	    	</ul>
 	    </td>
 	</tr>
@@ -129,7 +145,7 @@ None.
 	    <td align="left">
 	    	<ul>
 	    		<li>Represents a drawble entity such as a box.</li>
-	    		<li>Manages a collection of "bindables" objects that could be binded abd shipped to rendering pipeline, such as vertex buffer, index buffer, transforms, shader constants and other topology settings.</li>
+	    		<li>Manages a collection of "bindables" objects that could be binded and shipped to rendering pipeline, such as vertex buffer, index buffer, transforms, shader constants and other topology settings.</li>
 	    	</ul>
 	    </td>
 	</tr>
@@ -138,7 +154,7 @@ None.
 	    <td align="left">
 	    	<ul>
 	    		<li>The base class (interface) for all bindable objects.</li>
-	    		<li>The pure virtual function Bind(Graphics& gfx) expects different implementations from its children (how vertex buffer and shader objects bind themselves respectively).</li>
+	    		<li>The pure virtual function Bind(Graphics& gfx) expects different implementations from its children (like how vertex buffer and shader objects bind themselves to pipeline respectively).</li>
 	    	</ul>
 	    </td>
 	</tr>
@@ -242,7 +258,7 @@ None.
   </tbody>
 </table>
 
-### Major updates to existing files
+### Major updates
 
 <table>
   <tbody>
@@ -295,14 +311,14 @@ None.
       	</td>
 	    <td align="left">
 	    	<ul>
-	    		<li>Play with various drawables.</li>
+	    		<li>Various drawable geometries.</li>
 	    	</ul>
 	    </td>
 	</tr>
   </tbody>
 </table>
 
-### Major updates to existing files
+### Major updates
 
 None.
 
@@ -324,8 +340,8 @@ None.
       <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/591c72dabee734b9c9317fa12990800ad4baf264/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Surface.h">GRAPHICS_OBJ_Surface.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/591c72dabee734b9c9317fa12990800ad4baf264/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Surface.cpp">cpp</a></td>
 	    <td align="left">
 	    	<ul>
-	    		<li>A surface loader/modifier using Gdiplus. Convert image file into color buffer.</li>
-	    		<li>Contains Exception handler and a Color class as a handler into the bit data.</li>
+	    		<li>A surface loader/modifier using Gdiplus. Convert image file into color data buffer.</li>
+	    		<li>Contains a Color class providing various data handler into the bit data. Built corresponding Exception handler.</li>
 	    	</ul>
 	    </td>
 	</tr>
@@ -359,7 +375,7 @@ None.
   </tbody>
 </table>
 
-### Major updates to existing files
+### Major updates
 
 None.
 
@@ -395,7 +411,7 @@ None.
   </tbody>
 </table>
 
-### Major updates to existing files
+### Major updates
 
 <table>
   <tbody>
@@ -415,7 +431,7 @@ None.
   </tbody>
 </table>
 
-### Major updates to existing files
+### Major updates
 
 None.
 
@@ -463,7 +479,7 @@ None.
   </tbody>
 </table>
 
-### Major updates to existing files
+### Major updates
 
 <table>
   <tbody>
@@ -515,7 +531,7 @@ None.
   </tbody>
 </table>
 
-### Major updates to existing files
+### Major updates
 
 <table>
   <tbody>
@@ -553,8 +569,8 @@ None.
       <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/2bf0fe58981f9e4eb718897abf1902580f0e95b2/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_DynamicVertex.h">GRAPHICS_OBJ_DynamicVertex.h</a></td>
 	    <td align="left">
 	    	<ul>
-	    		<li>Provides an automatic layout/data manager. Previously the vertex data is defined manually in separate places (see duplicate codes in <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Box.cpp">GRAPHICS_OBJ_Box.cpp</a>).</li>
-	    		<li>Now we only need to do VertexLayout.Append() definition ahead, and the layout object will be capable of reading vertex data, validating data and generating D3D layout to shader automatically.</li>
+	    		<li>Provides an automatic vertex shader input layout/data manager. Previously the vertex data is defined manually in separate places (see duplicate codes in <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/598c997abe43b5d43afa562fdff99eadd8b58f05/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Box.cpp">GRAPHICS_OBJ_Box.cpp</a>).</li>
+	    		<li>Now we only need to do VertexLayout.Append() definition ahead, and the layout object will be capable of reading vertex data, validating data and configures D3D layout and match shader automatically.</li>
 	    		<li>Template programming and parameter pack are used to load vertex data flexibly (DynamicVertex::VertexBuffer::EmplaceBack()).</li>
 	    		<li>This will be the code base for future improvements, including shader reflection.</li>
 	    	</ul>
@@ -579,7 +595,7 @@ None.
   </tbody>
 </table>
 
-### Major updates to existing files
+### Major updates
 
 <table>
   <tbody>
@@ -614,7 +630,7 @@ None.
       <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/84ccba0d0e8c391d32f1b71297c0d3a094ebab9e/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Mesh.h">GRAPHICS_OBJ_Mesh.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/84ccba0d0e8c391d32f1b71297c0d3a094ebab9e/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Mesh.cpp">cpp</a></td>
 	    <td align="left">
 	    	<ul>
-	    		<li>Consists of Model, Mesh and Node classes.</li>
+	    		<li>Consists of Model, Mesh (drawable) and Node classes.</li>
 	    		<li>Capable of reading model with filepath, parsing meshe/node-hierarchies and generating respective control window automatically (i.e. moving model's leg).</li>
 	    		<li>Ultilized the dynamic vertex system, but haven't do flexible data reflection - detecting whether normal, diffuse, specular, alpha mask, etc. files exists and generate different dynamic vertex layouts accordingly.</li>
 	    	</ul>
@@ -631,7 +647,31 @@ None.
   </tbody>
 </table>
 
-### Major updates to existing files
+### Major updates
+
+<table>
+  <tbody>
+    <tr>
+      <th>Commit</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/84ccba0d0e8c391d32f1b71297c0d3a094ebab9e">Model loading</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Moved all rendering pipeline related objects into the GPipeline namespace.</li>
+	    		<li>Imported assimp library.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+## Commit 11 - BindablePool system
+
+![Alt text](./Notes/bindablepool_system.jpg "BindablePool system")
+
+### New files
 
 <table>
   <tbody>
@@ -640,11 +680,56 @@ None.
       <th align="center">Description</th>
     </tr>
 	<tr>
-      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/84ccba0d0e8c391d32f1b71297c0d3a094ebab9e">Commit details</a></td>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/eee52bd871b69c790ba5889b04867f3fcd0e24d9/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_BindablePool.h">GRAPHICS_OBJ_BindablePool.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/eee52bd871b69c790ba5889b04867f3fcd0e24d9/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_BindablePool.cpp">cpp</a></td>
 	    <td align="left">
 	    	<ul>
-	    		<li>Moved all rendering pipeline related objects into the GPipeline namespace.</li>
-	    		<li>Imported assimp library.</li>
+	    		<li>Maintains the unordered_map<\string, shared_ptr<\Bindable>>.</li>
+	    		<li>Using template programming/parameter pack to execute correct Bindable::Resolve<\Type>(param...).</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates
+
+<table>
+  <tbody>
+    <tr>
+      <th>Commit</th>
+      <th align="center">Description</th>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/ad93098637e6a134e861263e1a8ddf2cdcdf647a"></a>Model hierarchy loading</td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Implemented automatic/recursive hierarchy explorer that generates corresponding UI controllers for all model nodes - arms, legs, etc.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/31581d931d407df3dadfd4497df7dec5d30d508a">Mouse camera system</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Allows camera to follow mouse movements.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/d0efdcad7dc70b2e346407f0908bd5844a5953ed">Specular map loader</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Added specular constants loading codes in Mesh.cpp.</li>
+	    		<li>Replaced StaticDrawInfo with shared_ptrs, ready for new BindablePool system.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/eee52bd871b69c790ba5889b04867f3fcd0e24d9">BindablePool system</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A bindable pool system that matches bindable data with there id. Allows drawables to share bindables if necessary.</li>
+	    		<li>Updated bindable base class such that all bindables need to implement resolve() to register themselves in bindable pool.</li>
 	    	</ul>
 	    </td>
 	</tr>

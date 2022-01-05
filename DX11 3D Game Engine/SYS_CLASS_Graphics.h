@@ -13,6 +13,8 @@
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 
+class DepthStencil;
+
 namespace GPipeline
 {
 	class Bindable;
@@ -20,7 +22,8 @@ namespace GPipeline
 
 class Graphics
 {
-	friend /*class*/ GPipeline::Bindable;
+	//friend class GPipeline::Bindable;
+	friend class GraphicsResource;
 public:
 	class Exception : public MFException
 	{
@@ -66,6 +69,8 @@ public:
 	// draw what we've got in this frame
 	void EndFrame();
 	void BeginFrame(float red, float green, float blue) noexcept;
+	void BindSwapBuffer() noexcept;
+	void BindSwapBuffer(const DepthStencil& ds) noexcept;
 	void DrawIndexed(UINT count) noxnd;
 	void SetProjection(DirectX::FXMMATRIX proj) noexcept;
 	DirectX::XMMATRIX GetProjection() const noexcept;
@@ -74,7 +79,14 @@ public:
 	void EnableImgui() noexcept;
 	void DisableImgui() noexcept;
 	bool IsImguiEnabled() const noexcept;
+	/**
+	 * @brief Returns the width of the swap chain
+	 */
+	UINT GetWidth() const noexcept;
+	UINT GetHeight() const noexcept;
 private:
+	UINT width;
+	UINT height;
 	DirectX::XMMATRIX camera;
 	DirectX::XMMATRIX projection;
 	bool imguiEnabled = true;

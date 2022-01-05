@@ -120,9 +120,6 @@
     <ClCompile Include="GRAPHICS_BUF_VertextBuffer.cpp">
       <Filter>Source Files\Graphics\Bindable</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_Bindable.cpp">
-      <Filter>Source Files\Graphics\Bindable</Filter>
-    </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_Drawable.cpp">
       <Filter>Source Files\Graphics\Drawabble</Filter>
     </ClCompile>
@@ -241,6 +238,15 @@
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_Node.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_DepthStencil.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_RenderTarget.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_GraphicsResource.cpp">
       <Filter>Source Files\Graphics\Object</Filter>
     </ClCompile>
   </ItemGroup>
@@ -482,6 +488,15 @@
     <ClInclude Include="GRAPHICS_JOB_ModelProbe.h">
       <Filter>Header Files\Graphics\JobSystem</Filter>
     </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_DepthStencil.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_RenderTarget.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_GraphicsResource.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc">
@@ -588,6 +603,12 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Offset_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Fullscreen_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Funk_PS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
