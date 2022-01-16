@@ -497,6 +497,9 @@
     <ClInclude Include="GRAPHICS_OBJ_GraphicsResource.h">
       <Filter>Header Files\Graphics\Object</Filter>
     </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_BlurPack.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc">
@@ -608,7 +611,10 @@
     <FxCompile Include="Fullscreen_VS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="Funk_PS.hlsl">
+    <FxCompile Include="Blur_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="BlurOutline_PS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

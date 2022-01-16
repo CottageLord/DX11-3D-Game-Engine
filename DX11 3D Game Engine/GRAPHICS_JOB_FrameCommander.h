@@ -6,6 +6,7 @@
 #include "GRAPHICS_OBJ_DynamicConstant.h"
 #include "GRAPHICS_OBJ_DepthStencil.h"
 #include "GRAPHICS_OBJ_RenderTarget.h"
+#include "GRAPHICS_OBJ_BlurPack.h"
 #include "GRAPHICS_JOB_Job.h"
 #include "GRAPHICS_JOB_Pass.h"
 #include <array>
@@ -19,7 +20,9 @@ public:
 	FrameCommander(Graphics& gfx)
 		:
 		ds(gfx, gfx.GetWidth(), gfx.GetHeight()),
-		rt(gfx, gfx.GetWidth(), gfx.GetHeight())
+		rt1(gfx, gfx.GetWidth() / 2, gfx.GetHeight() / 2),
+		rt2(gfx, gfx.GetWidth() / 2, gfx.GetHeight() / 2),
+		blur(gfx, 7, 2.6f, "BlurOutline_PS.cso")
 	{
 		namespace dx = DirectX;
 
@@ -35,49 +38,58 @@ public:
 		std::vector<unsigned short> indices = { 0,1,2,1,3,2 };
 		pIbFull = GPipeline::IndexBuffer::Resolve(gfx, "$Full", std::move(indices));
 
-		// set the pixel constant buffer
-		/*
-		Dcb::RawLayout pscLayout;
-		pscLayout.Add<Dcb::Float2>("TextureSizeWH");
-		Dcb::Buffer buf{ std::move(pscLayout) };
-		buf["TextureSizeWH"].SetIfExists(dx::XMFLOAT2{1024, 1024});
-		*/
 		// setup fullscreen shaders
-		pPsFull = GPipeline::PixelShader::Resolve(gfx, "Funk_PS.cso");
 		pVsFull = GPipeline::VertexShader::Resolve(gfx, "Fullscreen_VS.cso");
 		pLayoutFull = GPipeline::InputLayout::Resolve(gfx, lay, pVsFull->GetBytecode());
+		pSamplerFullPoint = GPipeline::Sampler::Resolve(gfx, false, true);
+		pSamplerFullBilin = GPipeline::Sampler::Resolve(gfx, true, true);
+		pBlenderMerge = GPipeline::Blender::Resolve(gfx, true);
 	}
 	void Accept(Job job, size_t target) noexcept
 	{
 		passes[target].Accept(job);
 	}
-	void Execute(Graphics& gfx) const noxnd
+	void Execute(Graphics& gfx) noxnd
 	{
-		using namespace GPipeline; 
-		// normally this would be a loop with each pass defining it setup / etc.
+		using namespace GPipeline;
+		// normally this would be a loop with each pass defining its setup / etc.
 		// and later on it would be a complex graph with parallel execution contingent
 		// on input / output requirements
+
 		// setup render target used for normal passes
 		ds.Clear(gfx);
-		rt.BindAsTarget(gfx, ds);
+		rt1.Clear(gfx);
+		gfx.BindSwapBuffer(ds);
 		// main phong lighting pass
+		Blender::Resolve(gfx, false)->Bind(gfx);
 		Stencil::Resolve(gfx, Stencil::Mode::Off)->Bind(gfx);
 		passes[0].Execute(gfx);
 		// outline masking pass
 		Stencil::Resolve(gfx, Stencil::Mode::Write)->Bind(gfx);
-		NullPixelShader::Resolve(gfx)->Bind(gfx); // only update stencil, no rendering
+		NullPixelShader::Resolve(gfx)->Bind(gfx);
 		passes[1].Execute(gfx);
 		// outline drawing pass
-		Stencil::Resolve(gfx, Stencil::Mode::Mask)->Bind(gfx);
+		rt1.BindAsTarget(gfx);
+		Stencil::Resolve(gfx, Stencil::Mode::Off)->Bind(gfx);
 		passes[2].Execute(gfx);
-		// fullscreen funky pass
-		gfx.BindSwapBuffer();
-		rt.BindAsTexture(gfx, 0);
+		// fullscreen blur horizontal-pass
+		rt2.BindAsTarget(gfx); // output
+		rt1.BindAsTexture(gfx, 0); // input
 		pVbFull->Bind(gfx);
 		pIbFull->Bind(gfx);
 		pVsFull->Bind(gfx);
-		pPsFull->Bind(gfx);
 		pLayoutFull->Bind(gfx);
+		pSamplerFullPoint->Bind(gfx);
+		blur.Bind(gfx);
+		blur.SetHorizontal(gfx);
+		gfx.DrawIndexed(pIbFull->GetCount());
+		// fullscreen blur vertical-pass + combine
+		gfx.BindSwapBuffer(ds);
+		rt2.BindAsTexture(gfx, 0u); // input
+		pBlenderMerge->Bind(gfx);
+		pSamplerFullBilin->Bind(gfx);
+		Stencil::Resolve(gfx, Stencil::Mode::Mask)->Bind(gfx);
+		blur.SetVertical(gfx);
 		gfx.DrawIndexed(pIbFull->GetCount());
 	}
 	void Reset() noexcept
@@ -87,13 +99,25 @@ public:
 			p.Reset();
 		}
 	}
+
+	/**
+	 * @brief render the UI window for controlleable target(s)
+	 */
+	void ShowWindows(Graphics& gfx)
+	{
+		blur.ShowWindow(gfx);
+	}
 private:
 	std::array<Pass, 3> passes;
 	DepthStencil ds;
-	RenderTarget rt;
+	RenderTarget rt1;
+	RenderTarget rt2;
+	BlurPack blur;
 	std::shared_ptr<GPipeline::VertexBuffer> pVbFull;
 	std::shared_ptr<GPipeline::IndexBuffer> pIbFull;
 	std::shared_ptr<GPipeline::VertexShader> pVsFull;
-	std::shared_ptr<GPipeline::PixelShader> pPsFull;
 	std::shared_ptr<GPipeline::InputLayout> pLayoutFull;
+	std::shared_ptr<GPipeline::Sampler> pSamplerFullPoint;
+	std::shared_ptr<GPipeline::Sampler> pSamplerFullBilin;
+	std::shared_ptr<GPipeline::Blender> pBlenderMerge;
 };

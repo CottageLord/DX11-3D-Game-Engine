@@ -2,10 +2,14 @@
 #include "GRAPHICS_OBJ_RenderTarget.h"
 #include "SYS_SET_GraphicsThrowMacros.h"
 #include "GRAPHICS_OBJ_DepthStencil.h"
+#include <array>
 
 namespace wrl = Microsoft::WRL;
 
 RenderTarget::RenderTarget(Graphics& gfx, UINT width, UINT height)
+	:
+	width(width),
+	height(height)
 {
 	GET_INFO_MAN(gfx);
 
@@ -55,9 +59,37 @@ void RenderTarget::BindAsTexture(Graphics& gfx, UINT slot) const noexcept
 void RenderTarget::BindAsTarget(Graphics& gfx) const noexcept
 {
 	GetContext(gfx)->OMSetRenderTargets(1, pTargetView.GetAddressOf(), nullptr);
+	// configure viewport
+	D3D11_VIEWPORT vp;
+	vp.Width = (float)width;
+	vp.Height = (float)height;
+	vp.MinDepth = 0.0f;
+	vp.MaxDepth = 1.0f;
+	vp.TopLeftX = 0.0f;
+	vp.TopLeftY = 0.0f;
+	GetContext(gfx)->RSSetViewports(1u, &vp);
 }
 
 void RenderTarget::BindAsTarget(Graphics& gfx, const DepthStencil& depthStencil) const noexcept
 {
 	GetContext(gfx)->OMSetRenderTargets(1, pTargetView.GetAddressOf(), depthStencil.pDepthStencilView.Get());
+	// configure viewport
+	D3D11_VIEWPORT vp;
+	vp.Width = (float)width;
+	vp.Height = (float)height;
+	vp.MinDepth = 0.0f;
+	vp.MaxDepth = 1.0f;
+	vp.TopLeftX = 0.0f;
+	vp.TopLeftY = 0.0f;
+	GetContext(gfx)->RSSetViewports(1u, &vp);
+}
+
+void RenderTarget::Clear(Graphics& gfx, const std::array<float, 4>& color) const noexcept
+{
+	GetContext(gfx)->ClearRenderTargetView(pTargetView.Get(), color.data());
+}
+
+void RenderTarget::Clear(Graphics& gfx) const noexcept
+{
+	Clear(gfx, { 0.0f,0.0f,0.0f,0.0f });
 }
