@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -178,12 +178,13 @@
   <ItemGroup>
     <ClCompile Include="GRAPHICS_BUF_IndexBuffer.cpp" />
     <ClCompile Include="GRAPHICS_BUF_TransformCBuffer.cpp" />
-    <ClCompile Include="GRAPHICS_BUF_TransformCBufferPS.cpp" />
     <ClCompile Include="GRAPHICS_BUF_VertextBuffer.cpp" />
     <ClCompile Include="GRAPHICS_CLASS_ModelException.cpp" />
+    <ClCompile Include="GRAPHICS_CLASS_RenderGraphCompileException.cpp" />
     <ClCompile Include="GRAPHICS_HELP_MatrixTranslator.cpp" />
     <ClCompile Include="GRAPHICS_HELP_TexturePreprocessor.cpp" />
     <ClCompile Include="GRAPHICS_JOB_Job.cpp" />
+    <ClCompile Include="GRAPHICS_JOB_Pass.cpp" />
     <ClCompile Include="GRAPHICS_JOB_Step.cpp" />
     <ClCompile Include="GRAPHICS_JOB_Technique.cpp" />
     <ClCompile Include="GRAPHICS_LGT_PointLight.cpp" />
@@ -210,12 +211,24 @@
     <ClCompile Include="GRAPHICS_OBJ_Topology.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_VertexShader.cpp" />
     <ClCompile Include="GRAPHICS_OBJ_Rasterizer.cpp" />
+    <ClCompile Include="GRAPHICS_PASS_BindingPass.cpp" />
+    <ClCompile Include="GRAPHICS_PASS_BufferClearPass.cpp" />
+    <ClCompile Include="GRAPHICS_PASS_FullscreenPass.cpp" />
+    <ClCompile Include="GRAPHICS_PASS_HorizontalBlurPass.cpp" />
+    <ClCompile Include="GRAPHICS_PASS_RenderQueuePass.cpp" />
+    <ClCompile Include="GRAPHICS_PASS_VerticalBlurPass.cpp" />
+    <ClCompile Include="GRAPHICS_RG_BlurOutlineRenderGraph.cpp" />
+    <ClCompile Include="GRAPHICS_RG_RenderGraph.cpp" />
+    <ClCompile Include="GRAPHICS_RG_Sink.cpp" />
+    <ClCompile Include="GRAPHICS_RG_Source.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_impl_dx11.cpp" />
     <ClCompile Include="imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="GRAPHICS_JOB_StepLinkingProbe.cpp" />
+    <ClCompile Include="GRAPHICS_RG_ScaleOutlineRenderGraph.cpp" />
     <ClCompile Include="SYS_CLASS_App.cpp" />
     <ClCompile Include="SYS_CLASS_DXgiInfoManager.cpp" />
     <ClCompile Include="SYS_CLASS_Graphics.cpp" />
@@ -232,17 +245,33 @@
     <ClCompile Include="TestCube.cpp" />
     <ClCompile Include="Testing.cpp" />
     <ClCompile Include="TestPlane.cpp" />
+    <ClCompile Include="GRAPHICS_BUF_TransformCbufScaling.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GRAPHICS_BUF_ConstantBuffersEx.h" />
     <ClInclude Include="GRAPHICS_CLASS_ModelException.h" />
     <ClInclude Include="GRAPHICS_JOB_ModelProbe.h" />
-    <ClInclude Include="GRAPHICS_OBJ_BlurPack.h" />
+    <ClInclude Include="GRAPHICS_OBJ_BufferResource.h" />
     <ClInclude Include="GRAPHICS_OBJ_DepthStencil.h" />
     <ClInclude Include="GRAPHICS_OBJ_GraphicsResource.h" />
     <ClInclude Include="GRAPHICS_OBJ_RenderTarget.h" />
+    <ClInclude Include="GRAPHICS_JOB_StepLinkingProbe.h" />
+    <ClInclude Include="GRAPHICS_PASS_BindingPass.h" />
+    <ClInclude Include="GRAPHICS_PASS_BlurOutlineDrawingPass.h" />
+    <ClInclude Include="GRAPHICS_PASS_BufferClearPass.h" />
+    <ClInclude Include="GRAPHICS_PASS_FullscreenPass.h" />
+    <ClInclude Include="GRAPHICS_PASS_HorizontalBlurPass.h" />
+    <ClInclude Include="GRAPHICS_PASS_OutlineDrawingPass.h" />
+    <ClInclude Include="GRAPHICS_PASS_OutlineMaskGenerationPass.h" />
+    <ClInclude Include="GRAPHICS_PASS_VerticalBlurPass.h" />
+    <ClInclude Include="GRAPHICS_RG_BlurOutlineRenderGraph.h" />
+    <ClInclude Include="GRAPHICS_RG_RenderGraph.h" />
+    <ClInclude Include="GRAPHICS_RG_ScaleOutlineRenderGraph.h" />
+    <ClInclude Include="GRAPHICS_RG_Sink.h" />
+    <ClInclude Include="GRAPHICS_RG_Source.h" />
+    <ClInclude Include="GRAPHICS_PASS_RenderQueuePass.h" />
+    <ClInclude Include="GRAPHICS_PASS_LambertianPass.h" />
     <ClInclude Include="SYS_HELP_PerfLog.h" />
-    <ClInclude Include="GRAPHICS_JOB_FrameCommander.h" />
     <ClInclude Include="GRAPHICS_JOB_Job.h" />
     <ClInclude Include="GRAPHICS_JOB_Pass.h" />
     <ClInclude Include="GRAPHICS_JOB_Step.h" />
@@ -253,7 +282,6 @@
     <ClInclude Include="GRAPHICS_BUF_ConstantBuffers.h" />
     <ClInclude Include="GRAPHICS_BUF_IndexBuffer.h" />
     <ClInclude Include="GRAPHICS_BUF_TransformCBuffer.h" />
-    <ClInclude Include="GRAPHICS_BUF_TransformCBufferPS.h" />
     <ClInclude Include="GRAPHICS_BUF_VertexBuffer.h" />
     <ClInclude Include="GRAPHICS_HELP_MatrixTranslator.h" />
     <ClInclude Include="GRAPHICS_HELP_NormalMapTwerker.h" />
@@ -301,6 +329,7 @@
     <ClInclude Include="SYS_CLASS_ImguiManager.h" />
     <ClInclude Include="SYS_SET_GraphicsThrowMacros.h" />
     <ClInclude Include="SYS_SET_Math.h" />
+    <ClInclude Include="GRAPHICS_CLASS_RenderGraphCompileException.h" />
     <ClInclude Include="SYS_SET_resource.h" />
     <ClInclude Include="SYS_CLASS_App.h" />
     <ClInclude Include="SYS_CLASS_DXgiInfoManager.h" />
@@ -316,7 +345,9 @@
     <ClInclude Include="SYS_SET_WindowsThrowMacros.h" />
     <ClInclude Include="TestCube.h" />
     <ClInclude Include="Testing.h" />
+    <ClInclude Include="TestModelProbe.h" />
     <ClInclude Include="TestPlane.h" />
+    <ClInclude Include="GRAPHICS_BUF_TransformCbufScaling.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc" />
@@ -325,6 +356,7 @@
     <Image Include="C:\Users\gymf1\Downloads\logo.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="SYS_SET_DXGetErrorDescription.inl" />
     <None Include="SYS_SET_DXGetErrorString.inl" />

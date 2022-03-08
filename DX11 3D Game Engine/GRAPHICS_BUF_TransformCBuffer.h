@@ -17,12 +17,12 @@ namespace GPipeline
 		/**
 		* @brief update vs shader with the new transform matrix
 		*/
-		void Bind(Graphics& gfx) noexcept override;
+		void Bind(Graphics& gfx) noxnd override;
 		void InitializeParentReference(const Drawable& drawTarget) noexcept override;
 		std::unique_ptr<CloningBindable> Clone() const noexcept override;
 	protected:
-		void UpdateBindImpl(Graphics& gfx, const Transforms& tf) noexcept;
-		Transforms GetTransforms(Graphics& gfx) noexcept;
+		void UpdateBindImpl(Graphics& gfx, const Transforms& tf) noxnd;
+		Transforms GetTransforms(Graphics& gfx) noxnd;
 	private:
 		/// <summary>
 		/// A static constant buffer that will be reused across all primitives to store 

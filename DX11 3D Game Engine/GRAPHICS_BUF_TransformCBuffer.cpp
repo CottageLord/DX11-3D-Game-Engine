@@ -10,9 +10,10 @@ namespace GPipeline
 		}
 	}
 
-	void TransformCbuffer::Bind(Graphics& gfx) noexcept
+	void TransformCbuffer::Bind(Graphics& gfx) noxnd
 	{
-		UpdateBindImpl(gfx, GetTransforms(gfx));
+		INFOMAN_NOHR(gfx);
+		GFX_THROW_INFO_ONLY(UpdateBindImpl(gfx, GetTransforms(gfx)));
 	}
 
 	void TransformCbuffer::InitializeParentReference(const Drawable& drawTarget) noexcept
@@ -26,14 +27,14 @@ namespace GPipeline
 	}
 
 
-	void TransformCbuffer::UpdateBindImpl(Graphics & gfx, const Transforms & tf) noexcept
+	void TransformCbuffer::UpdateBindImpl(Graphics & gfx, const Transforms & tf) noxnd
 	{
 		assert(pDrawTarget != nullptr);
 		pVcbFinalMatrix->Update(gfx, tf);
 		pVcbFinalMatrix->Bind(gfx);
 	}
 
-	TransformCbuffer::Transforms TransformCbuffer::GetTransforms(Graphics & gfx) noexcept
+	TransformCbuffer::Transforms TransformCbuffer::GetTransforms(Graphics & gfx) noxnd
 	{
 		assert(pDrawTarget != nullptr);
 		const auto modelView = pDrawTarget->GetTransformXM() * gfx.GetCamera();

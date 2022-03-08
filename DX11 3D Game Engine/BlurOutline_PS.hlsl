@@ -14,7 +14,7 @@ cbuffer Control
 
 float4 main(float2 uv : Texcoord) : SV_Target
 {
-    int width, height;
+    float width, height;
     tex.GetDimensions(width, height);
     float dx, dy;
     if (horizontal)

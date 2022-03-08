@@ -1,13 +1,18 @@
 #pragma once
 #include "SYS_CLASS_Graphics.h"
-#include "GRAPHICS_SET_BindableCommon.h"
 #include "GRAPHICS_JOB_Technique.h"
-
+#include "GRAPHICS_OBJ_DynamicVertex.h"
 #include <filesystem>
 #include <vector>
 
 struct aiMaterial;
 struct aiMesh;
+
+namespace GPipeline
+{
+	class VertexBuffer;
+	class IndexBuffer;
+}
 
 class Material
 {
@@ -29,9 +34,6 @@ public:
 	  */
 	std::shared_ptr<GPipeline::VertexBuffer> MakeVertexBindable(Graphics& gfx, const aiMesh& mesh, 
 		float scale = 1.0f) const noxnd;
-	/**
-	  * @brief Resolve the index buffer.
-	  */
 	std::shared_ptr<GPipeline::IndexBuffer> MakeIndexBindable(Graphics& gfx, const aiMesh& mesh) const noxnd;
 	std::vector<Technique> GetTechniques() const noexcept;
 private:

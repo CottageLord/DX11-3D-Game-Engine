@@ -4,25 +4,22 @@
 #include "SYS_CLASS_DXgiInfoManager.h"
 #include "SYS_CLASS_MFException.h"
 
-
-#include <vector>
 #include <wrl.h>
 #include <d3d11.h>
+#include <vector>
 #include <memory>
 #include <random>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 
-class DepthStencil;
-
 namespace GPipeline
 {
 	class Bindable;
+	class RenderTarget;
 }
 
 class Graphics
 {
-	//friend class GPipeline::Bindable;
 	friend class GraphicsResource;
 public:
 	class Exception : public MFException
@@ -40,16 +37,8 @@ public:
 		std::string GetErrorDescription() const noexcept;
 		std::string GetErrorInfo() const noexcept;
 	private:
-		HRESULT hr;	// make sure we have hr reference so we can accurately locate error
+		HRESULT hr;
 		std::string info;
-	};
-	class DeviceRemovedException : public HrException
-	{
-		using HrException::HrException;
-	public:
-		const char* GetType() const noexcept override;
-	private:
-		std::string reason;
 	};
 	class InfoException : public Exception
 	{
@@ -61,16 +50,21 @@ public:
 	private:
 		std::string info;
 	};
+	class DeviceRemovedException : public HrException
+	{
+		using HrException::HrException;
+	public:
+		const char* GetType() const noexcept override;
+	private:
+		std::string reason;
+	};
 public:
 	Graphics(HWND hWnd, int width, int height);
 	Graphics(const Graphics&) = delete;
 	Graphics& operator=(const Graphics&) = delete;
 	~Graphics();
-	// draw what we've got in this frame
 	void EndFrame();
 	void BeginFrame(float red, float green, float blue) noexcept;
-	void BindSwapBuffer() noexcept;
-	void BindSwapBuffer(const DepthStencil& ds) noexcept;
 	void DrawIndexed(UINT count) noxnd;
 	void SetProjection(DirectX::FXMMATRIX proj) noexcept;
 	DirectX::XMMATRIX GetProjection() const noexcept;
@@ -79,23 +73,24 @@ public:
 	void EnableImgui() noexcept;
 	void DisableImgui() noexcept;
 	bool IsImguiEnabled() const noexcept;
-	/**
-	 * @brief Returns the width of the swap chain
-	 */
+	/// <summary>
+	/// returns the size of the swap chain
+	/// </summary>
+	/// <returns></returns>
 	UINT GetWidth() const noexcept;
 	UINT GetHeight() const noexcept;
+	std::shared_ptr<GPipeline::RenderTarget> GetTarget();
 private:
 	UINT width;
 	UINT height;
-	DirectX::XMMATRIX camera;
 	DirectX::XMMATRIX projection;
+	DirectX::XMMATRIX camera;
 	bool imguiEnabled = true;
 #ifndef NDEBUG
-	DxgiInfoManager infoManager; // won't bein build/release mode
+	DxgiInfoManager infoManager;
 #endif
 	Microsoft::WRL::ComPtr<ID3D11Device> pDevice;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> pSwap;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> pContext;
-	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> pTarget;
-	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> pDSV;
+	std::shared_ptr<GPipeline::RenderTarget> pTarget;
 };

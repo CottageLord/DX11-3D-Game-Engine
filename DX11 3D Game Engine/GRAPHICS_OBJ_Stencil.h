@@ -1,5 +1,7 @@
 #pragma once
 #include "GRAPHICS_OBJ_Bindable.h"
+#include "GRAPHICS_OBJ_BindablePool.h"
+#include "SYS_SET_GraphicsThrowMacros.h"
 
 namespace GPipeline
 {
@@ -87,9 +89,10 @@ namespace GPipeline
 
 			GetDevice(gfx)->CreateDepthStencilState(&dsDesc, &pStencil);
 		}
-		void Bind(Graphics& gfx) noexcept override
+		void Bind(Graphics& gfx) noxnd override
 		{
-			GetContext(gfx)->OMSetDepthStencilState(pStencil.Get(), 0xFF); // value written in buffer ans used for comparision
+			INFOMAN_NOHR(gfx);
+			GFX_THROW_INFO_ONLY(GetContext(gfx)->OMSetDepthStencilState(pStencil.Get(), 0xFF));
 		}
 		static std::shared_ptr<Stencil> Resolve(Graphics& gfx, Mode mode)
 		{

@@ -1,6 +1,13 @@
 #include "GRAPHICS_OBJ_Material.h"
+#include "GRAPHICS_SET_BindableCommon.h"
+
 #include "GRAPHICS_OBJ_DynamicConstant.h"
+#include "GRAPHICS_OBJ_Stencil.h"
+
+#include "GRAPHICS_BUF_TransformCbufScaling.h"
 #include "GRAPHICS_BUF_ConstantBuffersEx.h"
+
+#include <filesystem>
 
 Material::Material(Graphics& gfx, const aiMaterial& material, const std::filesystem::path& path) noxnd
 	:
@@ -15,14 +22,12 @@ modelPath(path.string())
 	}
 	// phong technique
 	{
-		// congfigures normal shadeing
 		Technique phong{ "Phong" };
-		Step step(0);
-		// this will composite the shader we will use
+		Step step("lambertian");
 		std::string shaderCode = "Phong";
 		aiString texFileName;
 
-		// common (pre-work)
+		// common (pre)
 		vtxLayout.Append(DynamicVertex::VertexLayout::Position3D);
 		vtxLayout.Append(DynamicVertex::VertexLayout::Normal);
 		Dcb::RawLayout pscLayout;
@@ -32,7 +37,6 @@ modelPath(path.string())
 		// diffuse
 		{
 			bool hasAlpha = false;
-			// if have diffuse
 			if (material.GetTexture(aiTextureType_DIFFUSE, 0, &texFileName) == aiReturn_SUCCESS)
 			{
 				hasTexture = true;
@@ -86,7 +90,6 @@ modelPath(path.string())
 		// common (post)
 		{
 			step.AddBindable(std::make_shared<TransformCbuffer>(gfx, 0u));
-			step.AddBindable(Blender::Resolve(gfx, false));
 			auto pvs = VertexShader::Resolve(gfx, shaderCode + "_VS.cso");
 			auto pvsbc = pvs->GetBytecode();
 			step.AddBindable(std::move(pvs));
@@ -130,14 +133,10 @@ modelPath(path.string())
 	{
 		Technique outline("Outline", false);
 		{
-			Step mask(1);
-
-			auto pvs = VertexShader::Resolve(gfx, "Solid_VS.cso");
-			auto pvsbc = pvs->GetBytecode();
-			mask.AddBindable(std::move(pvs));
+			Step mask("outlineMask");
 
 			// TODO: better sub-layout generation tech for future consideration maybe
-			mask.AddBindable(InputLayout::Resolve(gfx, vtxLayout, pvsbc));
+			mask.AddBindable(InputLayout::Resolve(gfx, vtxLayout, VertexShader::Resolve(gfx, "Solid_VS.cso")->GetBytecode()));
 
 			mask.AddBindable(std::make_shared<TransformCbuffer>(gfx));
 
@@ -146,15 +145,7 @@ modelPath(path.string())
 			outline.AddStep(std::move(mask));
 		}
 		{
-			Step draw(2);
-
-			// these can be pass-constant (tricky due to layout issues)
-			auto pvs = VertexShader::Resolve(gfx, "Offset_VS.cso");
-			auto pvsbc = pvs->GetBytecode();
-			draw.AddBindable(std::move(pvs));
-
-			// this can be pass-constant
-			draw.AddBindable(PixelShader::Resolve(gfx, "Solid_PS.cso"));
+			Step draw("outlineDraw");
 
 			{
 				Dcb::RawLayout lay;
@@ -164,16 +155,8 @@ modelPath(path.string())
 				draw.AddBindable(std::make_shared<GPipeline::CachingPixelConstantBufferEx>(gfx, buf, 1u));
 			}
 
-			{
-				Dcb::RawLayout lay;
-				lay.Add<Dcb::Float>("offset");
-				auto buf = Dcb::Buffer(std::move(lay));
-				buf["offset"] = 0.1f;
-				draw.AddBindable(std::make_shared<GPipeline::CachingVertexConstantBufferEx>(gfx, buf, 1u));
-			}
-
 			// TODO: better sub-layout generation tech for future consideration maybe
-			draw.AddBindable(InputLayout::Resolve(gfx, vtxLayout, pvsbc));
+			draw.AddBindable(InputLayout::Resolve(gfx, vtxLayout, VertexShader::Resolve(gfx, "Solid_VS.cso")->GetBytecode()));
 
 			draw.AddBindable(std::make_shared<TransformCbuffer>(gfx));
 
@@ -202,8 +185,7 @@ std::vector<unsigned short> Material::ExtractIndices(const aiMesh& mesh) const n
 	}
 	return indices;
 }
-std::shared_ptr<GPipeline::VertexBuffer> Material::MakeVertexBindable(Graphics& gfx, 
-	const aiMesh& mesh, float scale) const noxnd
+std::shared_ptr<GPipeline::VertexBuffer> Material::MakeVertexBindable(Graphics& gfx, const aiMesh& mesh, float scale) const noxnd
 {
 	auto vtc = ExtractVertices(mesh);
 	if (scale != 1.0f)
@@ -218,8 +200,7 @@ std::shared_ptr<GPipeline::VertexBuffer> Material::MakeVertexBindable(Graphics& 
 	}
 	return GPipeline::VertexBuffer::Resolve(gfx, MakeMeshTag(mesh), std::move(vtc));
 }
-std::shared_ptr<GPipeline::IndexBuffer> Material::MakeIndexBindable(Graphics& gfx, 
-	const aiMesh& mesh) const noxnd
+std::shared_ptr<GPipeline::IndexBuffer> Material::MakeIndexBindable(Graphics& gfx, const aiMesh& mesh) const noxnd
 {
 	return GPipeline::IndexBuffer::Resolve(gfx, MakeMeshTag(mesh), ExtractIndices(mesh));
 }

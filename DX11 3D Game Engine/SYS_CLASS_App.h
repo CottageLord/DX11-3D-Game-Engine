@@ -8,16 +8,13 @@
 #include "SYS_CLASS_Timer.h"
 #include "SYS_CLASS_ImguiManager.h"
 #include "SYS_CLASS_ScriptCommander.h"
+
 #include "GRAPHICS_LGT_PointLight.h"
 #include "GRAPHICS_OBJ_Camera.h"
 #include "GRAPHICS_OBJ_Model.h"
-#include "GRAPHICS_OBJ_Stencil.h"
-#include "GRAPHICS_OBJ_Material.h"
-#include "GRAPHICS_JOB_FrameCommander.h"
-#include "TestCube.h"
-#include <set>
 
-#include "TestPlane.h"
+#include "GRAPHICS_RG_BlurOutlineRenderGraph.h"
+#include "TestCube.h"
 
 class App
 {
@@ -27,17 +24,18 @@ public:
 	int Go();
 	~App();
 private:
-	void DoFrame();
+	void DoFrame(float dt);
+	void HandleInput(float dt);
 	void ShowImguiDemoWindow();
 private:
 	std::string commandLine;
-	bool show_demo_window = true;
+	bool showDemoWindow = true;
 	ImguiManager imgui;
 	Window wnd;
 	EngineTimer timer;
 	ScriptCommander scriptCommander;
+	Rgph::BlurOutlineRenderGraph rg{ wnd.Gfx() };
 	Camera cam;
-	FrameCommander fc{ wnd.Gfx() };
 	PointLight light;
 	float speed_factor = 1.0f;
 
@@ -47,10 +45,11 @@ private:
 	//Model gobber{ wnd.Gfx(),"Models\\zhongli_textured\\zhongli_En.pmx" };
 	//Model nano{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj",2.0f };
 	Model sponza{ wnd.Gfx(),"Models\\sponza\\sponza.obj",1.0f / 20.0f };
+
+	TestCube cube{ wnd.Gfx(),4.0f };
+	TestCube cube2{ wnd.Gfx(),4.0f };
 	//TestPlane bluePlane{ wnd.Gfx(),6.0f,{ 0.3f,0.3f,1.0f,0.0f } };
 	//TestPlane redPlane{ wnd.Gfx(),6.0f,{ 1.0f,0.3f,0.3f,0.0f } };
 	//TestPlane tp{ wnd.Gfx(),6.0 };
 	//TestPlane plane;
-	TestCube cube{ wnd.Gfx(),4.0f };
-	TestCube cube2{ wnd.Gfx(),4.0f };
 };

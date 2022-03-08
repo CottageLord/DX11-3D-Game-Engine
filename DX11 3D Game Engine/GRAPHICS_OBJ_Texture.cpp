@@ -11,7 +11,7 @@ namespace GPipeline
 	Texture::Texture(Graphics& gfx, const std::string& path, UINT slot)
 		:
 		path(path),
-		tSlot(slot)
+		slot(slot)
 	{
 		GET_INFO_MAN(gfx);
 
@@ -69,12 +69,13 @@ namespace GPipeline
 		GetContext(gfx)->GenerateMips(pTextureView.Get());
 	}
 
-	void Texture::Bind(Graphics& gfx) noexcept
+	void Texture::Bind(Graphics& gfx) noxnd
 	{
-		GetContext(gfx)->PSSetShaderResources(tSlot, 1u, pTextureView.GetAddressOf());
-		// |__Bound texture to pipeline register(slot 0), can be accessed with 
-		// declaring Texture in ps
-		// Texture2D tex : register(t0) t for texture
+		INFOMAN_NOHR(gfx);
+		GFX_THROW_INFO_ONLY(GetContext(gfx)->PSSetShaderResources(slot, 1u, pTextureView.GetAddressOf()));
+														// |__Bound texture to pipeline register(slot 0), can be accessed with 
+														// declaring Texture in ps
+														// Texture2D tex : register(t0) t for texture
 	}
 
 	std::shared_ptr<Texture> Texture::Resolve(Graphics& gfx, const std::string& path, UINT slot)
@@ -89,7 +90,7 @@ namespace GPipeline
 	}
 	std::string Texture::GetUID() const noexcept
 	{
-		return GenerateUID(path, tSlot);
+		return GenerateUID(path, slot);
 	}
 	bool Texture::HasAlpha() const noexcept
 	{

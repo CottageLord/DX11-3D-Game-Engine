@@ -17,7 +17,7 @@ namespace GPipeline
 		/**
 		 * @brief Bind to Output Merger
 		 */
-		void Bind(Graphics& gfx) noexcept override;
+		void Bind(Graphics& gfx) noxnd override;
 		/**
 		 * @brief Set the universal effect factor
 		 */

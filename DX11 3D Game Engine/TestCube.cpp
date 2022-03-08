@@ -1,14 +1,13 @@
 #include "TestCube.h"
 #include "GRAPHICS_OBJ_Cube.h"
 #include "GRAPHICS_SET_BindableCommon.h"
-#include "GRAPHICS_BUF_TransformCbufferPS.h"
+#include "GRAPHICS_BUF_TransformCbufScaling.h"
 #include "imgui/imgui.h"
 #include "GRAPHICS_OBJ_Stencil.h"
 //#include "GRAPHICS_OBJ_NullPixelShader.h"
 //#include "GRAPHICS_OBJ_DynamicConstant.h"
 #include "GRAPHICS_JOB_TechniqueProbe.h"
 #include "GRAPHICS_BUF_ConstantBuffersEx.h"
-
 TestCube::TestCube(Graphics& gfx, float size)
 {
 	using namespace GPipeline;
@@ -22,10 +21,12 @@ TestCube::TestCube(Graphics& gfx, float size)
 	pIndices = IndexBuffer::Resolve(gfx, geometryTag, model.indices);
 	pTopology = Topology::Resolve(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
+	auto tcb = std::make_shared<TransformCbuffer>(gfx);
+
 	{
 		Technique shade("Shade");
 		{
-			Step only(0);
+			Step only("lambertian");
 
 			only.AddBindable(Texture::Resolve(gfx, "Images\\brickwall.jpg"));
 			only.AddBindable(Sampler::Resolve(gfx));
@@ -48,40 +49,31 @@ TestCube::TestCube(Graphics& gfx, float size)
 
 			only.AddBindable(InputLayout::Resolve(gfx, model.vertices.GetLayout(), pvsbc));
 
-			only.AddBindable(std::make_shared<TransformCbuffer>(gfx));
+			only.AddBindable(Rasterizer::Resolve(gfx, false));
+
+			only.AddBindable(tcb);
 
 			shade.AddStep(std::move(only));
 		}
 		AddTechnique(std::move(shade));
 	}
+
 	{
 		Technique outline("Outline");
 		{
-			Step mask(1);
-
-			auto pvs = VertexShader::Resolve(gfx, "Solid_VS.cso");
-			auto pvsbc = pvs->GetBytecode();
-			mask.AddBindable(std::move(pvs));
+			Step mask("outlineMask");
 
 			// TODO: better sub-layout generation tech for future consideration maybe
-			mask.AddBindable(InputLayout::Resolve(gfx, model.vertices.GetLayout(), pvsbc));
+			mask.AddBindable(InputLayout::Resolve(gfx, model.vertices.GetLayout(), VertexShader::Resolve(gfx, "Solid_VS.cso")->GetBytecode()));
 
-			mask.AddBindable(std::make_shared<TransformCbuffer>(gfx));
+			mask.AddBindable(std::move(tcb));
 
 			// TODO: might need to specify rasterizer when doubled-sided models start being used
 
 			outline.AddStep(std::move(mask));
 		}
 		{
-			Step draw(2);
-
-			// these can be pass-constant (tricky due to layout issues)
-			auto pvs = VertexShader::Resolve(gfx, "Solid_VS.cso");
-			auto pvsbc = pvs->GetBytecode();
-			draw.AddBindable(std::move(pvs));
-
-			// this can be pass-constant
-			draw.AddBindable(PixelShader::Resolve(gfx, "Solid_PS.cso"));
+			Step draw("outlineDraw");
 
 			Dcb::RawLayout lay;
 			lay.Add<Dcb::Float4>("color");
@@ -90,43 +82,9 @@ TestCube::TestCube(Graphics& gfx, float size)
 			draw.AddBindable(std::make_shared<GPipeline::CachingPixelConstantBufferEx>(gfx, buf, 1u));
 
 			// TODO: better sub-layout generation tech for future consideration maybe
-			draw.AddBindable(InputLayout::Resolve(gfx, model.vertices.GetLayout(), pvsbc));
+			draw.AddBindable(InputLayout::Resolve(gfx, model.vertices.GetLayout(), VertexShader::Resolve(gfx, "Solid_VS.cso")->GetBytecode()));
 
-			// quick and dirty... nicer solution maybe takes a lamba... we'll see :)
-			class TransformCbufScaling : public TransformCbuffer
-			{
-			public:
-				TransformCbufScaling(Graphics& gfx, float scale = 1.04)
-					:
-					TransformCbuffer(gfx),
-					buf(MakeLayout())
-				{
-					buf["scale"] = scale;
-				}
-				void Accept(TechniqueProbe& probe) override
-				{
-					probe.VisitBuffer(buf);
-				}
-				void Bind(Graphics& gfx) noexcept override
-				{
-					const float scale = buf["scale"];
-					const auto scaleMatrix = dx::XMMatrixScaling(scale, scale, scale);
-					auto xf = GetTransforms(gfx);
-					xf.modelView = xf.modelView * scaleMatrix;
-					xf.modelViewProj = xf.modelViewProj * scaleMatrix;
-					UpdateBindImpl(gfx, xf);
-				}
-			private:
-				static Dcb::RawLayout MakeLayout()
-				{
-					Dcb::RawLayout layout;
-					layout.Add<Dcb::Float>("scale");
-					return layout;
-				}
-			private:
-				Dcb::Buffer buf;
-			};
-			draw.AddBindable(std::make_shared<TransformCbufScaling>(gfx));
+			draw.AddBindable(std::make_shared<TransformCbuffer>(gfx));
 
 			// TODO: might need to specify rasterizer when doubled-sided models start being used
 

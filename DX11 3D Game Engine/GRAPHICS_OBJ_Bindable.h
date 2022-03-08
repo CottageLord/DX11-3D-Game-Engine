@@ -1,19 +1,20 @@
 #pragma once
-#include "SYS_CLASS_Graphics.h"
 #include "SYS_SET_ConditionalNoexcept.h"
 #include "GRAPHICS_OBJ_GraphicsResource.h"
 #include <memory>
 #include <string>
+#include <assert.h>
 
 class Drawable;
 class TechniqueProbe;
+class Graphics;
 
 namespace GPipeline
 {
 	class Bindable : public GraphicsResource
 	{
 	public:
-		virtual void Bind(Graphics& gfx) noexcept = 0;
+		virtual void Bind(Graphics& gfx) noxnd = 0;
 		virtual void InitializeParentReference(const Drawable&) noexcept
 		{}
 		virtual void Accept(TechniqueProbe&)

@@ -10,7 +10,7 @@ namespace GPipeline
 	{
 	public:
 		Texture(Graphics& gfx, const std::string& path, UINT slot = 0);
-		void Bind(Graphics& gfx) noexcept override;
+		void Bind(Graphics& gfx) noxnd override;
 		static std::shared_ptr<Texture> Resolve(Graphics& gfx, const std::string& path, UINT slot = 0);
 		/**
 		* @brief Generate UID while uniquely distinguisah between textures in different slots
@@ -25,7 +25,7 @@ namespace GPipeline
 		std::string path;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> pTextureView;
 	private:
-		unsigned int tSlot;
+		unsigned int slot;
 	};
 
 }

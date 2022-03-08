@@ -42,7 +42,7 @@ public:
 	 
 	void Draw( Graphics& gfx,DirectX::FXMMATRIX accumulatedTransform ) const noxnd;*/
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
-	void Submit(FrameCommander& frame, DirectX::FXMMATRIX accumulatedTranform) const noxnd;
+	void Submit(DirectX::FXMMATRIX accumulatedTranform) const noxnd;
 private:
 	mutable DirectX::XMFLOAT4X4 transform;
 };

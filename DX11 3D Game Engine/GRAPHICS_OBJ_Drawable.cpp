@@ -4,19 +4,19 @@
 #include "GRAPHICS_OBJ_BindablePool.h"
 #include "GRAPHICS_OBJ_Material.h"
 #include <assimp/scene.h>
+
 using namespace GPipeline;
 
 /**
 * @brief Binds all info to the gpu pipeline and excute drawIndexed()
 */
-void Drawable::Submit(FrameCommander& frame) const noexcept
+void Drawable::Submit() const noexcept
 {
 	for (const auto& tech : techniques)
 	{
-		tech.Submit(frame, *this);
+		tech.Submit(*this);
 	}
 }
-
 Drawable::Drawable(Graphics& gfx, const Material& mat, const aiMesh& mesh, float scale) noexcept
 {
 	pVertices = mat.MakeVertexBindable(gfx, mesh, scale);
@@ -35,7 +35,7 @@ void Drawable::AddTechnique(Technique tech_in) noexcept
 	techniques.push_back(std::move(tech_in));
 }
 
-void Drawable::Bind(Graphics & gfx) const noexcept
+void Drawable::Bind(Graphics& gfx) const noxnd
 {
 	pTopology->Bind(gfx);
 	pIndices->Bind(gfx);
@@ -55,5 +55,13 @@ UINT Drawable::GetIndexCount() const noxnd
 	return pIndices->GetCount();
 }
 
+void Drawable::LinkTechniques(Rgph::RenderGraph& rg)
+{
+	for (auto& tech : techniques)
+	{
+		tech.Link(rg);
+	}
+
+}
 Drawable::~Drawable()
 {}

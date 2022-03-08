@@ -19,9 +19,6 @@
     <Filter Include="Dxerr Setting">
       <UniqueIdentifier>{b32e6fb1-9f2b-4f97-a209-677d24bd6e3d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="macros">
-      <UniqueIdentifier>{ce01911e-43ab-4c75-adbe-70e9be60f567}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Application">
       <UniqueIdentifier>{11320447-434c-44f8-815c-e830f0779d17}</UniqueIdentifier>
     </Filter>
@@ -78,6 +75,24 @@
     </Filter>
     <Filter Include="Header Files\Graphics\Helpers">
       <UniqueIdentifier>{c95b7c8a-b68d-43cd-8517-3a991469eb04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\RenderGraph">
+      <UniqueIdentifier>{aee91744-c97f-4818-bf73-40ab55c9325c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\RenderGraph">
+      <UniqueIdentifier>{eac24b09-33a8-41e5-89c4-a631bdf26af2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Exception">
+      <UniqueIdentifier>{ce01911e-43ab-4c75-adbe-70e9be60f567}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Passes">
+      <UniqueIdentifier>{67f7ba3c-116c-45e5-a9c4-cf6ee9da156e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Passes">
+      <UniqueIdentifier>{c0637e8b-22b8-4d73-9a34-0a0b66bad333}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Exception">
+      <UniqueIdentifier>{43460635-faab-4b11-891f-05023cc08ee7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -171,9 +186,6 @@
     <ClCompile Include="TestPlane.cpp">
       <Filter>Source Files\Graphics\Drawabble</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_BUF_TransformCBufferPS.cpp">
-      <Filter>Source Files\Graphics\Bindable</Filter>
-    </ClCompile>
     <ClCompile Include="GRAPHICS_HELP_MatrixTranslator.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
@@ -234,9 +246,6 @@
     <ClCompile Include="GRAPHICS_OBJ_Model.cpp">
       <Filter>Source Files\Graphics\Object</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_CLASS_ModelException.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_Node.cpp">
       <Filter>Source Files\Graphics\Object</Filter>
     </ClCompile>
@@ -249,16 +258,64 @@
     <ClCompile Include="GRAPHICS_OBJ_GraphicsResource.cpp">
       <Filter>Source Files\Graphics\Object</Filter>
     </ClCompile>
+    <ClCompile Include="GRAPHICS_JOB_Pass.cpp">
+      <Filter>Source Files\Graphics\JobSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_BUF_TransformCbufScaling.cpp">
+      <Filter>Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_JOB_StepLinkingProbe.cpp">
+      <Filter>Source Files\Graphics\JobSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_RG_Source.cpp">
+      <Filter>Source Files\Graphics\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_RG_Sink.cpp">
+      <Filter>Source Files\Graphics\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_RG_ScaleOutlineRenderGraph.cpp">
+      <Filter>Source Files\Graphics\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_PASS_RenderQueuePass.cpp">
+      <Filter>Source Files\Graphics\Passes</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_CLASS_ModelException.cpp">
+      <Filter>Source Files\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_CLASS_RenderGraphCompileException.cpp">
+      <Filter>Source Files\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_RG_RenderGraph.cpp">
+      <Filter>Source Files\Graphics\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_PASS_HorizontalBlurPass.cpp">
+      <Filter>Source Files\Graphics\Passes</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_PASS_FullscreenPass.cpp">
+      <Filter>Source Files\Graphics\Passes</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_RG_BlurOutlineRenderGraph.cpp">
+      <Filter>Source Files\Graphics\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_PASS_BindingPass.cpp">
+      <Filter>Source Files\Graphics\Passes</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_PASS_BufferClearPass.cpp">
+      <Filter>Source Files\Graphics\Passes</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_PASS_VerticalBlurPass.cpp">
+      <Filter>Source Files\Graphics\Passes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SYS_SET_Dxerr.h">
       <Filter>Dxerr Setting</Filter>
     </ClInclude>
     <ClInclude Include="SYS_SET_GraphicsThrowMacros.h">
-      <Filter>macros</Filter>
+      <Filter>Exception</Filter>
     </ClInclude>
     <ClInclude Include="SYS_SET_WindowsThrowMacros.h">
-      <Filter>macros</Filter>
+      <Filter>Exception</Filter>
     </ClInclude>
     <ClInclude Include="SYS_CLASS_App.h">
       <Filter>Header Files\Application</Filter>
@@ -273,9 +330,6 @@
       <Filter>Header Files\Application</Filter>
     </ClInclude>
     <ClInclude Include="SYS_CLASS_IO_Mouse.h">
-      <Filter>Header Files\Application</Filter>
-    </ClInclude>
-    <ClInclude Include="SYS_CLASS_MFException.h">
       <Filter>Header Files\Application</Filter>
     </ClInclude>
     <ClInclude Include="SYS_CLASS_Timer.h">
@@ -365,9 +419,6 @@
     <ClInclude Include="GRAPHICS_OBJ_SolidSphere.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
-    <ClInclude Include="SYS_SET_ConditionalNoexcept.h">
-      <Filter>Header Files\Application</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Mesh.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
@@ -379,9 +430,6 @@
     </ClInclude>
     <ClInclude Include="TestPlane.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_BUF_TransformCBufferPS.h">
-      <Filter>Header Files\Graphics\Bindable</Filter>
     </ClInclude>
     <ClInclude Include="GRAPHICS_LGT_PointLight.h">
       <Filter>Header Files\Graphics\Object</Filter>
@@ -449,9 +497,6 @@
     <ClInclude Include="GRAPHICS_OBJ_NullPixelShader.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_JOB_FrameCommander.h">
-      <Filter>Header Files\Graphics\JobSystem</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Material.h">
       <Filter>Header Files\Graphics\Object</Filter>
     </ClInclude>
@@ -463,9 +508,6 @@
     </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Node.h">
       <Filter>Header Files\Graphics\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_CLASS_ModelException.h">
-      <Filter>Header Files\Graphics\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="GRAPHICS_HELP_MatrixTranslator.h">
       <Filter>Header Files\Graphics\Helpers</Filter>
@@ -497,8 +539,74 @@
     <ClInclude Include="GRAPHICS_OBJ_GraphicsResource.h">
       <Filter>Header Files\Graphics\Object</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_BlurPack.h">
-      <Filter>Header Files\Graphics</Filter>
+    <ClInclude Include="GRAPHICS_BUF_TransformCbufScaling.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="TestModelProbe.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_JOB_StepLinkingProbe.h">
+      <Filter>Header Files\Graphics\JobSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_RG_Source.h">
+      <Filter>Header Files\Graphics\RenderGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_CLASS_ModelException.h">
+      <Filter>Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_SET_ConditionalNoexcept.h">
+      <Filter>Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_CLASS_MFException.h">
+      <Filter>Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_RG_Sink.h">
+      <Filter>Header Files\Graphics\RenderGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_RG_ScaleOutlineRenderGraph.h">
+      <Filter>Header Files\Graphics\RenderGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_PASS_RenderQueuePass.h">
+      <Filter>Header Files\Graphics\Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_CLASS_RenderGraphCompileException.h">
+      <Filter>Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_RG_RenderGraph.h">
+      <Filter>Header Files\Graphics\RenderGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_PASS_OutlineMaskGenerationPass.h">
+      <Filter>Header Files\Graphics\Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_PASS_OutlineDrawingPass.h">
+      <Filter>Header Files\Graphics\Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_PASS_LambertianPass.h">
+      <Filter>Header Files\Graphics\Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_PASS_HorizontalBlurPass.h">
+      <Filter>Header Files\Graphics\Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_PASS_FullscreenPass.h">
+      <Filter>Header Files\Graphics\Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_BufferResource.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_RG_BlurOutlineRenderGraph.h">
+      <Filter>Header Files\Graphics\RenderGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_PASS_BlurOutlineDrawingPass.h">
+      <Filter>Header Files\Graphics\Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_PASS_BindingPass.h">
+      <Filter>Header Files\Graphics\Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_PASS_BufferClearPass.h">
+      <Filter>Header Files\Graphics\Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_PASS_VerticalBlurPass.h">
+      <Filter>Header Files\Graphics\Passes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -522,6 +630,7 @@
       <Filter>Dxerr Setting</Filter>
     </None>
     <None Include="packages.config" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ColorIndexPS.hlsl">

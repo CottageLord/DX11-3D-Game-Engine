@@ -10,7 +10,7 @@ namespace GPipeline
 		InputLayout(Graphics& gfx,
 			DynamicVertex::VertexLayout layout,
 			ID3DBlob* pVertexShaderBytecode);
-		void Bind(Graphics& gfx) noexcept override;
+		void Bind(Graphics& gfx) noxnd override;
 		const DynamicVertex::VertexLayout GetLayout() const noexcept;
 		static std::shared_ptr<InputLayout> Resolve(Graphics& gfx,
 			const DynamicVertex::VertexLayout& layout, ID3DBlob* pVertexShaderBytecode);

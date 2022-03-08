@@ -41,9 +41,10 @@ namespace GPipeline
 		return layout;
 	}
 
-	void InputLayout::Bind(Graphics& gfx) noexcept
+	void InputLayout::Bind(Graphics& gfx) noxnd
 	{
-		GetContext(gfx)->IASetInputLayout(pInputLayout.Get());
+		INFOMAN_NOHR(gfx);
+		GFX_THROW_INFO_ONLY(GetContext(gfx)->IASetInputLayout(pInputLayout.Get()));
 	}
 
 	std::shared_ptr<InputLayout> InputLayout::Resolve(Graphics& gfx,
