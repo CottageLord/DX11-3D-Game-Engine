@@ -683,7 +683,7 @@ None.
       <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/eee52bd871b69c790ba5889b04867f3fcd0e24d9/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_BindablePool.h">GRAPHICS_OBJ_BindablePool.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/eee52bd871b69c790ba5889b04867f3fcd0e24d9/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_BindablePool.cpp">cpp</a></td>
 	    <td align="left">
 	    	<ul>
-	    		<li>Maintains the unordered_map<\string, shared_ptr<\Bindable>>.</li>
+	    		<li>Maintains the unordered_map< string, shared_ptr< Bindable > >.</li>
 	    		<li>Using template programming/parameter pack to execute correct Bindable::Resolve<\Type>(param...).</li>
 	    	</ul>
 	    </td>
@@ -730,6 +730,56 @@ None.
 	    	<ul>
 	    		<li>A bindable pool system that matches bindable data with there id. Allows drawables to share bindables if necessary.</li>
 	    		<li>Updated bindable base class such that all bindables need to implement resolve() to register themselves in bindable pool.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+## Commit 12 - Normal Mapping
+
+![Alt text](./Notes/10.jpg "Normal Mapping")
+
+![Alt text](./Screenshots/2021-11-13.gif "Normal Mapping in progress")
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+		<td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/dd8fe88f921622ac21ec50a1c8f4d8322f717e38/DX11%203D%20Game%20Engine/PhongPSNormalMap.hlsl">PhongPSNormalMap.hlsl</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Shader file for basic normal Map</li>
+	    	</ul>
+	    </td>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/dd8fe88f921622ac21ec50a1c8f4d8322f717e38/DX11%203D%20Game%20Engine/TestPlane.h">TestPlane.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/dd8fe88f921622ac21ec50a1c8f4d8322f717e38/DX11%203D%20Game%20Engine/TestPlane.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A plane object that utilizes normal mapping.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates
+
+<table>
+  <tbody>
+    <tr>
+      <th>Commit</th>
+      <th align="center">Description</th>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/24f59e72020160d87953ba0ea979977aa73e4789"></a>Tangen space normal mapping</td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Updated shader file structures, refactored several shader functions, created several helper shader header files.</li>
 	    	</ul>
 	    </td>
 	</tr>
