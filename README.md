@@ -6,6 +6,9 @@ A 3d renderer engine built from scratch with DirectX11 and Win32
 
 This renderer engine is a half-year-long personal project following [ChiliTomatoNoodle's Tutorial](https://www.youtube.com/watch?v=_4FArgOX1I4&list=PLqCJpWy5Fohd3S7ICFXwUomYW0Wv67pDD&index=2). This document is a detailed review of the significant commits to this repository from the very beginning of the project.
 
+Commits are ordered in reversed-timely-order (latest update first).
+
+![Alt text](./Notes/logo-gray.png "LOGO")
 
 ## Commit 16 - Dynamic shader constant system with shader layout pool and basic outline effect
 
