@@ -884,7 +884,7 @@ None.
       <th align="center">Description</th>
     </tr>
 	<tr>
-      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/54fc2023b8910271fb4e12ee16d76feaa02d45fb">Model loading</a></td>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/54fc2023b8910271fb4e12ee16d76feaa02d45fb">Alpha testing through shaders.</a></td>
 	    <td align="left">
 	    	<ul>
 	    		<li>Also updated shader files to implement alpha test. For example, when sheet-model is rendered double-sided, the normal map z value should be flipped for the back face.</li>
@@ -893,3 +893,12 @@ None.
 	</tr>
   </tbody>
 </table>
+
+## Commit 15 - [EXTRA] Cell Shading
+
+![Alt text](./Screenshots/2021-12-12.png "Genshin Cell Shading")
+
+### Demo Video
+
+[![SC2 Video](https://img.youtube.com/vi/74ULjgIdN0E/0.jpg)](https://www.youtube.com/watch?v=74ULjgIdN0E)
+
