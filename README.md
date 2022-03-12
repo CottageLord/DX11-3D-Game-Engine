@@ -898,7 +898,79 @@ None.
 
 ![Alt text](./Screenshots/2021-12-12.png "Genshin Cell Shading")
 
-### Demo Video
+### Demo Video [Youtube]
 
 [![SC2 Video](https://img.youtube.com/vi/74ULjgIdN0E/0.jpg)](https://www.youtube.com/watch?v=74ULjgIdN0E)
 
+
+## Commit 16 - Dynamic shader constant system with shader layout pool and basic outline effect
+
+![Alt text](./Screenshots/2021-12-26.png "Outline effect in scene")
+
+![Alt text](./Notes/11.jpg "Dynamic constant system")
+
+A system that examines model resources and automatically configures render procedures. For example, configure a alpha tester shader when alpha channel texture detected. This system also provides handles to all shader constants for run-time modification.
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/68554e945a52faf66827becfc2cbdcd4ca6d2296/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_DynamicConstant.h">GRAPHICS_OBJ_DynamicConstant.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/68554e945a52faf66827becfc2cbdcd4ca6d2296/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_DynamicConstant.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Implemented layout elements (leaf) and layout trees. These describes the essential data and procedure for a rendering style.</li>
+	    		<li>The layout tree is capable of defining shader data recursively. For example, array of matrix of float4.</li>
+	    		<li>Ultilized MACROS for leaf-node-types to reduce code redundancy (see <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/68554e945a52faf66827becfc2cbdcd4ca6d2296/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_DynamicConstant.h">GRAPHICS_OBJ_DynamicConstant.h</a>).</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/68554e945a52faf66827becfc2cbdcd4ca6d2296/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_LayoutPool.h">GRAPHICS_OBJ_LayoutPool.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/68554e945a52faf66827becfc2cbdcd4ca6d2296/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_LayoutPool.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A layout pool system that allowing reusing registered layouts.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/68554e945a52faf66827becfc2cbdcd4ca6d2296/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Stencil.h">GRAPHICS_OBJ_Stencil.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/68554e945a52faf66827becfc2cbdcd4ca6d2296/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Stencil.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A bindable object that allows writing/referencing to the stencil buffer.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates
+
+<table>
+  <tbody>
+    <tr>
+      <th>Commit</th>
+      <th align="center">Description</th>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/68554e945a52faf66827becfc2cbdcd4ca6d2296"></a>Dynamic constant layout system</td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Dynamic constant layout system integrated.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/54fc2023b8910271fb4e12ee16d76feaa02d45fb"></a>Stencil buffer</td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Created outline effects for cubes bind with stencil objects.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
