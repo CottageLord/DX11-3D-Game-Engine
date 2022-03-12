@@ -736,9 +736,11 @@ None.
   </tbody>
 </table>
 
-## Commit 12 - Normal Mapping
+## Commit 12 - Normal Mapping (Tangent Space)
 
 ![Alt text](./Notes/10.jpg "Normal Mapping")
+
+![Alt text](./Screenshots/2021-11-13.png "Normal Mapping implemented")
 
 ![Alt text](./Screenshots/2021-11-13.gif "Normal Mapping in progress")
 
@@ -757,6 +759,8 @@ None.
 	    		<li>Shader file for basic normal Map</li>
 	    	</ul>
 	    </td>
+	</tr>
+	<tr>
       <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/dd8fe88f921622ac21ec50a1c8f4d8322f717e38/DX11%203D%20Game%20Engine/TestPlane.h">TestPlane.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/dd8fe88f921622ac21ec50a1c8f4d8322f717e38/DX11%203D%20Game%20Engine/TestPlane.cpp">cpp</a></td>
 	    <td align="left">
 	    	<ul>
@@ -780,6 +784,58 @@ None.
 	    <td align="left">
 	    	<ul>
 	    		<li>Updated shader file structures, refactored several shader functions, created several helper shader header files.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+## Commit 13 - Mipmapping and Anisotropic Filtering with more models
+
+![Alt text](./Screenshots/2021-11-15.png "Genshin Model imported")
+
+![Alt text](./Screenshots/2021-11-16.png "Sponza Model imported")
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/319085eb84140b84f8af2a7fe83e31942f9bc0e9/DX11%203D%20Game%20Engine/GRAPHICS_HELP_MatrixTranslator.h">GRAPHICS_HELP_MatrixTranslator.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/319085eb84140b84f8af2a7fe83e31942f9bc0e9/DX11%203D%20Game%20Engine/GRAPHICS_HELP_MatrixTranslator.cpp">cpp</a> <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/319085eb84140b84f8af2a7fe83e31942f9bc0e9/DX11%203D%20Game%20Engine/GRAPHICS_HELP_NormalMapTwerker.h">GRAPHICS_HELP_NormalMapTwerker.h</a> <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/319085eb84140b84f8af2a7fe83e31942f9bc0e9/DX11%203D%20Game%20Engine/GRAPHICS_HELP_TexturePreprocessor.h">GRAPHICS_HELP_TexturePreprocessor.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/319085eb84140b84f8af2a7fe83e31942f9bc0e9/DX11%203D%20Game%20Engine/GRAPHICS_HELP_TexturePreprocessor.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Several helper classes for adjusting imported art resources. For example, change from left-hand coordinate to the right hand one.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates
+
+<table>
+  <tbody>
+    <tr>
+      <th>Commit</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/319085eb84140b84f8af2a7fe83e31942f9bc0e9">Model loading</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Loaded models for Sponza and several Genshin Impact characters.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/65a6f9bd0d9ac3c26a06776f96d5ccc7d5cfcf27">Anisotropic filtering and mipmapping</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Configured automatic mipmapping and anisotropic filtering through DirectX interface.</li>
 	    	</ul>
 	    </td>
 	</tr>
