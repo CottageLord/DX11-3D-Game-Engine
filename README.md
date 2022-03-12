@@ -841,3 +841,55 @@ None.
 	</tr>
   </tbody>
 </table>
+
+## Commit 14 - Alpha testing and optional back-face culling
+
+![Alt text](./Screenshots/2021-12-6.png "Alpha testing (class Blender) implemented")
+
+![Alt text](./Screenshots/2021-12-7.png "Back-face culling disabler (class Rasterizer) implemented")
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/54fc2023b8910271fb4e12ee16d76feaa02d45fb/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Blender.h">GRAPHICS_OBJ_Blender.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/54fc2023b8910271fb4e12ee16d76feaa02d45fb/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Blender.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A bindable object that could handle transparent textures (like a <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/54fc2023b8910271fb4e12ee16d76feaa02d45fb/DX11%203D%20Game%20Engine/models/Sponza/textures/vase_plant.png">flower texture</a>).</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/54fc2023b8910271fb4e12ee16d76feaa02d45fb/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Rasterizer.h">GRAPHICS_OBJ_Rasterizer.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/54fc2023b8910271fb4e12ee16d76feaa02d45fb/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Rasterizer.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A bindable object that could handle sheet-like models painted double-sided (like a <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/54fc2023b8910271fb4e12ee16d76feaa02d45fb/DX11%203D%20Game%20Engine/models/Sponza/textures/chain_texture.png">chain</a>). Back-face culling will be implicitly disabled for this case.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates
+
+<table>
+  <tbody>
+    <tr>
+      <th>Commit</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/54fc2023b8910271fb4e12ee16d76feaa02d45fb">Model loading</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Also updated shader files to implement alpha test. For example, when sheet-model is rendered double-sided, the normal map z value should be flipped for the back face.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
