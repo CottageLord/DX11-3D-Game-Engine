@@ -6,9 +6,204 @@ A 3d renderer engine built from scratch with DirectX11 and Win32
 
 This renderer engine is a half-year-long personal project following [ChiliTomatoNoodle's Tutorial](https://www.youtube.com/watch?v=_4FArgOX1I4&list=PLqCJpWy5Fohd3S7ICFXwUomYW0Wv67pDD&index=2). This document is a detailed review of the significant commits to this repository from the very beginning of the project.
 
-Commits are ordered in reversed-timely-order (latest update first).
+Latest commits are shown first.
 
 ![Alt text](./Notes/logo-gray.png "LOGO")
+
+
+## Commit 18 - Probe System: 
+
+![Alt text](./Notes/13.jpg "Probe System")
+
+![Alt text](./Screenshots/2022-1-1.png "UI options for every sub-meshes through probe system")
+
+![Alt text](./Screenshots/2021-12-31.gif "Controlleable sub-meshes and techniques through probe system")
+
+This update extends the job system and allows automatic job detection by "probes" traverling in the model-hierarchy. The probe system has two major updates: 1) when hitting the leaf mesh, auto-gen job. 2) when hitting the leaf mesh, auto-gen controls in the UI menu.
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/da79d07bfceea556167b2730d6b894718158e5ec/DX11%203D%20Game%20Engine/GRAPHICS_JOB_ModelProbe.h">GRAPHICS_JOB_ModelProbe.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/da79d07bfceea556167b2730d6b894718158e5ec/DX11%203D%20Game%20Engine/GRAPHICS_JOB_ModelProbe.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>The base class for all probes. The probes travel through the model node hierarchy and take respective actions when hitting a leaf.</li>
+	    		<li>Probes are passed recursively like ModelRoot.Accept( probe ).</li>
+	    		<li>Model Probe is responsible for generating UI handles to the render options that Technique Probe generated.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/3cc28dc14d2f63b809eafd7f583fc0b83841a5ab/DX11%203D%20Game%20Engine/GRAPHICS_JOB_TechniqueProbe.h">GRAPHICS_JOB_TechniqueProbe.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/3cc28dc14d2f63b809eafd7f583fc0b83841a5ab/DX11%203D%20Game%20Engine/GRAPHICS_JOB_TechniqueProbe.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Base class for technique probes. Provides logical handles to leaf mesh render styles.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/3cc28dc14d2f63b809eafd7f583fc0b83841a5ab/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Material.h">GRAPHICS_OBJ_Material.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/3cc28dc14d2f63b809eafd7f583fc0b83841a5ab/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Material.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Initializes all techniques needed for loading materials (labertian, stencil, outline...).</li>
+	    		<li>Automatically assign techniques to model leaves according to supplied material data types. For example, assign a alpha testing pixel shader bindable object when alpha channel detected in textures.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates
+
+<table>
+  <tbody>
+    <tr>
+      <th>Commit</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/da79d07bfceea556167b2730d6b894718158e5ec">Basic probe system</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>This update provides accesses to model leaves' render styles (bindables, vertex data, etc.). This is essential for the later UI update.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/da79d07bfceea556167b2730d6b894718158e5ec/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Model.h">GRAPHICS_OBJ_Model.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/da79d07bfceea556167b2730d6b894718158e5ec/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Model.cpp">cpp</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/da79d07bfceea556167b2730d6b894718158e5ec/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Node.h">GRAPHICS_OBJ_Node.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/da79d07bfceea556167b2730d6b894718158e5ec/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Node.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Integrated into the Job System.</li>
+	    		<li>The node can now accept a probe, pass it to children nodes and allows probes to get information/update data.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/da79d07bfceea556167b2730d6b894718158e5ec/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_DynamicVertex.h">GRAPHICS_OBJ_DynamicVertex.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/da79d07bfceea556167b2730d6b894718158e5ec/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_DynamicVertex.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Uses the MACROS trick as in the Commit 16. Reduced code amount.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/3cc28dc14d2f63b809eafd7f583fc0b83841a5ab">UI controll for model nodes.</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>This update enables users to tweak every individual item's render style in the scene.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+
+
+## Commit 17 - Job System and Multi-pass Rendering
+
+![Alt text](./Notes/12.jpg "Job Systen")
+
+In previous code, meshes like the sponza scene are configured and rendered as a whole, which does not support scene graph which allows modification on sub-meshes. To apply different render techniques to respective parts, we have to manually separate the meshes and hard code the render order for dependency concern. Job system provides handles to all sub-meshes for individual rendering jobs/steps by specified techniques.
+
+The new mesh-hierarchy hence becomes Drawable -> Model (like the Sponza) -> Nodes (like a vase) -> Meshes (the vase drawable shared between all vases) -> Techniques (like the outline effect) -> Steps (the actual process to make the outline, which contains references to bindables and the mesh data). For each step, we register a job (contains ptr to mesh data and ptr to step/bindables).
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/b7354ae36f5c59543b86f3da385025b462856af7/DX11%203D%20Game%20Engine/GRAPHICS_JOB_FrameCommander.h">GRAPHICS_JOB_FrameCommander.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/b7354ae36f5c59543b86f3da385025b462856af7/DX11%203D%20Game%20Engine/GRAPHICS_JOB_FrameCommander.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A temporary solution for pass management. Will be replaced by a render graph later.</li>
+	    		<li>Provides interfaces for submitting jobs to a specific pass. Responsible for executing passes.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/b7354ae36f5c59543b86f3da385025b462856af7/DX11%203D%20Game%20Engine/GRAPHICS_JOB_Technique.h">GRAPHICS_JOB_Technique.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/b7354ae36f5c59543b86f3da385025b462856af7/DX11%203D%20Game%20Engine/GRAPHICS_JOB_Technique.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Describes a specific type of technique. For example, phone shading.</li>
+	    		<li>Contains an array of steps, which stores an array of bindables.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/b7354ae36f5c59543b86f3da385025b462856af7/DX11%203D%20Game%20Engine/GRAPHICS_JOB_Step.h">GRAPHICS_JOB_Step.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/b7354ae36f5c59543b86f3da385025b462856af7/DX11%203D%20Game%20Engine/GRAPHICS_JOB_Step.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Describes one of the steps to implement a technique.</li>
+	    		<li>Contains an array of bindables necessary for this step. Bindables like ps and vs shaders are configured when initializing a step.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/b7354ae36f5c59543b86f3da385025b462856af7/DX11%203D%20Game%20Engine/GRAPHICS_JOB_Job.h">GRAPHICS_JOB_Job.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/b7354ae36f5c59543b86f3da385025b462856af7/DX11%203D%20Game%20Engine/GRAPHICS_JOB_Job.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Describes a job, which correlates to steps in every technique.</li>
+	    		<li>Contains two pointers: 1) ptr to drawable data like vertecies. 2) ptr to step (bindables) like ps/vs shaders.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/b7354ae36f5c59543b86f3da385025b462856af7/DX11%203D%20Game%20Engine/GRAPHICS_JOB_Pass.h">GRAPHICS_JOB_Pass.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/b7354ae36f5c59543b86f3da385025b462856af7/DX11%203D%20Game%20Engine/GRAPHICS_JOB_Pass.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Describes a render pass. Ideally, shared render processes like all phong shading meshes are packed in one pass.</li>
+	    		<li>Contains an array of jobs (step bindables + drawable data).</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/b7354ae36f5c59543b86f3da385025b462856af7/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_NullPixelShader.h">GRAPHICS_OBJ_NullPixelShader.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/b7354ae36f5c59543b86f3da385025b462856af7/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_NullPixelShader.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A placeholer for techniques/steps do not need pixel shader. For example, the stencil-writing pass for the outline effect.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates
+
+<table>
+  <tbody>
+    <tr>
+      <th>Commit and Files</th>
+      <th align="center">Description</th>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/b7354ae36f5c59543b86f3da385025b462856af7/DX11%203D%20Game%20Engine/TestCube.h">TestCube.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/b7354ae36f5c59543b86f3da385025b462856af7/DX11%203D%20Game%20Engine/TestCube.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>represents an outlined cube.</li>
+	    		<li>Demonstrate how techniques/steps are configured and how passes/jobs are registered.</li>
+	    	</ul>
+	    </td>
+	</tr>
+    <tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/b7354ae36f5c59543b86f3da385025b462856af7">Job System</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Job system integrated into the old framework.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
 
 ## Commit 16 - Dynamic shader constant system with shader layout pool and basic outline effect
 
