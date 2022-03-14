@@ -10,16 +10,105 @@ Latest commits are shown first.
 
 ![Alt text](./Notes/logo-gray.png "LOGO")
 
+## Commit 19 - Fullscreen Filtering and Sepatared Gauss Blur Effect
 
-## Commit 18 - Probe System: 
+Applying blur effect to the pipeline output image. Due to the complex nature of applying outline effect in geometry space (model pivot not centered, mesh not contineous, cannot combine alpha channel, etc.), we now apply the outline effect to the screen space directly.
+
+![Alt text](./Notes/14.jpg "FullScreen Filtering")
+
+![Alt text](./Notes/15.jpg "Separated Gauss Blur Effect")
+
+![Alt text](./Screenshots/2022-1-16.png "Blur effect on non-contineous meshes.")
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/ac93d5eea3f15d56856efce3e5ff40722a320f02/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_DepthStencil.h">GRAPHICS_OBJ_DepthStencil.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/ac93d5eea3f15d56856efce3e5ff40722a320f02/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_DepthStencil.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Separated manager class for configuring depth stencil.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/ac93d5eea3f15d56856efce3e5ff40722a320f02/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_GraphicsResource.h">GRAPHICS_OBJ_GraphicsResource.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/ac93d5eea3f15d56856efce3e5ff40722a320f02/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_GraphicsResource.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Separated manager for accessing DirectX graphic device and context.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/ac93d5eea3f15d56856efce3e5ff40722a320f02/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_RenderTarget.h">GRAPHICS_OBJ_RenderTarget.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/ac93d5eea3f15d56856efce3e5ff40722a320f02/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_RenderTarget.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Separated render target as we now need more render target other than the ones in the swap chain.</li>
+	    		<li>It is basically a texture like object to draw dinal images on.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/332de1db63eeb99ca8189e8af77e08d24d2fd55e/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_BlurPack.h">GRAPHICS_OBJ_BlurPack.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/332de1db63eeb99ca8189e8af77e08d24d2fd55e/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_BlurPack.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Configures the math for Separated Gauss Blur Effect.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates
+
+<table>
+  <tbody>
+    <tr>
+      <th>Commit</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/ac93d5eea3f15d56856efce3e5ff40722a320f02">FullScreen Filters</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Take the output from the pipeline as the input got fullscreen filter.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/ac93d5eea3f15d56856efce3e5ff40722a320f02/DX11%203D%20Game%20Engine/GRAPHICS_JOB_FrameCommander.h">GRAPHICS_JOB_FrameCommander.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/ac93d5eea3f15d56856efce3e5ff40722a320f02/DX11%203D%20Game%20Engine/GRAPHICS_JOB_FrameCommander.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Integrated the new blur functionality using the extra render target.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/332de1db63eeb99ca8189e8af77e08d24d2fd55e">Separated Gauss Blur Effect</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Added several shader files to incorporate Gauss blur into the rendering.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+
+## Commit 18 - Probe System: control every mesh node
+
+This update extends the job system and allows automatic job detection by "probes" traverling in the model-hierarchy. The probe system has two major updates: 1) when hitting the leaf mesh, auto-gen job. 2) when hitting the leaf mesh, auto-gen controls in the UI menu.
 
 ![Alt text](./Notes/13.jpg "Probe System")
 
 ![Alt text](./Screenshots/2022-1-1.png "UI options for every sub-meshes through probe system")
 
 ![Alt text](./Screenshots/2021-12-31.gif "Controlleable sub-meshes and techniques through probe system")
-
-This update extends the job system and allows automatic job detection by "probes" traverling in the model-hierarchy. The probe system has two major updates: 1) when hitting the leaf mesh, auto-gen job. 2) when hitting the leaf mesh, auto-gen controls in the UI menu.
 
 ### New files
 
@@ -105,13 +194,14 @@ This update extends the job system and allows automatic job detection by "probes
 
 
 
-## Commit 17 - Job System and Multi-pass Rendering
-
-![Alt text](./Notes/12.jpg "Job Systen")
+## Commit 17 - Job System and Multi-pass Rendeing
 
 In previous code, meshes like the sponza scene are configured and rendered as a whole, which does not support scene graph which allows modification on sub-meshes. To apply different render techniques to respective parts, we have to manually separate the meshes and hard code the render order for dependency concern. Job system provides handles to all sub-meshes for individual rendering jobs/steps by specified techniques.
 
 The new mesh-hierarchy hence becomes Drawable -> Model (like the Sponza) -> Nodes (like a vase) -> Meshes (the vase drawable shared between all vases) -> Techniques (like the outline effect) -> Steps (the actual process to make the outline, which contains references to bindables and the mesh data). For each step, we register a job (contains ptr to mesh data and ptr to step/bindables).
+Rendering
+
+![Alt text](./Notes/12.jpg "Job Systen")
 
 ### New files
 
