@@ -12,15 +12,77 @@ Latest commits are shown first.
 
 ## Commit 20 - Render Graph
 
- A render graph (or frame graph) is a way of defining the rendering pipeline using self-contained nodes in an acyclic directed graph. Each node has a set of input and outputs, which link to other nodes or resources. When executed, the graph is traversed executing each node in turn.
+ A render graph (or frame graph) is a way of defining the rendering pipeline using self-contained nodes in an acyclic directed graph. Each node has a set of input and outputs, which link to other nodes or resources. When executed, the graph is traversed executing each node in turn. In the current version, every node represents a pass.
 
- The render graph system takes in nodes with input/output (initialized with names and settings) and validates/links the nodes together. This system allows us to avoid hardcoding the render procedure, but configure it io a graph-like, more organized and automatic way.
+ The render graph system takes in nodes (passes) with input/output and validates/links the nodes together. This system allows us to avoid hardcoding the render procedure, but configure it io a graph-like, more organized and automatic way.
+
+To avoid name conflicts, the input and the output for each pass is named as sink (what this pass need as input) and source (what this pass produces as output).
 
 ![Alt text](./Notes/16.jpg "Basic Render Graph")
 
+After this update, the current render process (in <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/SYS_CLASS_App.cpp">App.cpp</a>) is:
+
+1) Engine Initialization(): Create a render graph, which initializes of all passes, creates and links all sinks/sources. Note that the sequenec of passes are specified by the order in a vector.
+
+2) Engine Initialization(): Import models. The <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Material.cpp">Material.cpp</a> automatically assign pass type (by universal pass name strings like "lambertian") to the leaf meshes according to the resource setting. 
+
+3) Engine Start(): The model calls LinkTechniques(RenderGraph), passing the render graph all the way to the mesh leaves. When LinkTechniques() eventually hit the leaves, a leaf will notify its techniques and steps to get the real Pass reference from the render graph (previously just a name string assigned by Material.cpp).
+
+4) Engine Update(): All models will call Submit() to notify all leaf -> Technique -> Step to submit a job (contains the drawable with recent updates like transforms) to the target pass (reference got from previous step).
+
+5) Engine Update(): All the renderGraph.Execute() to render all passes and their jobs.
+
 ### New files
 
-TODO
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_RG_Sink.h">GRAPHICS_RG_Sink.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_RG_Sink.cpp">cpp</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_RG_Source.h">GRAPHICS_RG_Source.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_RG_Source.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Represents an input (sink) or an output (source) of a pass.</li>
+	    		<li>Memorizing the links by storing the self name, pass name and the target (sink or source) name.</li>
+	    		<li>Has 3 variants:</li>
+	    		<li>1) DirectBindableSink/Source: requires a specific sink/resource in the render graph, hence the data cannot be shared and delivered to mulltiple render graph nodes.</li>
+	    		<li>2) DirectBufferSink/Source:  requires a general sink.resource in the render graph, hence the data can be shared and and delivered to mulltiple render graph nodes.</li>
+	    		<li>3) ContainerBindableSink: Only exists in BindingPass. Maintains a bindable[] and an index of the empty alot in the bindable[] that expect input from the incoming source. We do this in such way to prevent invalid pointer when we only stores the shared_ptr to the empty slot of a bindable[], and the bindable[] get resized.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_RG_RenderGraph.h">GRAPHICS_RG_RenderGraph.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_RG_RenderGraph.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Base class of all other render graphs.</li>
+	    		<li>Manages the global sinks and sources, like the back buffer.</li>
+	    		<li>Link the sinks and sources for the current passes. Syntax: SetSinkTarget("sinkName", "anotherPassName.sourceName"). Passes come with their own sinks and sources (currently defined in the constructor).</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_RG_BlurOutlineRenderGraph.h">GRAPHICS_RG_BlurOutlineRenderGraph.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_RG_BlurOutlineRenderGraph.cpp">cpp</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_RG_ScaleOutlineRenderGraph.h">GRAPHICS_RG_ScaleOutlineRenderGraph.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_RG_ScaleOutlineRenderGraph.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Different render graphs with respective global sink/source settings and linkings.</li>
+	    		<li>Passes and their relationships are built in the constructors.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_PASS_RenderQueuePass.h">GRAPHICS_PASS_RenderQueuePass.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_PASS_RenderQueuePass.cpp">cpp</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_PASS_BindingPass.h">GRAPHICS_PASS_BindingPass.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_PASS_BindingPass.cpp">cpp</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_PASS_BufferClearPass.h">GRAPHICS_PASS_BufferClearPass.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_PASS_BufferClearPass.cpp">cpp</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_PASS_FullscreenPass.h">GRAPHICS_PASS_FullscreenPass.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_PASS_FullscreenPass.cpp">cpp</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_PASS_HorizontalBlurPass.h">GRAPHICS_PASS_HorizontalBlurPass.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_PASS_HorizontalBlurPass.cpp">cpp</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_PASS_VerticalBlurPass.h">GRAPHICS_PASS_VerticalBlurPass.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/57e78e18c414ac732d943d4cb0564074a02df4e4/DX11%203D%20Game%20Engine/GRAPHICS_PASS_VerticalBlurPass.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Sets up each pass' unique bindables, constants (i.e Gauss) and render targets (i.e the fullscreen texture). </li>
+	    		<li>Configures the Execute() function for each pass. </li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
 
 ### Major updates
 
@@ -34,7 +96,7 @@ TODO
       <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/57e78e18c414ac732d943d4cb0564074a02df4e4">Render Graph</a></td>
 	    <td align="left">
 	    	<ul>
-	    		<li>TODO.</li>
+	    		<li>Many updates to previous codes for incorperating the render graph in the current system.</li>
 	    	</ul>
 	    </td>
 	</tr>
