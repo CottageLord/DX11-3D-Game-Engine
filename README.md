@@ -10,6 +10,37 @@ Latest commits are shown first.
 
 ![Alt text](./Notes/logo-gray.png "LOGO")
 
+## Commit 20 - Render Graph
+
+ A render graph (or frame graph) is a way of defining the rendering pipeline using self-contained nodes in an acyclic directed graph. Each node has a set of input and outputs, which link to other nodes or resources. When executed, the graph is traversed executing each node in turn.
+
+ The render graph system takes in nodes with input/output (initialized with names and settings) and validates/links the nodes together. This system allows us to avoid hardcoding the render procedure, but configure it io a graph-like, more organized and automatic way.
+
+![Alt text](./Notes/16.jpg "Basic Render Graph")
+
+### New files
+
+TODO
+
+### Major updates
+
+<table>
+  <tbody>
+    <tr>
+      <th>Commit</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/57e78e18c414ac732d943d4cb0564074a02df4e4">Render Graph</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>TODO.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
 ## Commit 19 - Fullscreen Filtering and Sepatared Gauss Blur Effect
 
 Applying blur effect to the pipeline output image. Due to the complex nature of applying outline effect in geometry space (model pivot not centered, mesh not contineous, cannot combine alpha channel, etc.), we now apply the outline effect to the screen space directly.
@@ -81,7 +112,7 @@ Applying blur effect to the pipeline output image. Due to the complex nature of 
 	    </td>
 	</tr>
 	<tr>
-      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/ac93d5eea3f15d56856efce3e5ff40722a320f02/DX11%203D%20Game%20Engine/GRAPHICS_JOB_FrameCommander.h">GRAPHICS_JOB_FrameCommander.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/ac93d5eea3f15d56856efce3e5ff40722a320f02/DX11%203D%20Game%20Engine/GRAPHICS_JOB_FrameCommander.cpp">cpp</a></td>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/332de1db63eeb99ca8189e8af77e08d24d2fd55e/DX11%203D%20Game%20Engine/GRAPHICS_JOB_FrameCommander.h">GRAPHICS_JOB_FrameCommander.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/332de1db63eeb99ca8189e8af77e08d24d2fd55e/DX11%203D%20Game%20Engine/GRAPHICS_JOB_FrameCommander.cpp">cpp</a></td>
 	    <td align="left">
 	    	<ul>
 	    		<li>Integrated the new blur functionality using the extra render target.</li>
