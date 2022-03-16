@@ -25,15 +25,27 @@ namespace Rgph
 		RenderGraph(Graphics& gfx);
 		~RenderGraph();
 		void Execute(Graphics& gfx) noxnd;
+		/**
+		 * @brief clear all jobs in every pass
+		 */
 		void Reset() noexcept;
 		RenderQueuePass& GetRenderQueue(const std::string& passName);
 	protected:
 		void SetSinkTarget(const std::string& sinkName, const std::string& target);
 		void AddGlobalSource(std::unique_ptr<Source>);
 		void AddGlobalSink(std::unique_ptr<Sink>);
+		/**
+		 * @brief validating all links to make sure all sinks and sources have matches, no dangling sinks
+		 */
 		void Finalize();
+		/**
+		 * @brief append pass and start linking the sinks and sources of this pass
+		 */
 		void AppendPass(std::unique_ptr<Pass> pass);
 	private:
+		/**
+		 * @brief called by AppendPass(), link all sinks of the incoming pass to the sources in the pool
+		 */
 		void LinkSinks(Pass& pass);
 		void LinkGlobalSinks();
 	private:

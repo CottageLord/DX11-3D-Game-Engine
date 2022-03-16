@@ -27,7 +27,7 @@ namespace Rgph
 }
 
 /**
- * @brief The base class for all drawable geomrtric primitives (Cube, Sphere, Plane...).
+ * @brief The base class for all drawable geomrtric primitives (Cube, Sphere, Plane...). Contains the basic data like vertecies and indecies
  */
 class Drawable
 {

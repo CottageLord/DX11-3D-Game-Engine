@@ -3,6 +3,7 @@
 #include "SYS_SET_GraphicsThrowMacros.h"
 #include "GRAPHICS_OBJ_DepthStencil.h"
 #include "GRAPHICS_OBJ_BufferResource.h"
+#include "GRAPHICS_OBJ_Surface.h"
 #include <array>
 
 namespace wrl = Microsoft::WRL;
@@ -137,6 +138,55 @@ namespace GPipeline
 		GFX_THROW_INFO(GetDevice(gfx)->CreateShaderResourceView(
 			pRes.Get(), &srvDesc, &pShaderResourceView
 		));
+	}
+
+	Surface ShaderInputRenderTarget::ToSurface(Graphics& gfx) const
+	{
+		GET_INFO_MAN(gfx);
+		namespace wrl = Microsoft::WRL;
+
+		// creating a temp texture compatible with the source, but with CPU read access
+		wrl::ComPtr<ID3D11Resource> pResSource;
+		pShaderResourceView->GetResource(&pResSource);
+		wrl::ComPtr<ID3D11Texture2D> pTexSource;
+		// Instead of query a generic resource, we need a specific texture resource.
+		pResSource.As(&pTexSource);
+		// Get the descriptor of the texture
+		D3D11_TEXTURE2D_DESC textureDesc;
+		pTexSource->GetDesc(&textureDesc);
+		// add CPU read and staging usage
+		textureDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+		textureDesc.Usage = D3D11_USAGE_STAGING;
+		// no binding, just staging
+		textureDesc.BindFlags = 0;
+		// A local texture where we copy from the staging texture
+		wrl::ComPtr<ID3D11Texture2D> pTexTemp;
+		GFX_THROW_INFO(GetDevice(gfx)->CreateTexture2D(
+			&textureDesc, nullptr, &pTexTemp
+		));
+
+		// copy texture contents
+		GFX_THROW_INFO_ONLY(GetContext(gfx)->CopyResource(pTexTemp.Get(), pTexSource.Get()));
+
+		// create Surface and copy from temp texture to it
+		const auto width = GetWidth();
+		const auto height = GetHeight();
+		Surface s{ width,height };
+		D3D11_MAPPED_SUBRESOURCE msr = {};
+		GFX_THROW_INFO(GetContext(gfx)->Map(pTexTemp.Get(), 0, D3D11_MAP::D3D11_MAP_READ, 0, &msr));
+		auto pSrcBytes = static_cast<const char*>(msr.pData);
+		for (unsigned int y = 0; y < height; y++)
+		{
+			auto pSrcRow = reinterpret_cast<const Surface::Color*>(pSrcBytes + msr.RowPitch * size_t(y));
+			for (unsigned int x = 0; x < width; x++)
+			{
+				s.PutPixel(x, y, *(pSrcRow + x));
+			}
+		}
+		// unmap GPU memory
+		GFX_THROW_INFO_ONLY(GetContext(gfx)->Unmap(pTexTemp.Get(), 0));
+
+		return s;
 	}
 
 	void ShaderInputRenderTarget::Bind(Graphics& gfx) noxnd

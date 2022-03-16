@@ -13,10 +13,17 @@ namespace Rgph
 	{
 	protected:
 		BindingPass(std::string name, std::vector<std::shared_ptr<GPipeline::Bindable>> binds = {});
+		/**
+		  * @brief add a concrete bindable data to the binds[]
+		  */
 		void AddBind(std::shared_ptr<GPipeline::Bindable> bind) noexcept;
 		void BindAll(Graphics& gfx) const noexcept;
 		void Finalize() override;
 	protected:
+		/**
+		  * @brief add an empty bindable slot to the binds[] for incoming source in the render graph
+		  * @param string name a key name for future reference into the render graph source pool
+		  */
 		template<class T>
 		void AddBindSink(std::string name)
 		{

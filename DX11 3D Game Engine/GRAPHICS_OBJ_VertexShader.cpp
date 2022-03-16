@@ -3,7 +3,7 @@
 #include "SYS_HELP_Utility.h"
 #include "GRAPHICS_OBJ_BindablePool.h"
 #include <typeinfo>
-
+#include <iostream>
 namespace GPipeline
 {
 
@@ -13,7 +13,7 @@ namespace GPipeline
 	{
 		GET_INFO_MAN(gfx);
 
-		GFX_THROW_INFO(D3DReadFileToBlob(ToWide(path).c_str(), &pBytecodeBlob));
+		GFX_THROW_INFO(D3DReadFileToBlob(ToWide("ShaderBins\\" + path).c_str(), &pBytecodeBlob));
 		GFX_THROW_INFO(GetDevice(gfx)->CreateVertexShader(
 			pBytecodeBlob->GetBufferPointer(),
 			pBytecodeBlob->GetBufferSize(),

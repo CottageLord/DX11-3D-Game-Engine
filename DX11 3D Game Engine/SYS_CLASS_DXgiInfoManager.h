@@ -1,8 +1,8 @@
 #pragma once
 #include "SYS_SET_FilterWinH.h"
+#include "SYS_SET_FilterWrlH.h"
 #include <vector>
 #include <string>
-#include <wrl.h>
 #include <dxgidebug.h>
 
 class DxgiInfoManager

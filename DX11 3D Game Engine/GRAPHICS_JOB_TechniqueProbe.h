@@ -13,7 +13,7 @@ class TechniqueProbe
 {
 public:
 	// TODO: add callback for visiting each mesh
-
+	virtual ~TechniqueProbe() {}
 	void SetTechnique( Technique* pTech_in)
 	{
 		pTech = pTech_in;

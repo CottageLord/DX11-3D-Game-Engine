@@ -1,6 +1,7 @@
 #include "GRAPHICS_OBJ_InputLayout.h"
 #include "SYS_SET_GraphicsThrowMacros.h"
 #include "GRAPHICS_OBJ_BindablePool.h"
+#include "GRAPHICS_OBJ_VertexShader.h"
 
 namespace GPipeline
 {
@@ -12,13 +13,15 @@ namespace GPipeline
 		};
 		*/
 		DynamicVertex::VertexLayout layout_in,
-		ID3DBlob* pVertexShaderBytecode)
+		const VertexShader& vs)
 		:
 		layout(std::move(layout_in))
 	{
 		GET_INFO_MAN(gfx);
 
 		const auto d3dLayout = layout.GetD3DLayout();
+
+		const auto pBytecode = vs.GetBytecode();
 
 		GFX_THROW_INFO(GetDevice(gfx)->CreateInputLayout(
 			/*
@@ -30,8 +33,8 @@ namespace GPipeline
 			A pointer to the compiled shader. The compiled shader code contains a input signature
 			which is validated against the array of elements.
 			*/
-			pVertexShaderBytecode->GetBufferPointer(),
-			pVertexShaderBytecode->GetBufferSize(),
+			pBytecode->GetBufferPointer(),
+			pBytecode->GetBufferSize(),
 			&pInputLayout
 		));
 	}
@@ -48,18 +51,18 @@ namespace GPipeline
 	}
 
 	std::shared_ptr<InputLayout> InputLayout::Resolve(Graphics& gfx,
-		const DynamicVertex::VertexLayout& layout, ID3DBlob* pVertexShaderBytecode)
+		const DynamicVertex::VertexLayout& layout, const VertexShader& vs)
 	{
-		return BindablePool::Resolve<InputLayout>(gfx, layout, pVertexShaderBytecode);
+		return BindablePool::Resolve<InputLayout>(gfx, layout, vs);
 	}
-	std::string InputLayout::GenerateUID(const DynamicVertex::VertexLayout& layout, ID3DBlob* pVertexShaderBytecode)
+	std::string InputLayout::GenerateUID(const DynamicVertex::VertexLayout& layout, const VertexShader& vs)
 	{
 		using namespace std::string_literals;
-		// concatenate all elements' codes to form a unique id
-		return typeid(InputLayout).name() + "#"s + layout.GetCode();
+		return typeid(InputLayout).name() + "#"s + layout.GetCode() + "#"s + vs.GetUID();
 	}
 	std::string InputLayout::GetUID() const noexcept
 	{
-		return GenerateUID(layout);
+		using namespace std::string_literals;
+		return typeid(InputLayout).name() + "#"s + layout.GetCode() + "#"s + vertexShaderUID;
 	}
 }

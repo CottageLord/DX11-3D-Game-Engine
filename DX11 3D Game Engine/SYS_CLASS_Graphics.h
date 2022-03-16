@@ -1,10 +1,10 @@
 #pragma once
 #include "SYS_SET_FilterWinH.h"
+#include "SYS_SET_FilterWrlH.h"
 #include "SYS_SET_ConditionalNoexcept.h"
 #include "SYS_CLASS_DXgiInfoManager.h"
 #include "SYS_CLASS_MFException.h"
 
-#include <wrl.h>
 #include <d3d11.h>
 #include <vector>
 #include <memory>

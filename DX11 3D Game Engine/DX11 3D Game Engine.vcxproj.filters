@@ -306,6 +306,9 @@
     <ClCompile Include="GRAPHICS_PASS_VerticalBlurPass.cpp">
       <Filter>Source Files\Graphics\Passes</Filter>
     </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_CameraContainer.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SYS_SET_Dxerr.h">
@@ -608,6 +611,12 @@
     <ClInclude Include="GRAPHICS_PASS_VerticalBlurPass.h">
       <Filter>Header Files\Graphics\Passes</Filter>
     </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_CameraContainer.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SYS_SET_FilterWrlH.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc">
@@ -724,6 +733,21 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="BlurOutline_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDifMskSpc_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDifMskSpc_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Test1_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Test2_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Test_PS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

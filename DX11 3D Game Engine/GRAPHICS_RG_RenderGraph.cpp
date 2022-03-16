@@ -97,7 +97,7 @@ namespace Rgph
 		{
 			const auto& inputSourcePassName = si->GetPassName();
 
-			// check check whether target source is global
+			// check whether implied target source is global
 			if (inputSourcePassName == "$")
 			{
 				bool bound = false;
@@ -110,6 +110,7 @@ namespace Rgph
 						break;
 					}
 				}
+				// for now, evety sink must have  a source. Could be optional in the future
 				if (!bound)
 				{
 					std::ostringstream oss;
@@ -128,6 +129,7 @@ namespace Rgph
 						break;
 					}
 				}
+				// TODO exception if not found
 			}
 		}
 	}

@@ -9,7 +9,11 @@ class Graphics;
 namespace GPipeline
 {
 	class DepthStencil;
-
+	class Surface;
+	/**
+	 * @brief RenderTarget represents a texture-like bindable resource. This resource could have various usings,
+	 * including fullscreen filter blur effect
+	 */
 	class RenderTarget : public Bindable, public BufferResource
 	{
 	public:
@@ -35,6 +39,11 @@ namespace GPipeline
 	public:
 		ShaderInputRenderTarget(Graphics& gfx, UINT width, UINT height, UINT slot);
 		void Bind(Graphics& gfx) noxnd override;
+		/**
+		 * @brief Helps storing GPU side textures as image files. As GPU side data is not readable from CPU side,
+		 * a staging texture is needed as the medium.
+		 */
+		Surface ToSurface(Graphics& gfx) const;
 	private:
 		UINT slot;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> pShaderResourceView;

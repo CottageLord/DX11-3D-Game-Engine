@@ -7,7 +7,10 @@ class Graphics;
 namespace GPipeline
 {
 	class RenderTarget;
-
+	/**
+	* @brief A depthstencil for recording various data. Inherit from Bindable (for better fitting in RenderGraph system) and
+	* BufferResource
+	*/
 	class DepthStencil : public Bindable, public BufferResource
 	{
 		friend RenderTarget;

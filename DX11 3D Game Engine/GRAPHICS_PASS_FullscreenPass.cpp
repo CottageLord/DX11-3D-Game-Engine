@@ -23,7 +23,7 @@ namespace Rgph
 		AddBind(GPipeline::IndexBuffer::Resolve(gfx, "$Full", std::move(indices)));
 		// setup other common fullscreen bindables
 		auto vs = GPipeline::VertexShader::Resolve(gfx, "Fullscreen_VS.cso");
-		AddBind(GPipeline::InputLayout::Resolve(gfx, lay, vs->GetBytecode()));
+		AddBind(GPipeline::InputLayout::Resolve(gfx, lay, *vs));
 		AddBind(std::move(vs));
 		AddBind(GPipeline::Topology::Resolve(gfx));
 		AddBind(GPipeline::Rasterizer::Resolve(gfx, false));

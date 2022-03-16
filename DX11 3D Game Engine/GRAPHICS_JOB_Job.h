@@ -7,6 +7,9 @@ class Step;
 
 namespace Rgph
 {
+	/**
+	* @brief represents a job in the job pool, contains pointers to a step (the job) and a drawable object (the job's target)
+	*/
 	class Job
 	{
 	public:

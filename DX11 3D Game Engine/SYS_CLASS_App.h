@@ -4,13 +4,14 @@
  */
 #pragma once
 #include "SYS_SET_FilterWinH.h"
+#include "SYS_SET_Math.h"
 #include "SYS_CLASS_Window.h"
 #include "SYS_CLASS_Timer.h"
 #include "SYS_CLASS_ImguiManager.h"
 #include "SYS_CLASS_ScriptCommander.h"
 
 #include "GRAPHICS_LGT_PointLight.h"
-#include "GRAPHICS_OBJ_Camera.h"
+#include "GRAPHICS_OBJ_CameraContainer.h"
 #include "GRAPHICS_OBJ_Model.h"
 
 #include "GRAPHICS_RG_BlurOutlineRenderGraph.h"
@@ -35,7 +36,7 @@ private:
 	EngineTimer timer;
 	ScriptCommander scriptCommander;
 	Rgph::BlurOutlineRenderGraph rg{ wnd.Gfx() };
-	Camera cam;
+	CameraContainer cameras;
 	PointLight light;
 	float speed_factor = 1.0f;
 
@@ -43,7 +44,7 @@ private:
 	//Model nano{ wnd.Gfx(),"Models\\traveler_textured\\traveler_En.pmx" };
 	//Model wall{ wnd.Gfx(),"Models\\brick_wall\\brick_wall.obj",6.0f };
 	//Model gobber{ wnd.Gfx(),"Models\\zhongli_textured\\zhongli_En.pmx" };
-	//Model nano{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj",2.0f };
+	Model nano{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj",2.0f };
 	Model sponza{ wnd.Gfx(),"Models\\sponza\\sponza.obj",1.0f / 20.0f };
 
 	TestCube cube{ wnd.Gfx(),4.0f };

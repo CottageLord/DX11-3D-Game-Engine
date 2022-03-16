@@ -12,7 +12,9 @@ namespace Rgph
 	class RenderQueuePass;
 	class RenderGraph;
 }
-
+/**
+* @brief Represents (one of) the step[s] to finish a drawing technique. Contains all bindables relate to the sub-job.
+*/
 class Step
 {
 public:
