@@ -12,7 +12,9 @@ namespace GPipeline
 		{
 			Off,	// No action
 			Write,	// Write to stencil buf when the pixel draw the geometry
-			Mask	// Masking things out, exclude pixels
+			Mask,	// Masking things out, exclude pixels
+			DepthOff,
+			DepthReversed
 		};
 		/*
 		typedef struct D3D11_DEPTH_STENCIL_DESC {
@@ -86,6 +88,15 @@ namespace GPipeline
 				dsDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP; // keep the stencil data, do not pollute it
 				dsDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
 			}
+			else if (mode == Mode::DepthOff)
+			{
+				dsDesc.DepthEnable = FALSE;
+				dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+			}
+			else if (mode == Mode::DepthReversed)
+			{
+				dsDesc.DepthFunc = D3D11_COMPARISON_GREATER;
+			}
 
 			GetDevice(gfx)->CreateDepthStencilState(&dsDesc, &pStencil);
 		}
@@ -109,6 +120,10 @@ namespace GPipeline
 					return "write"s;
 				case Mode::Mask:
 					return "mask"s;
+				case Mode::DepthOff:
+					return "depth-off"s;
+				case Mode::DepthReversed:
+					return "depth-reversed"s;
 				}
 				return "ERROR"s;
 			};

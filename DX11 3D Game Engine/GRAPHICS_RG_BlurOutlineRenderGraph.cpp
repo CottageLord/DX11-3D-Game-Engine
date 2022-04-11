@@ -9,6 +9,7 @@
 #include "GRAPHICS_PASS_OutlineMaskGenerationPass.h"
 #include "GRAPHICS_PASS_HorizontalBlurPass.h"
 #include "GRAPHICS_PASS_VerticalBlurPass.h"
+#include "GRAPHICS_PASS_WireframePass.h"
 
 #include "GRAPHICS_RG_Source.h"
 #include "SYS_SET_Math.h"
@@ -84,7 +85,14 @@ namespace Rgph
 			pass->SetSinkLinkage("direction", "$.blurDirection");
 			AppendPass(std::move(pass));
 		}
-		SetSinkTarget("backbuffer", "vertical.renderTarget");
+		// draw wireframe on top
+		{
+			auto pass = std::make_unique<WireframePass>(gfx, "wireframe");
+			pass->SetSinkLinkage("renderTarget", "vertical.renderTarget");
+			pass->SetSinkLinkage("depthStencil", "vertical.depthStencil");
+			AppendPass(std::move(pass));
+		}
+		SetSinkTarget("backbuffer", "wireframe.renderTarget");
 
 		Finalize();
 	}

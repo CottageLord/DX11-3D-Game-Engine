@@ -94,6 +94,12 @@
     <Filter Include="Source Files\Exception">
       <UniqueIdentifier>{43460635-faab-4b11-891f-05023cc08ee7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Graphics\Object\Camera">
+      <UniqueIdentifier>{ee9abb12-8f56-468b-86c5-073cc5dbcf57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Object\Camera">
+      <UniqueIdentifier>{3535f68b-2e78-499b-a41b-d49585689c8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SYS_CLASS_App.cpp">
@@ -193,9 +199,6 @@
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GRAPHICS_LGT_PointLight.cpp">
-      <Filter>Source Files\Graphics\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_Camera.cpp">
       <Filter>Source Files\Graphics\Object</Filter>
     </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_Surface.cpp">
@@ -306,8 +309,20 @@
     <ClCompile Include="GRAPHICS_PASS_VerticalBlurPass.cpp">
       <Filter>Source Files\Graphics\Passes</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_CameraContainer.cpp">
+    <ClCompile Include="GRAPHICS_OBJ_Projection.cpp">
       <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Frustum.cpp">
+      <Filter>Source Files\Graphics\Drawabble</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Camera.cpp">
+      <Filter>Source Files\Graphics\Object\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_CameraContainer.cpp">
+      <Filter>Source Files\Graphics\Object\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_CameraIndicator.cpp">
+      <Filter>Source Files\Graphics\Object\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -435,9 +450,6 @@
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="GRAPHICS_LGT_PointLight.h">
-      <Filter>Header Files\Graphics\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_Camera.h">
       <Filter>Header Files\Graphics\Object</Filter>
     </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Surface.h">
@@ -611,11 +623,26 @@
     <ClInclude Include="GRAPHICS_PASS_VerticalBlurPass.h">
       <Filter>Header Files\Graphics\Passes</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_CameraContainer.h">
-      <Filter>Header Files\Graphics\Object</Filter>
-    </ClInclude>
     <ClInclude Include="SYS_SET_FilterWrlH.h">
       <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_PASS_WireframePass.h">
+      <Filter>Header Files\Graphics\Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Projection.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Frustum.h">
+      <Filter>Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_CameraIndicator.h">
+      <Filter>Header Files\Graphics\Object\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_CameraContainer.h">
+      <Filter>Header Files\Graphics\Object\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Camera.h">
+      <Filter>Header Files\Graphics\Object\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
