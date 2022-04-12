@@ -3,9 +3,9 @@
 #include "GRAPHICS_OBJ_Drawable.h"
 #include "GRAPHICS_JOB_TechniqueProbe.h"
 
-void Technique::Submit(const Drawable& drawable) const noexcept
+void Technique::Submit(const Drawable& drawable, size_t channelFilter) const noexcept
 {
-	if (active)
+	if (active && ((channels & channelFilter) != 0))
 	{
 		for (const auto& step : steps)
 		{
@@ -22,10 +22,16 @@ void Technique::InitializeParentReferences(const Drawable& parent) noexcept
 	}
 }
 
-Technique::Technique(std::string name, bool startActive) noexcept
+Technique::Technique(size_t channels)
+	:
+	channels{ channels }
+{}
+
+Technique::Technique(std::string name, size_t channels, bool startActive) noexcept
 	:
 	active(startActive),
-	name(name)
+	name(name),
+	channels(channels)
 {}
 
 void Technique::AddStep(Step step) noexcept

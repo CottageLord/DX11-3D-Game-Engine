@@ -3,6 +3,7 @@
 
 #include "GRAPHICS_OBJ_DynamicConstant.h"
 #include "GRAPHICS_OBJ_Stencil.h"
+#include "GRAPHICS_OBJ_Channels.h"
 
 #include "GRAPHICS_BUF_TransformCbufScaling.h"
 #include "GRAPHICS_BUF_ConstantBuffersEx.h"
@@ -22,7 +23,7 @@ modelPath(path.string())
 	}
 	// phong technique
 	{
-		Technique phong{ "Phong" };
+		Technique phong{ "Phong",Channel::main };
 		Step step("lambertian");
 		std::string shaderCode = "Phong";
 		aiString texFileName;
@@ -131,7 +132,7 @@ modelPath(path.string())
 	}
 	// outline technique
 	{
-		Technique outline("Outline", false);
+	Technique outline{ "Outline",Channel::main,false };
 		{
 			Step mask("outlineMask");
 
@@ -165,6 +166,24 @@ modelPath(path.string())
 			outline.AddStep(std::move(draw));
 		}
 		techniques.push_back(std::move(outline));
+	}
+
+	// shadow map technique
+	{
+		Technique map{ "ShadowMap",Channel::shadow,true };
+		{
+			Step draw("shadowMap");
+
+			// TODO: better sub-layout generation tech for future consideration maybe
+			draw.AddBindable(InputLayout::Resolve(gfx, vtxLayout, *VertexShader::Resolve(gfx, "Solid_VS.cso")));
+
+			draw.AddBindable(std::make_shared<TransformCbuffer>(gfx));
+
+			// TODO: might need to specify rasterizer when doubled-sided models start being used
+
+			map.AddStep(std::move(draw));
+		}
+		techniques.push_back(std::move(map));
 	}
 }
 DynamicVertex::VertexBuffer Material::ExtractVertices(const aiMesh& mesh) const noexcept

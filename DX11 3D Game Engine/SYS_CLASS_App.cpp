@@ -5,6 +5,7 @@
 #include "GRAPHICS_HELP_MatrixTranslator.h"
 #include "GRAPHICS_JOB_TechniqueProbe.h"
 #include "GRAPHICS_OBJ_Camera.h"
+#include "GRAPHICS_OBJ_Channels.h"
 
 #include "Testing.h"
 #include "TestModelProbe.h"
@@ -25,6 +26,8 @@ App::App(const std::string& commandLine)
 {
 	cameras.AddCamera(std::make_unique<Camera>(wnd.Gfx(), "A", dx::XMFLOAT3{ -13.5f,6.0f,3.5f }, 0.0f, PI / 2.0f));
 	cameras.AddCamera(std::make_unique<Camera>(wnd.Gfx(), "B", dx::XMFLOAT3{ -13.5f,28.8f,-6.4f }, PI / 180.0f * 13.0f, PI / 180.0f * 61.0f));
+	
+	cameras.AddCamera(light.ShareCamera());
 	//TestDynamicConstant();
 	cube.SetPos({ 4.0f,0.0f,0.0f });
 	cube2.SetPos({ 0.0f,4.0f,0.0f });
@@ -45,6 +48,7 @@ App::App(const std::string& commandLine)
 	sponza.LinkTechniques(rg);
 	//gobber.LinkTechniques(rg);
 	nano.LinkTechniques(rg);
+
 	//TestDynamicConstant();
 	//wall.SetRootTransform(dx::XMMatrixTranslation(-12.0f, 0.0f, 0.0f));
 	//tp.SetPos({ 12.0f,0.0f,0.0f });
@@ -55,6 +59,7 @@ App::App(const std::string& commandLine)
 	//redPlane.SetPos(cam.GetPos());
 
 	cameras.LinkTechniques(rg);
+	rg.BindShadowCamera(*light.ShareCamera());
 }
 
 void App::HandleInput( float dt )
@@ -82,6 +87,9 @@ void App::HandleInput( float dt )
 			break;
 		case VK_F1:
 			showDemoWindow = true;
+			break;
+		case VK_RETURN:
+			savingDepth = true;
 			break;
 		}
 	}
@@ -126,18 +134,29 @@ void App::HandleInput( float dt )
 void App::DoFrame( float dt )
 {
 	wnd.Gfx().BeginFrame( 0.07f,0.0f,0.12f );
-	cameras->BindToGraphics(wnd.Gfx());
 	light.Bind( wnd.Gfx(), cameras->GetMatrix() );
-		
-	light.Submit();
-	cube.Submit();
-	sponza.Submit();
-	cube2.Submit();
-	//gobber.Submit();
-	nano.Submit();
-	cameras.Submit();
+	rg.BindMainCamera(cameras.GetActiveCamera());
 
-	rg.Execute( wnd.Gfx() );
+	light.Submit(Channel::main);
+	cube.Submit(Channel::main);
+	sponza.Submit(Channel::main);
+	cube2.Submit(Channel::main);
+	nano.Submit(Channel::main);
+	cameras.Submit(Channel::main);
+
+	sponza.Submit(Channel::shadow);
+	cube.Submit(Channel::shadow);
+	sponza.Submit(Channel::shadow);
+	cube2.Submit(Channel::shadow);
+	nano.Submit(Channel::shadow);
+
+	rg.Execute(wnd.Gfx());
+
+	if (savingDepth)
+	{
+		rg.DumpShadowMap(wnd.Gfx(), "shadow.png");
+		savingDepth = false;
+	}
 	/*
 	// imgui windows
 
@@ -162,6 +181,12 @@ void App::DoFrame( float dt )
 	// present
 	wnd.Gfx().EndFrame();
 	rg.Reset();
+
+	if (savingDepth)
+	{
+		rg.StoreDepth(wnd.Gfx(), "depth.png");
+		savingDepth = false;
+	}
 }
 
 void App::ShowImguiDemoWindow()

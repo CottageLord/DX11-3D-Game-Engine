@@ -309,9 +309,6 @@
     <ClCompile Include="GRAPHICS_PASS_VerticalBlurPass.cpp">
       <Filter>Source Files\Graphics\Passes</Filter>
     </ClCompile>
-    <ClCompile Include="GRAPHICS_OBJ_Projection.cpp">
-      <Filter>Source Files\Graphics\Object</Filter>
-    </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_Frustum.cpp">
       <Filter>Source Files\Graphics\Drawabble</Filter>
     </ClCompile>
@@ -322,6 +319,9 @@
       <Filter>Source Files\Graphics\Object\Camera</Filter>
     </ClCompile>
     <ClCompile Include="GRAPHICS_OBJ_CameraIndicator.cpp">
+      <Filter>Source Files\Graphics\Object\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_Projection.cpp">
       <Filter>Source Files\Graphics\Object\Camera</Filter>
     </ClCompile>
   </ItemGroup>
@@ -629,9 +629,6 @@
     <ClInclude Include="GRAPHICS_PASS_WireframePass.h">
       <Filter>Header Files\Graphics\Passes</Filter>
     </ClInclude>
-    <ClInclude Include="GRAPHICS_OBJ_Projection.h">
-      <Filter>Header Files\Graphics\Object</Filter>
-    </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Frustum.h">
       <Filter>Header Files\Graphics\Drawable</Filter>
     </ClInclude>
@@ -643,6 +640,15 @@
     </ClInclude>
     <ClInclude Include="GRAPHICS_OBJ_Camera.h">
       <Filter>Header Files\Graphics\Object\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Channels.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_Projection.h">
+      <Filter>Header Files\Graphics\Object\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_PASS_ShadowMappingPass.h">
+      <Filter>Header Files\Graphics\Passes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

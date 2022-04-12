@@ -4,6 +4,7 @@
 #include "GRAPHICS_OBJ_DynamicVertex.h"
 #include "GRAPHICS_OBJ_Sphere.h"
 #include "GRAPHICS_OBJ_Stencil.h"
+#include "GRAPHICS_OBJ_Channels.h"
 
 namespace dx = DirectX;
 
@@ -44,7 +45,7 @@ Frustum::Frustum(Graphics& gfx, float width, float height, float nearZ, float fa
 	pTopology = Topology::Resolve(gfx, D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
 	{
-		Technique line;
+		Technique line{ Channel::main };
 		{
 			// two steps to visualize the frustum in relation to scene objects positions (Occluded lines get dimmer color)
 			Step unoccluded("lambertian");

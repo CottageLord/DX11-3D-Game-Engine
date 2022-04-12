@@ -260,6 +260,7 @@
     <ClInclude Include="GRAPHICS_OBJ_BufferResource.h" />
     <ClInclude Include="GRAPHICS_OBJ_CameraContainer.h" />
     <ClInclude Include="GRAPHICS_OBJ_CameraIndicator.h" />
+    <ClInclude Include="GRAPHICS_OBJ_Channels.h" />
     <ClInclude Include="GRAPHICS_OBJ_DepthStencil.h" />
     <ClInclude Include="GRAPHICS_OBJ_Frustum.h" />
     <ClInclude Include="GRAPHICS_OBJ_GraphicsResource.h" />
@@ -273,6 +274,7 @@
     <ClInclude Include="GRAPHICS_PASS_HorizontalBlurPass.h" />
     <ClInclude Include="GRAPHICS_PASS_OutlineDrawingPass.h" />
     <ClInclude Include="GRAPHICS_PASS_OutlineMaskGenerationPass.h" />
+    <ClInclude Include="GRAPHICS_PASS_ShadowMappingPass.h" />
     <ClInclude Include="GRAPHICS_PASS_VerticalBlurPass.h" />
     <ClInclude Include="GRAPHICS_PASS_WireframePass.h" />
     <ClInclude Include="GRAPHICS_RG_BlurOutlineRenderGraph.h" />

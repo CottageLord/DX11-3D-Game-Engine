@@ -30,6 +30,7 @@ namespace Rgph
 		 */
 		void Reset() noexcept;
 		RenderQueuePass& GetRenderQueue(const std::string& passName);
+		void StoreDepth(Graphics& gfx, const std::string& path);
 	protected:
 		void SetSinkTarget(const std::string& sinkName, const std::string& target);
 		void AddGlobalSource(std::unique_ptr<Source>);
@@ -42,6 +43,7 @@ namespace Rgph
 		 * @brief append pass and start linking the sinks and sources of this pass
 		 */
 		void AppendPass(std::unique_ptr<Pass> pass);
+		Pass& FindPassByName(const std::string& name);
 	private:
 		/**
 		 * @brief called by AppendPass(), link all sinks of the incoming pass to the sources in the pool

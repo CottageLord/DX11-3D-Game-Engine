@@ -4,6 +4,7 @@
 #include "GRAPHICS_OBJ_DynamicVertex.h"
 #include "GRAPHICS_OBJ_Sphere.h"
 #include "GRAPHICS_OBJ_Stencil.h"
+#include "GRAPHICS_OBJ_Channels.h"
 
 namespace dx = DirectX;
 
@@ -61,7 +62,7 @@ CameraIndicator::CameraIndicator(Graphics& gfx)
 	pTopology = Topology::Resolve(gfx, D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
 	{
-		Technique line;
+		Technique line{ Channel::main };
 		Step only("lambertian");
 
 		auto pvs = VertexShader::Resolve(gfx, "Solid_VS.cso");

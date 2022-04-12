@@ -91,6 +91,18 @@ namespace Rgph
 		passes.push_back(std::move(pass));
 	}
 
+	Pass& Rgph::RenderGraph::FindPassByName(const std::string& name)
+	{
+		const auto i = std::find_if(passes.begin(), passes.end(), [&name](auto& p) {
+			return p->GetName() == name;
+			});
+		if (i == passes.end())
+		{
+			throw std::runtime_error{ "Failed to find pass name" };
+		}
+		return **i;
+	}
+
 	void RenderGraph::LinkSinks(Pass& pass)
 	{
 		for (auto& si : pass.GetSinks())
@@ -186,5 +198,10 @@ namespace Rgph
 			throw RGC_EXCEPTION("In RenderGraph::GetRenderQueue, pass was not RenderQueuePass: " + passName);
 		}
 		throw RGC_EXCEPTION("In RenderGraph::GetRenderQueue, pass not found: " + passName);
+	}
+
+	void Rgph::RenderGraph::StoreDepth(Graphics& gfx, const std::string& path)
+	{
+		masterDepth->ToSurface(gfx).Save(path);
 	}
 }

@@ -53,4 +53,6 @@ private:
 	//TestPlane redPlane{ wnd.Gfx(),6.0f,{ 1.0f,0.3f,0.3f,0.0f } };
 	//TestPlane tp{ wnd.Gfx(),6.0 };
 	//TestPlane plane;
+
+	bool savingDepth = false;
 };

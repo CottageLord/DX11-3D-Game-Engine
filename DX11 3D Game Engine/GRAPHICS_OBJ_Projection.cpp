@@ -1,6 +1,6 @@
 #include "GRAPHICS_OBJ_Projection.h"
-#include "imgui/imgui.h"
 #include "SYS_CLASS_Graphics.h"
+#include "imgui/imgui.h"
 
 Projection::Projection(Graphics& gfx, float width, float height, float nearZ, float farZ)
 	:
@@ -45,9 +45,9 @@ void Projection::SetRotation(DirectX::XMFLOAT3 rot)
 	frust.SetRotation(rot);
 }
 
-void Projection::Submit() const
+void Projection::Submit(size_t channel) const
 {
-	frust.Submit();
+	frust.Submit(channel);
 }
 
 void Projection::LinkTechniques(Rgph::RenderGraph& rg)

@@ -1,5 +1,6 @@
 #include "TestCube.h"
 #include "GRAPHICS_OBJ_Cube.h"
+#include "GRAPHICS_OBJ_Channels.h" 
 #include "GRAPHICS_SET_BindableCommon.h"
 #include "GRAPHICS_BUF_TransformCbufScaling.h"
 #include "imgui/imgui.h"
@@ -8,6 +9,8 @@
 //#include "GRAPHICS_OBJ_DynamicConstant.h"
 #include "GRAPHICS_JOB_TechniqueProbe.h"
 #include "GRAPHICS_BUF_ConstantBuffersEx.h"
+
+
 TestCube::TestCube(Graphics& gfx, float size)
 {
 	using namespace GPipeline;
@@ -24,7 +27,7 @@ TestCube::TestCube(Graphics& gfx, float size)
 	auto tcb = std::make_shared<TransformCbuffer>(gfx);
 
 	{
-		Technique shade("Shade");
+		Technique shade("Shade", Channel::main);
 		{
 			Step only("lambertian");
 
@@ -57,7 +60,7 @@ TestCube::TestCube(Graphics& gfx, float size)
 	}
 
 	{
-		Technique outline("Outline");
+		Technique outline("Outline", Channel::main);
 		{
 			Step mask("outlineMask");
 
@@ -89,6 +92,24 @@ TestCube::TestCube(Graphics& gfx, float size)
 			outline.AddStep(std::move(draw));
 		}
 		AddTechnique(std::move(outline));
+	}
+
+	// shadow map technique
+	{
+		Technique map{ "ShadowMap",Channel::shadow,true };
+		{
+			Step draw("shadowMap");
+
+			// TODO: better sub-layout generation tech for future consideration maybe
+			draw.AddBindable(InputLayout::Resolve(gfx, model.vertices.GetLayout(), *VertexShader::Resolve(gfx, "Solid_VS.cso")));
+
+			draw.AddBindable(std::make_shared<TransformCbuffer>(gfx));
+
+			// TODO: might need to specify rasterizer when doubled-sided models start being used
+
+			map.AddStep(std::move(draw));
+		}
+		AddTechnique(std::move(map));
 	}
 }
 
