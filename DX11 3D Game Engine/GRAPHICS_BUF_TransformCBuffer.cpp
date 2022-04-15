@@ -37,8 +37,10 @@ namespace GPipeline
 	TransformCbuffer::Transforms TransformCbuffer::GetTransforms(Graphics & gfx) noxnd
 	{
 		assert(pDrawTarget != nullptr);
-		const auto modelView = pDrawTarget->GetTransformXM() * gfx.GetCamera();
+		const auto model = pDrawTarget->GetTransformXM();
+		const auto modelView = model * gfx.GetCamera();
 		return {
+			DirectX::XMMatrixTranspose(model),
 			DirectX::XMMatrixTranspose(modelView),
 			DirectX::XMMatrixTranspose(
 				modelView *

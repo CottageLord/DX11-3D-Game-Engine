@@ -324,6 +324,12 @@
     <ClCompile Include="GRAPHICS_OBJ_Projection.cpp">
       <Filter>Source Files\Graphics\Object\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_ShadowCameraCBuffer.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_ShadowSampler.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SYS_SET_Dxerr.h">
@@ -650,6 +656,12 @@
     <ClInclude Include="GRAPHICS_PASS_ShadowMappingPass.h">
       <Filter>Header Files\Graphics\Passes</Filter>
     </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_ShadowCameraCBuffer.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_ShadowSampler.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc">
@@ -781,6 +793,12 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Test_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="ShadowTest_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="ShadowTest_PS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

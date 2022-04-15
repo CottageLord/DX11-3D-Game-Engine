@@ -16,6 +16,11 @@ namespace GPipeline
 	{
 		friend RenderTarget;
 	public:
+		/**
+		* @brief Distinguish between depth stencil usage:
+		* when using for shadow buffering, the 8 bits stencil is no longer useful.
+		* Configuring a ShadowDepth will cause a 24 bits data unit, instead of 32
+		*/
 		enum class Usage
 		{
 			DepthStencil,
@@ -26,7 +31,9 @@ namespace GPipeline
 		void BindAsBuffer(Graphics& gfx, BufferResource* renderTarget) noxnd override;
 		void BindAsBuffer(Graphics& gfx, RenderTarget* rt) noxnd;
 		void Clear(Graphics& gfx) noxnd override;
-
+		/**
+		* @brief A debug helper that converts render targets into surfaces so we can store them as image files
+		*/
 		Surface ToSurface(Graphics& gfx, bool linearlize = true) const;
 		unsigned int GetWidth() const;
 		unsigned int GetHeight() const;
@@ -43,6 +50,7 @@ namespace GPipeline
 		ShaderInputDepthStencil(Graphics& gfx, UINT slot, Usage usage = Usage::DepthStencil);
 		ShaderInputDepthStencil(Graphics& gfx, UINT width, UINT height, UINT slot, Usage usage = Usage::DepthStencil);
 		void Bind(Graphics& gfx) noxnd override;
+		void Clear(Graphics& gfx) noxnd override;
 	private:
 		UINT slot;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> pShaderResourceView;

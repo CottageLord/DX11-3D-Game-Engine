@@ -44,6 +44,11 @@ namespace Rgph
 		{
 			depthStencil->ToSurface(gfx).Save(path);
 		}
+
+		void Reset() noxnd override
+		{
+			RenderQueuePass::Reset();
+		}
 	private:
 		const Camera* pShadowCamera = nullptr;
 	};

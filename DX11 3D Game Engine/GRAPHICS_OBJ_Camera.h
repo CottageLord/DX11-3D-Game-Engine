@@ -15,8 +15,12 @@ class Camera
 public:
 	Camera(Graphics& gfx, std::string name, DirectX::XMFLOAT3 homePos = { 0.0f,0.0f,0.0f }, 
 		float homePitch = 0.0f, float homeYaw = 0.0f, bool tethered = false) noexcept;
+	/**
+	 * @brief Set the main render camera to the current one (with local projection)
+	 */
 	void BindToGraphics(Graphics& gfx) const;
 	DirectX::XMMATRIX GetMatrix() const noexcept;
+	DirectX::XMMATRIX GetProjection() const noexcept;
 	void SpawnControlWidgets(Graphics& gfx) noexcept;
 	void Reset(Graphics& gfx) noexcept;
 	/**
@@ -30,6 +34,8 @@ public:
 	void LinkTechniques(Rgph::RenderGraph& rg);
 	void Submit(size_t channel) const;
 private:
+	/// configure if this camera is tethered to a light source, if a camera is tethered to a light source, we can only change camera pos
+	/// by updating the light pos
 	bool tethered;
 	/*
 	float distFromOrigin = 20.0f;
@@ -50,7 +56,7 @@ private:
 	DirectX::XMFLOAT3 pos;
 	float pitch;
 	float yaw;
-	// speed factors for mouse events
+	/// speed factors for mouse events
 	static constexpr float travelSpeed = 12.0f;
 	static constexpr float rotationSpeed = 0.004f;
 	bool enableCameraIndicator = true;

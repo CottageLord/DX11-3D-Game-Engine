@@ -11,6 +11,9 @@ namespace wrl = Microsoft::WRL;
 
 namespace GPipeline
 {
+	/**
+	* @brief A depth stencil that has typeless data, enabling it of being both a depth stencil and a shader input texture
+	*/
 	DXGI_FORMAT MapUsageTypeless(DepthStencil::Usage usage)
 	{
 		switch (usage)
@@ -22,7 +25,9 @@ namespace GPipeline
 		}
 		throw std::runtime_error{ "Base usage for Typeless format map in DepthStencil." };
 	}
-
+	/**
+	* @brief A depth stencil that use specific depth type
+	*/
 	DXGI_FORMAT MapUsageTyped(DepthStencil::Usage usage)
 	{
 		switch (usage)
@@ -128,6 +133,7 @@ namespace GPipeline
 		const auto width = GetWidth();
 		const auto height = GetHeight();
 		Surface s{ width,height };
+		// creating a staging texture to copy data from GPU side
 		D3D11_MAPPED_SUBRESOURCE msr = {};
 		GFX_THROW_INFO(GetContext(gfx)->Map(pTexTemp.Get(), 0, D3D11_MAP::D3D11_MAP_READ, 0, &msr));
 		auto pSrcBytes = static_cast<const char*>(msr.pData);
@@ -137,14 +143,20 @@ namespace GPipeline
 			{
 				char data[4];
 			};
+			// move the pointer to the start of the current row
 			auto pSrcRow = reinterpret_cast<const Pixel*>(pSrcBytes + msr.RowPitch * size_t(y));
 			for (unsigned int x = 0; x < width; x++)
 			{
 				if (textureDesc.Format == DXGI_FORMAT::DXGI_FORMAT_R24G8_TYPELESS)
 				{
+					// take out the first 24 bits by unsighed int, thus need normalize
 					const auto raw = 0xFFFFFF & *reinterpret_cast<const unsigned int*>(pSrcRow + x);
-					// linearlize the depth values
-					if (linearlize)
+					// linearlize the depth values, making the depth value fall into 0~1 range
+					// this is just an approximation for visualization
+					// z   = £¨0~1£©
+					// 1/z =  (inf ~ 1)
+					// to restore z value from the inversed, we need to linearly map (inf ~ 1) to (0 ~ 1)
+ 					if (linearlize)
 					{
 						const auto normalized = (float)raw / (float)0xFFFFFF;
 						const auto linearized = 0.01f / (1.01f - normalized);
@@ -224,6 +236,13 @@ namespace GPipeline
 		GFX_THROW_INFO_ONLY(GetContext(gfx)->PSSetShaderResources(slot, 1u, pShaderResourceView.GetAddressOf()));
 	}
 
+	void ShaderInputDepthStencil::Clear(Graphics& gfx) noxnd
+	{
+		DepthStencil::Clear(gfx);
+		// Unbind the shader resource to avoid binding registered shader input as depth stencil again 
+		ID3D11ShaderResourceView* nullSRV[1] = { nullptr };
+		GetContext(gfx)->PSSetShaderResources(slot, 1u, nullSRV);
+	}
 
 	OutputOnlyDepthStencil::OutputOnlyDepthStencil(Graphics& gfx)
 		:

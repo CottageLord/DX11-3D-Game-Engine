@@ -2,6 +2,7 @@
 #include "GRAPHICS_BUF_ConstantBuffers.h"
 #include "GRAPHICS_OBJ_Drawable.h"
 #include <DirectXMath.h>
+
 namespace GPipeline
 {
 	class TransformCbuffer : public CloningBindable
@@ -9,6 +10,7 @@ namespace GPipeline
 	protected:
 		struct Transforms
 		{
+			DirectX::XMMATRIX model;
 			DirectX::XMMATRIX modelView;
 			DirectX::XMMATRIX modelViewProj;
 		};

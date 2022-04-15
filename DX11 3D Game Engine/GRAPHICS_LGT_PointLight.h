@@ -14,7 +14,10 @@ class Camera;
 class PointLight
 {
 public:
-	PointLight(Graphics& gfx, float radius = 0.5f);
+	/**
+	 * @brief 
+	 */
+	PointLight(Graphics& gfx, DirectX::XMFLOAT3 pos = { 10.0f,9.0f,2.5f }, float radius = 0.5f);
 	void SpawnControlWindow() noexcept;
 	void Reset() noexcept;
 	void Submit(size_t channels) const noxnd;
@@ -33,11 +36,11 @@ private:
 		float attQuad;
 	};
 private:
+	PointLightCBuf home;
 	PointLightCBuf cbData;
 	mutable SolidSphere mesh;
-	/// <summary>
-	///  Makes the light info visible to the shaders
-	/// </summary>
+	/// Makes the light info visible to the shaders
 	mutable GPipeline::PixelConstantBuffer<PointLightCBuf> cbuf;
+	/// A camera allowing to generate shadow map for this point light
 	std::shared_ptr<Camera> pCamera;
 };
