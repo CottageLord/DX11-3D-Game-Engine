@@ -240,8 +240,8 @@ namespace GPipeline
 	{
 		DepthStencil::Clear(gfx);
 		// Unbind the shader resource to avoid binding registered shader input as depth stencil again 
-		ID3D11ShaderResourceView* nullSRV[1] = { nullptr };
-		GetContext(gfx)->PSSetShaderResources(slot, 1u, nullSRV);
+		//ID3D11ShaderResourceView* nullSRV[1] = { nullptr };
+		//GetContext(gfx)->PSSetShaderResources(slot, 1u, nullSRV);
 	}
 
 	OutputOnlyDepthStencil::OutputOnlyDepthStencil(Graphics& gfx)

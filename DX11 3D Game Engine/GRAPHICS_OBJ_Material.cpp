@@ -169,7 +169,6 @@ modelPath(path.string())
 	}
 
 	// shadow map technique
-	/*
 	{
 		Technique map{ "ShadowMap",Channel::shadow,true };
 		{
@@ -185,7 +184,7 @@ modelPath(path.string())
 			map.AddStep(std::move(draw));
 		}
 		techniques.push_back(std::move(map));
-	}*/
+	}
 }
 DynamicVertex::VertexBuffer Material::ExtractVertices(const aiMesh& mesh) const noexcept
 {

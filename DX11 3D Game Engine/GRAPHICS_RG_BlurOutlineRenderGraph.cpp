@@ -138,7 +138,13 @@ namespace Rgph
 		blurKernel->SetBuffer(k);
 	}
 
-	void BlurOutlineRenderGraph::RenderWidgets(Graphics& gfx)
+
+	void BlurOutlineRenderGraph::RenderWindows(Graphics& gfx)
+	{
+		RenderKernelWindow(gfx);
+	}
+
+	void BlurOutlineRenderGraph::RenderKernelWindow(Graphics& gfx)
 	{
 		if (ImGui::Begin("Kernel"))
 		{

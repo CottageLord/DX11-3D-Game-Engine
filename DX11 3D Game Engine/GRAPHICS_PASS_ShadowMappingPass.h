@@ -7,6 +7,7 @@
 #include "GRAPHICS_OBJ_RenderTarget.h"
 #include "GRAPHICS_OBJ_Blender.h"
 #include "GRAPHICS_OBJ_NullPixelShader.h"
+#include "GRAPHICS_OBJ_ShadowRasterizer.h"
 #include "GRAPHICS_JOB_Job.h"
 #include "GRAPHICS_RG_Source.h"
 #include <vector>
@@ -32,6 +33,7 @@ namespace Rgph
 			AddBind(NullPixelShader::Resolve(gfx));
 			AddBind(Stencil::Resolve(gfx, Stencil::Mode::Off));
 			AddBind(Blender::Resolve(gfx, false));
+			AddBind(std::make_shared<GPipeline::ShadowRasterizer>(gfx, 50, 2.0f, 0.1f));
 			RegisterSource(DirectBindableSource<GPipeline::DepthStencil>::Make("map", depthStencil));
 		}
 		void Execute(Graphics& gfx) const noxnd override

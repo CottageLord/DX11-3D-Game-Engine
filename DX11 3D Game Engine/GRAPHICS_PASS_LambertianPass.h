@@ -21,16 +21,18 @@ namespace Rgph
 		LambertianPass(Graphics& gfx, std::string name)
 			:
 			RenderQueuePass(std::move(name)),
-			pShadowCBuf{ std::make_shared<GPipeline::ShadowCameraCBuf>(gfx) },
-			pShadowSampler{ std::make_shared<GPipeline::ShadowSampler>(gfx) }
+			pShadowCBuf{ std::make_shared<GPipeline::ShadowCameraCBuf>(gfx) }
 		{
 			using namespace GPipeline;
+
 			AddBind(pShadowCBuf);
-			AddBind(pShadowSampler);
+
 			RegisterSink(DirectBufferSink<GPipeline::RenderTarget>::Make("renderTarget", renderTarget));
 			RegisterSink(DirectBufferSink<GPipeline::DepthStencil>::Make("depthStencil", depthStencil));
 
 			AddBindSink<GPipeline::Bindable>("shadowMap");
+
+			AddBind(std::make_shared<GPipeline::ShadowSampler>(gfx));
 
 			RegisterSource(DirectBufferSource<GPipeline::RenderTarget>::Make("renderTarget", renderTarget));
 			RegisterSource(DirectBufferSource<GPipeline::DepthStencil>::Make("depthStencil", depthStencil));
@@ -52,7 +54,6 @@ namespace Rgph
 			RenderQueuePass::Execute(gfx);
 		}
 	private:
-		std::shared_ptr<GPipeline::ShadowSampler> pShadowSampler;
 		std::shared_ptr<GPipeline::ShadowCameraCBuf> pShadowCBuf;
 		//std::shared_ptr<GPipeline::Bindable> pShadowMap;
 		const Camera* pMainCamera = nullptr;

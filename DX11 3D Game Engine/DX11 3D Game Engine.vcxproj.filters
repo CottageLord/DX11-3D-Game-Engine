@@ -330,6 +330,9 @@
     <ClCompile Include="GRAPHICS_OBJ_ShadowSampler.cpp">
       <Filter>Source Files\Graphics\Object</Filter>
     </ClCompile>
+    <ClCompile Include="GRAPHICS_OBJ_ShadowRasterizer.cpp">
+      <Filter>Source Files\Graphics\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SYS_SET_Dxerr.h">
@@ -662,6 +665,9 @@
     <ClInclude Include="GRAPHICS_OBJ_ShadowSampler.h">
       <Filter>Header Files\Graphics\Object</Filter>
     </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_ShadowRasterizer.h">
+      <Filter>Header Files\Graphics\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc">
@@ -685,6 +691,30 @@
     </None>
     <None Include="packages.config" />
     <None Include="ClassDiagram1.cd" />
+    <None Include="Transform.hlsli">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="VShadow.hlsli">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="PShadow.hlsli">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="_PShadow_Dynamic.hlsli">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="PointLight.hlsli">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="ShaderOps.hlsli">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="LightVectorData.hlsli">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="_PShadow_Static.hlsli">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ColorIndexPS.hlsl">
@@ -709,18 +739,6 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="PhongPSNormalMapObjSpace.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="ShaderOps.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="PointLight.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="LightVectorData.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Transform.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="PhongPSCel.hlsl">
@@ -768,7 +786,7 @@
     <FxCompile Include="PhongDifNrm_PS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="Offset_VS.hlsl">
+    <FxCompile Include="Offset_VS_deprecated.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Fullscreen_VS.hlsl">
@@ -784,15 +802,6 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="PhongDifMskSpc_VS.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Test1_VS.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Test2_VS.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Test_PS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="ShadowTest_VS.hlsl">
