@@ -10,6 +10,140 @@ Latest commits are shown first.
 
 ![Alt text](./Notes/logo-gray.png "LOGO")
 
+## Commit 23 - Shadow Mapping and Percentage Close Filtering
+
+.
+
+![Alt text](./Screenshots/2022-4-16.gif "Shadow map and PCF implemented.")
+
+![Alt text](./Notes/18.jpg "Shadow Mapping")
+
+![Alt text](./Notes/19.jpg "Self shadowing, Peter Panning and PCF")
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/d1be40dd51935cd19ae9bec7230eee037e7ba678/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_ShadowCameraCBuffer.h">GRAPHICS_OBJ_ShadowCameraCBuffer.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/d1be40dd51935cd19ae9bec7230eee037e7ba678/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_ShadowCameraCBuffer.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Contains transform/projection information for a shadow camera. This is the essential information for depth comparision during mapping.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/d1be40dd51935cd19ae9bec7230eee037e7ba678/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_ShadowSampler.h">GRAPHICS_OBJ_ShadowSampler.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/d1be40dd51935cd19ae9bec7230eee037e7ba678/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_ShadowSampler.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Configures a sampler for sampling shadow map.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/d1be40dd51935cd19ae9bec7230eee037e7ba678/DX11%203D%20Game%20Engine/ShadowTest_VS.hlsl">ShadowTest_VS.hlsl</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/d1be40dd51935cd19ae9bec7230eee037e7ba678/DX11%203D%20Game%20Engine/ShadowTest_PS.hlsl">ShadowTest_PS.hlsl</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A testing shader that allows objects from receiving shadows.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/d1be40dd51935cd19ae9bec7230eee037e7ba678/DX11%203D%20Game%20Engine/PlaceHolder.h">PlaceHolder.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/d1be40dd51935cd19ae9bec7230eee037e7ba678/DX11%203D%20Game%20Engine/PlaceHolder.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li></li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates
+
+<table>
+  <tbody>
+    <tr>
+      <th>Commit</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/d1be40dd51935cd19ae9bec7230eee037e7ba678">Basic Shadow Mapping</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Basic shadow map implemented on cubes. Problems including self shadowing still exists.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+## Commit 22 - Depth sampling from camera view
+
+Added depth sampling from any camera. This is the prerequisite for shadow maps.
+
+![Alt text](./Screenshots/2022-4-13.png "A sampled depth from the light-camera.")
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/3d99733136a23f8161cfaad40f06357c962bdb5a/DX11%203D%20Game%20Engine/GRAPHICS_PASS_ShadowMappingPass.h">GRAPHICS_PASS_ShadowMappingPass.h</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Configures a depth map generator from the light-camera perspective.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/3d99733136a23f8161cfaad40f06357c962bdb5a/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Channels.h">GRAPHICS_OBJ_Channels.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/3d99733136a23f8161cfaad40f06357c962bdb5a/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Channels.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Only contains 2 binary masks - normal rendering or shadow depth sampling.</li>
+	    		<li>When submitting different tasks (either Main or Shadow), corresponding techniques will be used for rendering. Techniques contains pipeline information like depth stencil settings and shader constants settings.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates
+
+<table>
+  <tbody>
+    <tr>
+      <th>Commit</th>
+      <th align="center">Description</th>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/3d99733136a23f8161cfaad40f06357c962bdb5a/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_DepthStencil.h">GRAPHICS_OBJ_DepthStencil.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/3d99733136a23f8161cfaad40f06357c962bdb5a/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_DepthStencil.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Now allows different usages of depth stencil. Configures corresponding data types for corresponding data storage.</li>
+	    		<li>Allows fetching depth map data from gpu side and output image files for dubugging.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/3d99733136a23f8161cfaad40f06357c962bdb5a">Depth sampling</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Cameras can sample depth map and produce texture for future references.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
 ## Commit 21 - Multuple Cameras
 
 Added supports for setting multiple cameras. This is a prerequisite for shadow mapping.
