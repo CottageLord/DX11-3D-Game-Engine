@@ -17,7 +17,7 @@ namespace Rgph
 		  * @brief add a concrete bindable data to the binds[]
 		  */
 		void AddBind(std::shared_ptr<GPipeline::Bindable> bind) noexcept;
-		void BindAll(Graphics& gfx) const noexcept;
+		void BindAll(Graphics& gfx) const noxnd;
 		void Finalize() override;
 	protected:
 		/**

@@ -3,6 +3,7 @@ cbuffer ShadowTransformCBuf : register(b1)
     matrix shadowViewProj;
 };
 
+// convert the current vertex position to shadow camera screen space
 float4 ToShadowHomoSpace(const in float3 pos, uniform matrix modelTransform)
 {
     const float4 world = mul(float4(pos, 1.0f), modelTransform);

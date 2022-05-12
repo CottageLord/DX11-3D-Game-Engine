@@ -20,6 +20,7 @@ float4 main(float3 viewFragPos : Position, float3 viewNormal : Normal, float4 sp
     
     // shadow map test
     const float shadowLevel = Shadow(spos);
+    // if the current pixel is not in the shadow, compute the normal lighting
     if (shadowLevel != 0.0f)
     {
         // normalize the mesh normal
@@ -39,6 +40,7 @@ float4 main(float3 viewFragPos : Position, float3 viewNormal : Normal, float4 sp
         diffuse *= shadowLevel;
         specular *= shadowLevel;
     }
+    // otherwise, we only aaply ambient light
     else
     {
         diffuse = specular = 0.0f;

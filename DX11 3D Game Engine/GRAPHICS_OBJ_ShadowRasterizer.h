@@ -4,6 +4,9 @@
 
 namespace GPipeline
 {
+	/**
+	 * @brief Configures settings for slope scaled shadowing
+	 */
 	class ShadowRasterizer : public Bindable
 	{
 	public:

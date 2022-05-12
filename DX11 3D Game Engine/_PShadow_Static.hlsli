@@ -5,6 +5,7 @@ SamplerComparisonState ssam : register(s1);
 
 float ShadowLoop_(const in float3 spos)
 {
+    // PCF
     float shadowLevel = 0.0f;
     [unroll]
     for (int x = -PCF_RANGE; x <= PCF_RANGE; x++)

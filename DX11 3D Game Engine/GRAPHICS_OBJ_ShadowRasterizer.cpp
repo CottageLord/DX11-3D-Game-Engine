@@ -18,9 +18,10 @@ namespace GPipeline
 		GET_INFO_MAN(gfx);
 
 		D3D11_RASTERIZER_DESC rasterDesc = CD3D11_RASTERIZER_DESC(CD3D11_DEFAULT{});
-		rasterDesc.DepthBias = depthBias;
-		rasterDesc.SlopeScaledDepthBias = slopeBias;
-		rasterDesc.DepthBiasClamp = clamp;
+		rasterDesc.DepthBias = depthBias;			// A constant depth bias applied to every pixel
+		rasterDesc.SlopeScaledDepthBias = slopeBias;// Amount of bias to multiply with the slope and add back to the DepthBias
+													// The larger the splore the larger the value
+		rasterDesc.DepthBiasClamp = clamp;			// When the slope goes crazy, set this as the boundary
 
 		GFX_THROW_INFO(GetDevice(gfx)->CreateRasterizerState(&rasterDesc, &pRasterizer));
 	}
