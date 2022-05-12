@@ -10,13 +10,100 @@ Latest commits are shown first.
 
 ![Alt text](./Notes/logo-gray.png "LOGO")
 
+## Commit 21 - Multuple Cameras
+
+Added supports for setting multiple cameras. This is a prerequisite for shadow mapping.
+
+![Alt text](./Screenshots/2022-4-11.gif "Controllable multiple cameras")
+
+### New files
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/8a4636e3af319d0215144b6bcc1bc279b333ad9f/DX11%203D%20Game%20Engine/GRAPHICS_PASS_WireframePass.h">GRAPHICS_PASS_WireframePass.h</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A render pass that draws camera indicators (a camera shape) and frustums (a camera view zone) for all inactive cameras</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/8a4636e3af319d0215144b6bcc1bc279b333ad9f/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_CameraContainer.h">GRAPHICS_OBJ_CameraContainer.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/8a4636e3af319d0215144b6bcc1bc279b333ad9f/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_CameraContainer.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A manager that holds references to all available camaras.</li>
+	    		<li>Capable of spawning control widgets for each camera, allowing users to switch between different camaras and modify their properties.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/8a4636e3af319d0215144b6bcc1bc279b333ad9f/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Projection.h">GRAPHICS_OBJ_Projection.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/8a4636e3af319d0215144b6bcc1bc279b333ad9f/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Projection.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A seperated class for holding each camera's projection information.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/8a4636e3af319d0215144b6bcc1bc279b333ad9f/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Frustum.h">GRAPHICS_OBJ_Frustum.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/8a4636e3af319d0215144b6bcc1bc279b333ad9f/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_Frustum.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A drawable object. Represents a camera's view zone.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/8a4636e3af319d0215144b6bcc1bc279b333ad9f/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_CameraIndicator.h">GRAPHICS_OBJ_CameraIndicator.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/8a4636e3af319d0215144b6bcc1bc279b333ad9f/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_CameraIndicator.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A drawable object. Represents a camera's current position.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+### Major updates
+
+<table>
+  <tbody>
+    <tr>
+      <th>Commit</th>
+      <th align="center">Description</th>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/173662e402d785e7a3f87d615e9c3c9154764033">Reorganized shader files, fixed bindable pool bug when resolving inputlayout</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>The former Bindable Pool register an input layout by its data type definitions. However, DirectX defines input layouts along with vertex shaders. During that process, if the input vertex data structure has more data types than shader needs, the returned input layout will discard those non-neccesary types. In this case, for example, if we define an input layout with both position and color, but construct DirectX layout with a position only shader, the retured layout only contains position layout. If we then use this layout in a position-color shader, error will happen. </li>
+	    		<li>Shaders now have better include structures, which reduced code redundancy.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/8a4636e3af319d0215144b6bcc1bc279b333ad9f">Multiple cameras</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Allowing multiple controllable cameras. Nota that only one camera can be set as the main render camera. </li>
+	    	</ul>
+	    </td>
+	</tr>
+	
+  </tbody>
+</table>
+
 ## Commit 20 - Render Graph
 
- A render graph (or frame graph) is a way of defining the rendering pipeline using self-contained nodes in an acyclic directed graph. Each node has a set of input and outputs, which link to other nodes or resources. When executed, the graph is traversed executing each node in turn. In the current version, every node represents a pass.
+A render graph (or frame graph) is a way of defining the rendering pipeline using self-contained nodes in an acyclic directed graph. Each node has a set of input and outputs, which link to other nodes or resources. When executed, the graph is traversed executing each node in turn. In the current version, every node represents a pass.
 
- The render graph system takes in nodes (passes) with input/output and validates/links the nodes together. This system allows us to avoid hardcoding the render procedure, but configure it io a graph-like, more organized and automatic way.
+The render graph system takes in nodes (passes) with input/output and validates/links the nodes together. This system allows us to avoid hardcoding the render procedure, but configure it io a graph-like, more organized and automatic way.
 
-To avoid name conflicts, the input and the output for each pass is named as sink (what this pass need as input) and source (what this pass produces as output).
+To avoid name conflicts, the input and the output for each pass is named as sink (required input type for this pass) and source (output type from this pass).
 
 ![Alt text](./Notes/16.jpg "Basic Render Graph")
 
