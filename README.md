@@ -10,9 +10,11 @@ Latest commits are shown first.
 
 ![Alt text](./Notes/logo-gray.png "LOGO")
 
-## Commit 23 - Shadow Mapping and Percentage Close Filtering
+## Commit 23, 24, 25 - Shadow Mapping, Percentage Close Filtering and Sloped-Scaled Shadow Bias
 
-.
+Implemented shadow map and Percentage Close Filtering (PCF) to the sponza scene. Shadow map technique was configured during model loading and controllable during the rendering. Users can specify which objects cast shadows and which receive. Applied shadow bias and PCF for better shadow performances.
+
+More detailed note about shadow mapping: <a href="https://github.com/CottageLord/CS_Courses/blob/main/Notes/GAMES101/Class%20Note%206_%20Shadow%20Map.pdf"> GAMES 101 lecture note: shadow mapping. </a>
 
 ![Alt text](./Screenshots/2022-4-16.gif "Shadow map and PCF implemented.")
 
@@ -20,7 +22,11 @@ Latest commits are shown first.
 
 ![Alt text](./Notes/19.jpg "Self shadowing, Peter Panning and PCF")
 
+![Alt text](./Notes/20.jpg "Sloped-Scaled Shadow Mapping")
+
 ### New files
+
+Basic shadow mapping
 
 <table>
   <tbody>
@@ -63,6 +69,62 @@ Latest commits are shown first.
   </tbody>
 </table>
 
+Percentage Close Filtering
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/bdba84156b1b00f93dfd9dde44bdc31fc5eb309e/DX11%203D%20Game%20Engine/_PShadow_Static.hlsli">_PShadow_Static.hlsli</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A compute shader that samples shadow map and produces soft shadow. Static means the sample range is fixed.</li>
+	    		<li>Uses [unroll] to ultilize hardware acceleration.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/bdba84156b1b00f93dfd9dde44bdc31fc5eb309e/DX11%203D%20Game%20Engine/_PShadow_Dynamic.hlsli">_PShadow_Dynamic.hlsli</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>A compute shader that samples shadow map and produces soft shadow. Dynamic means the sample range is passed through parameter.</li>
+	    		<li>Combines [unroll] and if statements to ultilize hardware acceleration while allowing dynamic inputs.</li>
+	    	</ul>
+	    </td>
+	</tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/bdba84156b1b00f93dfd9dde44bdc31fc5eb309e/DX11%203D%20Game%20Engine/PShadow.hlsli">PShadow.hlsli</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li></li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+Sloped-Scaled Shadow Bias
+
+<table>
+  <tbody>
+    <tr>
+      <th>Filename</th>
+      <th align="center">Description</th>
+    </tr>
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/bdba84156b1b00f93dfd9dde44bdc31fc5eb309e/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_ShadowRasterizer.h">GRAPHICS_OBJ_ShadowRasterizer.h</a> | <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/tree/bdba84156b1b00f93dfd9dde44bdc31fc5eb309e/DX11%203D%20Game%20Engine/GRAPHICS_OBJ_ShadowRasterizer.cpp">cpp</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Encapsulates DirectX settings for sloped scaled shadow bias.</li>
+	    	</ul>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
 ### Major updates
 
 <table>
@@ -76,6 +138,14 @@ Latest commits are shown first.
 	    <td align="left">
 	    	<ul>
 	    		<li>Basic shadow map implemented on cubes. Problems including self shadowing still exists.</li>
+	    	</ul>
+	    </td>
+	</tr>	
+	<tr>
+      <td><a href="https://github.com/CottageLord/DX11-3D-Game-Engine/commit/bdba84156b1b00f93dfd9dde44bdc31fc5eb309e">Advanced Shadow Mapping</a></td>
+	    <td align="left">
+	    	<ul>
+	    		<li>Advanced shadow mapping techniques including PCF and Slope Scaled Shadow Bias.</li>
 	    	</ul>
 	    </td>
 	</tr>
