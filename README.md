@@ -10,6 +10,10 @@ Latest commits are shown first.
 
 ![Alt text](./Notes/logo-gray.png "LOGO")
 
+## Commit 26 SkyBox
+
+![Alt text](./Screenshots/2022-5-14.png "Sky Box")
+
 ## Commit 23, 24, 25 - Shadow Mapping, Percentage Close Filtering and Sloped-Scaled Shadow Bias
 
 Implemented shadow map and Percentage Close Filtering (PCF) to the sponza scene. Shadow map technique was configured during model loading and controllable during the rendering. Users can specify which objects cast shadows and which receive. Applied shadow bias and PCF for better shadow performances.
