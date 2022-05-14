@@ -11,10 +11,11 @@ namespace GPipeline
 		enum class Mode
 		{
 			Off,	// No action
-			Write,	// Write to stencil buf when the pixel draw the geometry
-			Mask,	// Masking things out, exclude pixels
+			Write,	// Write to stencil buf when the pixel is within the geometry
+			Mask,	// Masking things out, exclude true pixels on stencil
 			DepthOff,
-			DepthReversed
+			DepthReversed, // only draw the occuluded pixels. Used in 2-step wireframe pass for drawing dimmer frustum behind objects
+			DepthFirst, // for skybox render, checking id the thing we are drawing is the first thing ever drew to that pixel
 		};
 		/*
 		typedef struct D3D11_DEPTH_STENCIL_DESC {
@@ -97,6 +98,13 @@ namespace GPipeline
 			{
 				dsDesc.DepthFunc = D3D11_COMPARISON_GREATER;
 			}
+			else if (mode == Mode::DepthFirst)
+			{
+				// the depth of the skybox is always 1 (see Skybox_VS), thus this only passes if the pixel is never drew (init value 1)
+				dsDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+				// we do not write to stencil
+				dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+			}
 
 			GetDevice(gfx)->CreateDepthStencilState(&dsDesc, &pStencil);
 		}
@@ -124,6 +132,8 @@ namespace GPipeline
 					return "depth-off"s;
 				case Mode::DepthReversed:
 					return "depth-reversed"s;
+				case Mode::DepthFirst:
+					return "depth-first"s;
 				}
 				return "ERROR"s;
 			};

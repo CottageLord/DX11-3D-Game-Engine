@@ -25,7 +25,7 @@ void Projection::RenderWidgets(Graphics& gfx)
 	ImGui::Text("Projection");
 	dcheck(ImGui::SliderFloat("Width", &width, 0.01f, 4.0f, "%.2f", 1.5f));
 	dcheck(ImGui::SliderFloat("Height", &height, 0.01f, 4.0f, "%.2f", 1.5f));
-	// restrict on 0,01 such that far-z won't be closer than near-z
+	// restrict on 0.01 such that far-z won't be closer than near-z
 	dcheck(ImGui::SliderFloat("Near Z", &nearZ, 0.01f, farZ - 0.01f, "%.2f", 4.0f));
 	dcheck(ImGui::SliderFloat("Far Z", &farZ, nearZ + 0.01f, 400.0f, "%.2f", 4.0f));
 

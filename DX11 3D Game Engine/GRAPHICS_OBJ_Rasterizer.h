@@ -1,6 +1,6 @@
 /**
- * @GRAPHICS_OBJ_Rasterizer.h
- * @brief Configures pipeline behavior at the rasterizatio stage. For example, disabling backface culling for sheet object
+ * @filename GRAPHICS_OBJ_Rasterizer.h
+ * @brief Configures pipeline behavior at the rasterization stage. For example, disabling backface culling for sheet object
  */
 #pragma once
 #include "GRAPHICS_OBJ_Bindable.h"

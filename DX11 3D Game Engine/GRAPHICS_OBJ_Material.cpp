@@ -132,7 +132,7 @@ modelPath(path.string())
 	}
 	// outline technique
 	{
-	Technique outline{ "Outline",Channel::main,false };
+		Technique outline{ "Outline",Channel::main,false };
 		{
 			Step mask("outlineMask");
 

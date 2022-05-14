@@ -29,7 +29,7 @@ public:
 private:
 	Camera& GetControlledCamera();
 private:
-	/// We want to maintain the fkexibility from pointers
+	/// We want to maintain the flexibility from pointers
 	std::vector<std::shared_ptr<Camera>> cameras;
 	/// Index of the selected camera
 	int active = 0;

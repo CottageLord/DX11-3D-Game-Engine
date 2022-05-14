@@ -31,6 +31,9 @@ public:
 	DirectX::XMFLOAT3 GetPos() const noexcept;
 	void SetPos(const DirectX::XMFLOAT3& pos) noexcept;
 	const std::string& GetName() const noexcept;
+	/**
+	 * @brief Submit draw techniques for indicator and wireframe
+	 */
 	void LinkTechniques(Rgph::RenderGraph& rg);
 	void Submit(size_t channel) const;
 private:

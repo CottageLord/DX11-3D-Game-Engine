@@ -14,6 +14,14 @@ Latest commits are shown first.
 
 Implemented shadow map and Percentage Close Filtering (PCF) to the sponza scene. Shadow map technique was configured during model loading and controllable during the rendering. Users can specify which objects cast shadows and which receive. Applied shadow bias and PCF for better shadow performances.
 
+Current render passes (implemented in <a href="https://github.com/CottageLord/DX11-3D-Game-Engine/blob/d1be40dd51935cd19ae9bec7230eee037e7ba678/DX11%203D%20Game%20Engine/GRAPHICS_RG_BlurOutlineRenderGraph.cpp">GRAPHICS_RG_BlurOutlineRenderGraph.cpp</a>):
+
+1. Generate shadow map
+2. Lambertian
+3. Outline mask (generate stencil buffer)
+4. Gauss blur (for outline effect)
+5. Camera wireframes and frustums
+
 More detailed note about shadow mapping: <a href="https://github.com/CottageLord/CS_Courses/blob/main/Notes/GAMES101/Class%20Note%206_%20Shadow%20Map.pdf"> GAMES 101 lecture note: shadow mapping. </a>
 
 ![Alt text](./Screenshots/2022-4-16.gif "Shadow map and PCF implemented.")
@@ -171,6 +179,7 @@ Added depth sampling from any camera. This is the prerequisite for shadow maps.
 	    <td align="left">
 	    	<ul>
 	    		<li>Configures a depth map generator from the light-camera perspective.</li>
+	    		<li>Registers global render graph source for future shadow map sampling.</li>
 	    	</ul>
 	    </td>
 	</tr>

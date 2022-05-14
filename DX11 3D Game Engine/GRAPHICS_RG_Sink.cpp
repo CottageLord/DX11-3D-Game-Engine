@@ -41,7 +41,7 @@ namespace Rgph
 		return outputName;
 	}
 
-	void Sink::SetTarget(std::string passName, std::string outputName)
+	void Sink::SetTarget(std::string passName, std::string sourceName)
 	{
 		{
 			if (passName.empty())
@@ -58,18 +58,18 @@ namespace Rgph
 			this->passName = passName;
 		}
 		{
-			if (outputName.empty())
+			if (sourceName.empty())
 			{
 				throw RGC_EXCEPTION("Empty output name");
 			}
-			const bool nameCharsValid = std::all_of(outputName.begin(), outputName.end(), [](char c) {
+			const bool nameCharsValid = std::all_of(sourceName.begin(), sourceName.end(), [](char c) {
 				return std::isalnum(c) || c == '_';
 				});
-			if (!nameCharsValid || std::isdigit(outputName.front()))
+			if (!nameCharsValid || std::isdigit(sourceName.front()))
 			{
 				throw RGC_EXCEPTION("Invalid output name: " + registeredName);
 			}
-			this->outputName = outputName;
+			this->outputName = sourceName;
 		}
 	}
 }

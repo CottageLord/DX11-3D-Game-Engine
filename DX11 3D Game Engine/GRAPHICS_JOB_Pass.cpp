@@ -102,10 +102,10 @@ namespace Rgph
 		sources.push_back(std::move(source));
 	}
 
-	void Pass::SetSinkLinkage(const std::string& registeredName, const std::string& target)
+	void Pass::SetSinkLinkage(const std::string& sinkName, const std::string& sourceName)
 	{
-		auto& sink = GetSink(registeredName);
-		auto targetSplit = SplitString(target, ".");
+		auto& sink = GetSink(sinkName);
+		auto targetSplit = SplitString(sourceName, ".");
 		if (targetSplit.size() != 2u)
 		{
 			throw RGC_EXCEPTION("Input target has incorrect format");

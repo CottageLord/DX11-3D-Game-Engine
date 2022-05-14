@@ -6,6 +6,9 @@ class Camera;
 
 namespace GPipeline
 {
+	/**
+	 * @brief Contains transform information for a shadow camera. This is the essential information for depth comparision during mapping.
+	 */
 	class ShadowCameraCBuf : public Bindable
 	{
 	protected:

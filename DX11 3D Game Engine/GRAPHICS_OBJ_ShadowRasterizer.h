@@ -16,7 +16,7 @@ namespace GPipeline
 		int GetDepthBias() const;
 		float GetSlopeBias() const;
 		float GetClamp() const;
-	protected:
+	protected: 
 		Microsoft::WRL::ComPtr<ID3D11RasterizerState> pRasterizer;
 		int depthBias;
 		float slopeBias;

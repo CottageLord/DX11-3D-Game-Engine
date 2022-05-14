@@ -5,7 +5,7 @@ SamplerComparisonState ssam : register(s1);
 
 float ShadowLoop_(const in float3 spos)
 {
-    // PCF
+    // PCF 3x3
     float shadowLevel = 0.0f;
     [unroll]
     for (int x = -PCF_RANGE; x <= PCF_RANGE; x++)
@@ -13,6 +13,9 @@ float ShadowLoop_(const in float3 spos)
         [unroll]
         for (int y = -PCF_RANGE; y <= PCF_RANGE; y++)
         {
+            // compares between fetched texel spos.xy and offset texel spos.xy + (x,y), returns 0 or 1
+            // the SamplerComparisonState can also be set to fetch multiple texels for comparison
+            // the result will be blended and the return value will be floating number between 0 ~ 1
             shadowLevel += smap.SampleCmpLevelZero(ssam, spos.xy, spos.b, int2(x, y));
         }
     }

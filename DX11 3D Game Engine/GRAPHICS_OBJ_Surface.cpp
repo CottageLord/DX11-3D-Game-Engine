@@ -63,6 +63,11 @@ namespace GPipeline
 		return (unsigned int)scratch.GetMetadata().height;
 	}
 
+	unsigned int Surface::GetBytePitch() const noexcept
+	{
+		return (unsigned int)scratch.GetImage(0, 0, 0)->rowPitch;
+	}
+
 	Surface::Color* Surface::GetBufferPtr() noexcept
 	{
 		return reinterpret_cast<Color*>(scratch.GetPixels());

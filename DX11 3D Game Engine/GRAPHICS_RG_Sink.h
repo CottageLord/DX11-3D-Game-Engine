@@ -31,7 +31,7 @@ namespace Rgph
 		const std::string& GetRegisteredName() const noexcept;
 		const std::string& GetPassName() const noexcept;
 		const std::string& GetOutputName() const noexcept;
-		void SetTarget(std::string passName, std::string outputName);
+		void SetTarget(std::string passName, std::string sourceName);
 		/**
 		 * @brief Called by render graph. Once the relationships between sources and sinks are clear, bind them
 		 */
