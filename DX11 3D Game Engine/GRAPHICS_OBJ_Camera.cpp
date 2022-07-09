@@ -139,6 +139,7 @@ void Camera::Translate(DirectX::XMFLOAT3 translation) noexcept
 		proj.SetPos(pos);
 	}
 }
+
 DirectX::XMFLOAT3 Camera::GetPos() const noexcept
 {
 	return pos;

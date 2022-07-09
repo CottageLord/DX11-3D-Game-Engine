@@ -15,7 +15,7 @@ namespace GPipeline
 			Mask,	// Masking things out, exclude true pixels on stencil
 			DepthOff,
 			DepthReversed, // only draw the occuluded pixels. Used in 2-step wireframe pass for drawing dimmer frustum behind objects
-			DepthFirst, // for skybox render, checking id the thing we are drawing is the first thing ever drew to that pixel
+			DepthFirst, // for skybox render, checking if the thing we are drawing is the first thing ever drew to that pixel
 		};
 		/*
 		typedef struct D3D11_DEPTH_STENCIL_DESC {

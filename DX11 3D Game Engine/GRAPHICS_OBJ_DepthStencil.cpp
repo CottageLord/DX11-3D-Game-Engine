@@ -84,6 +84,28 @@ namespace GPipeline
 		));
 	}
 
+	DepthStencil::DepthStencil(Graphics& gfx, wrl::ComPtr<ID3D11Texture2D> pTexture, UINT face)
+	{
+		GET_INFO_MAN(gfx);
+
+		D3D11_TEXTURE2D_DESC descTex = {};
+		pTexture->GetDesc(&descTex);
+		width = descTex.Width;
+		height = descTex.Height;
+
+		// create target view of depth stensil texture
+		D3D11_DEPTH_STENCIL_VIEW_DESC descView = {};
+		descView.Format = DXGI_FORMAT_D32_FLOAT;
+		descView.Flags = 0;
+		descView.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DARRAY;
+		descView.Texture2DArray.MipSlice = 0;
+		descView.Texture2DArray.ArraySize = 1;
+		descView.Texture2DArray.FirstArraySlice = face;
+		GFX_THROW_INFO(GetDevice(gfx)->CreateDepthStencilView(
+			pTexture.Get(), &descView, &pDepthStencilView
+		));
+	}
+
 	void DepthStencil::BindAsBuffer(Graphics& gfx) noxnd
 	{
 		INFOMAN_NOHR(gfx);
@@ -110,24 +132,37 @@ namespace GPipeline
 	{
 		GET_INFO_MAN(gfx);
 		namespace wrl = Microsoft::WRL;
-
+		// get info about the stencil view
+		D3D11_DEPTH_STENCIL_VIEW_DESC srcViewDesc{};
+		pDepthStencilView->GetDesc(&srcViewDesc);
 		// creating a temp texture compatible with the source, but with CPU read access
 		wrl::ComPtr<ID3D11Resource> pResSource;
 		pDepthStencilView->GetResource(&pResSource);
 		wrl::ComPtr<ID3D11Texture2D> pTexSource;
 		pResSource.As(&pTexSource);
-		D3D11_TEXTURE2D_DESC textureDesc;
-		pTexSource->GetDesc(&textureDesc);
-		textureDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
-		textureDesc.Usage = D3D11_USAGE_STAGING;
-		textureDesc.BindFlags = 0;
+		D3D11_TEXTURE2D_DESC srcTextureDesc{};
+		pTexSource->GetDesc(&srcTextureDesc);
+		D3D11_TEXTURE2D_DESC tmpTextureDesc = srcTextureDesc;
+		tmpTextureDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+		tmpTextureDesc.Usage = D3D11_USAGE_STAGING;
+		tmpTextureDesc.BindFlags = 0;
+		tmpTextureDesc.MiscFlags = 0;
+		tmpTextureDesc.ArraySize = 1;
 		wrl::ComPtr<ID3D11Texture2D> pTexTemp;
 		GFX_THROW_INFO(GetDevice(gfx)->CreateTexture2D(
-			&textureDesc, nullptr, &pTexTemp
+			&tmpTextureDesc, nullptr, &pTexTemp
 		));
 
 		// copy texture contents
-		GFX_THROW_INFO_ONLY(GetContext(gfx)->CopyResource(pTexTemp.Get(), pTexSource.Get()));
+		if (srcViewDesc.ViewDimension == D3D11_DSV_DIMENSION::D3D11_DSV_DIMENSION_TEXTURE2DARRAY)
+		{
+			// source is actually inside a cubemap texture, use view info to find the correct slice and copy subresource
+			GFX_THROW_INFO_ONLY(GetContext(gfx)->CopySubresourceRegion(pTexTemp.Get(), 0, 0, 0, 0, pTexSource.Get(), srcViewDesc.Texture2DArray.FirstArraySlice, nullptr));
+		}
+		else
+		{
+			GFX_THROW_INFO_ONLY(GetContext(gfx)->CopyResource(pTexTemp.Get(), pTexSource.Get()));
+		}
 
 		// create Surface and copy from temp texture to it
 		const auto width = GetWidth();
@@ -147,7 +182,7 @@ namespace GPipeline
 			auto pSrcRow = reinterpret_cast<const Pixel*>(pSrcBytes + msr.RowPitch * size_t(y));
 			for (unsigned int x = 0; x < width; x++)
 			{
-				if (textureDesc.Format == DXGI_FORMAT::DXGI_FORMAT_R24G8_TYPELESS)
+				if (srcTextureDesc.Format == DXGI_FORMAT::DXGI_FORMAT_R24G8_TYPELESS)
 				{
 					// take out the first 24 bits by unsighed int, thus need normalize
 					const auto raw = 0xFFFFFF & *reinterpret_cast<const unsigned int*>(pSrcRow + x);
@@ -169,7 +204,7 @@ namespace GPipeline
 						s.PutPixel(x, y, { channel,channel,channel });
 					}
 				}
-				else if (textureDesc.Format == DXGI_FORMAT::DXGI_FORMAT_R32_TYPELESS)
+				else if (srcTextureDesc.Format == DXGI_FORMAT::DXGI_FORMAT_R32_TYPELESS)
 				{
 					const auto raw = *reinterpret_cast<const float*>(pSrcRow + x);
 					if (linearlize)
@@ -243,6 +278,11 @@ namespace GPipeline
 		//ID3D11ShaderResourceView* nullSRV[1] = { nullptr };
 		//GetContext(gfx)->PSSetShaderResources(slot, 1u, nullSRV);
 	}
+
+	OutputOnlyDepthStencil::OutputOnlyDepthStencil(Graphics& gfx, wrl::ComPtr<ID3D11Texture2D> pTexture, UINT face)
+		:
+		DepthStencil(gfx, std::move(pTexture), face)
+	{}
 
 	OutputOnlyDepthStencil::OutputOnlyDepthStencil(Graphics& gfx)
 		:

@@ -5,6 +5,9 @@
 
 namespace Rgph
 {
+	/**
+	 * @brief RenderQueue Pass represents a rendering stage that maintains several jobs
+	 */
 	class RenderQueuePass : public BindingPass
 	{
 	public:

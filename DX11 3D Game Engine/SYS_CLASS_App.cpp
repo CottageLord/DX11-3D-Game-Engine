@@ -184,7 +184,7 @@ void App::DoFrame( float dt )
 
 	if (savingDepth)
 	{
-		rg.StoreDepth(wnd.Gfx(), "depth.png");
+		rg.DumpShadowMap(wnd.Gfx(), "depth.png");
 		savingDepth = false;
 	}
 }

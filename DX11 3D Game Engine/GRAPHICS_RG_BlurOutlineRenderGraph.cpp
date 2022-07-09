@@ -148,6 +148,7 @@ namespace Rgph
 
 	void BlurOutlineRenderGraph::RenderWindows(Graphics& gfx)
 	{
+		RenderShadowWindow(gfx);
 		RenderKernelWindow(gfx);
 		dynamic_cast<SkyboxPass&>(FindPassByName("skybox")).RenderWindow();
 	}
@@ -199,6 +200,18 @@ namespace Rgph
 				{
 					SetKernelBox(radius);
 				}
+			}
+		}
+		ImGui::End();
+	}
+
+	void Rgph::BlurOutlineRenderGraph::RenderShadowWindow(Graphics& gfx)
+	{
+		if (ImGui::Begin("Shadow"))
+		{
+			if (ImGui::Button("Dump Cubemap"))
+			{
+				DumpShadowMap(gfx, "Dumps\\shadow_");
 			}
 		}
 		ImGui::End();

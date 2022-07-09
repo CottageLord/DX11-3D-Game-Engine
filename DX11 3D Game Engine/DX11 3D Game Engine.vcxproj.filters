@@ -683,6 +683,12 @@
     <ClInclude Include="GRAPHICS_OBJ_CubeTexture.h">
       <Filter>Header Files\Graphics\Bindable</Filter>
     </ClInclude>
+    <ClInclude Include="SYS_HELP_SetDebugName.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="GRAPHICS_OBJ_ViewPort.h">
+      <Filter>Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11 3D Game Engine.rc">
@@ -829,6 +835,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Skybox_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shadow_VS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
