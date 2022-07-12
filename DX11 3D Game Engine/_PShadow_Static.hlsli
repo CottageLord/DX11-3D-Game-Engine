@@ -1,18 +1,14 @@
 TextureCube smap : register(t3);
 SamplerComparisonState ssam : register(s1);
 
-float ShadowLoop_(const in float4 spos)
-{
-    return smap.SampleCmpLevelZero(ssam, spos.xyz, length(spos.xyz) / 100.0f);
-}
-
 float Shadow(const in float4 shadowPos)
 {
-    return ShadowLoop_(shadowPos);
+    return smap.SampleCmpLevelZero(ssam, normalize(shadowPos.xyz), length(shadowPos.xyz) / 100.0f);
 }
 
 /*
-Texture2D smap : register(t3);
+//Texture2D smap : register(t3);
+TextureCube smap : register(t3);
 SamplerComparisonState ssam : register(s1);
 
 #define PCF_RANGE 1
@@ -30,7 +26,7 @@ float ShadowLoop_(const in float3 spos)
             // compares between fetched texel spos.xy and offset texel spos.xy + (x,y), returns 0 or 1
             // the SamplerComparisonState can also be set to fetch multiple texels for comparison
             // the result will be blended and the return value will be floating number between 0 ~ 1
-            shadowLevel += smap.SampleCmpLevelZero(ssam, spos.xy, spos.b, int2(x, y));
+            shadowLevel += smap.SampleCmpLevelZero(ssam, normalize(spos.xyz), length(spos.xyz) / 100.0f);
         }
     }
     return shadowLevel / ((PCF_RANGE * 2 + 1) * (PCF_RANGE * 2 + 1));

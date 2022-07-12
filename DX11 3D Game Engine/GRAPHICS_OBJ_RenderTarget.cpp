@@ -45,7 +45,7 @@ namespace GPipeline
 		));
 	}
 
-	RenderTarget::RenderTarget(Graphics& gfx, ID3D11Texture2D* pTexture)
+	RenderTarget::RenderTarget(Graphics& gfx, ID3D11Texture2D* pTexture, std::optional<UINT> face)
 	{
 		GET_INFO_MAN(gfx);
 
@@ -54,12 +54,21 @@ namespace GPipeline
 		pTexture->GetDesc(&textureDesc);
 		width = textureDesc.Width;
 		height = textureDesc.Height;
-
 		// create the target view on the texture
 		D3D11_RENDER_TARGET_VIEW_DESC rtvDesc = {};
 		rtvDesc.Format = textureDesc.Format;
-		rtvDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
-		rtvDesc.Texture2D = D3D11_TEX2D_RTV{ 0 };
+		if (face.has_value())
+		{
+			rtvDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2DARRAY;
+			rtvDesc.Texture2DArray.ArraySize = 1;
+			rtvDesc.Texture2DArray.FirstArraySlice = *face;
+			rtvDesc.Texture2DArray.MipSlice = 0;
+		}
+		else
+		{
+			rtvDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+			rtvDesc.Texture2D = D3D11_TEX2D_RTV{ 0 };
+		}
 		GFX_THROW_INFO(GetDevice(gfx)->CreateRenderTargetView(
 			pTexture, &rtvDesc, &pTargetView
 		));
@@ -201,8 +210,8 @@ namespace GPipeline
 		assert("Cannot bind OuputOnlyRenderTarget as shader input" && false);
 	}
 
-	OutputOnlyRenderTarget::OutputOnlyRenderTarget(Graphics& gfx, ID3D11Texture2D* pTexture)
+	OutputOnlyRenderTarget::OutputOnlyRenderTarget(Graphics& gfx, ID3D11Texture2D* pTexture, std::optional<UINT> face)
 		:
-		RenderTarget(gfx, pTexture)
+		RenderTarget(gfx, pTexture, face)
 	{}
 }

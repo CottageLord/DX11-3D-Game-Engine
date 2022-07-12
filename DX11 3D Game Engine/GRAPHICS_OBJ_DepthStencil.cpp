@@ -157,7 +157,8 @@ namespace GPipeline
 		if (srcViewDesc.ViewDimension == D3D11_DSV_DIMENSION::D3D11_DSV_DIMENSION_TEXTURE2DARRAY)
 		{
 			// source is actually inside a cubemap texture, use view info to find the correct slice and copy subresource
-			GFX_THROW_INFO_ONLY(GetContext(gfx)->CopySubresourceRegion(pTexTemp.Get(), 0, 0, 0, 0, pTexSource.Get(), srcViewDesc.Texture2DArray.FirstArraySlice, nullptr));
+			GFX_THROW_INFO_ONLY(GetContext(gfx)->CopySubresourceRegion(pTexTemp.Get(), 0, 0, 0, 0, pTexSource.Get(),
+				srcViewDesc.Texture2DArray.FirstArraySlice, nullptr)); // get the correct index
 		}
 		else
 		{
